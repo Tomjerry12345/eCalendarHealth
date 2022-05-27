@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.ui.examples.history
+package com.mybaseprojectandroid.ui.user.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

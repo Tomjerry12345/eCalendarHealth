@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.ui.examples.base
+package com.mybaseprojectandroid.ui.user.base
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

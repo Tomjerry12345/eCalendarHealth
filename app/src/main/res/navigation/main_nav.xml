@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/baseFragment"
-        android:name="com.mybaseprojectandroid.ui.examples.base.BaseFragment"
+        android:name="com.mybaseprojectandroid.ui.user.base.BaseFragment"
         android:label="BaseFragment"
         tools:layout="@layout/fragment_base"/>
 </navigation>

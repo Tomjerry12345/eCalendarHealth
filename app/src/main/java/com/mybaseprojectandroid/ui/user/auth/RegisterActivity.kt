@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.ui.examples.auth
+package com.mybaseprojectandroid.ui.user.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +13,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun daftarBaru(view: View) {
-        startActivity(Intent(this,RegisterActivity::class.java))
+        startActivity(Intent(this, RegisterActivity::class.java))
     }
 }

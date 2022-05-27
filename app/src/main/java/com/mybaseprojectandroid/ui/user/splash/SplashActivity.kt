@@ -1,14 +1,12 @@
-package com.mybaseprojectandroid.ui.examples.splash
+package com.mybaseprojectandroid.ui.user.splash
 
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.mybaseprojectandroid.R
-import com.mybaseprojectandroid.ui.examples.OnBoarding
-import com.mybaseprojectandroid.ui.examples.auth.AutentikasiActivity
+import com.mybaseprojectandroid.ui.user.OnBoarding
 
 class SplashActivity : AppCompatActivity() {
     var onBoardingScreeen: SharedPreferences? = null

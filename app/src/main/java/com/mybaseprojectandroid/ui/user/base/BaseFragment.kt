@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.ui.examples.base
+package com.mybaseprojectandroid.ui.user.base
 
 import android.os.Bundle
 import android.os.Handler

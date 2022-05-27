@@ -1,7 +1,6 @@
 package com.mybaseprojectandroid.utils.system;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +13,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.mybaseprojectandroid.R;
-import com.mybaseprojectandroid.ui.examples.OnBoarding;
-import com.mybaseprojectandroid.ui.examples.auth.AutentikasiActivity;
 
 public class SliderAdapter extends PagerAdapter {
     Context context;

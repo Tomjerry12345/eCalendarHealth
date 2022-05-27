@@ -3,10 +3,10 @@ package com.mybaseprojectandroid.utils.system
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.mybaseprojectandroid.ui.examples.calendar.CalendarFragment
-import com.mybaseprojectandroid.ui.examples.history.HistoryFragment
-import com.mybaseprojectandroid.ui.examples.home.HomeFragment
-import com.mybaseprojectandroid.ui.examples.profile.ProfileFragment
+import com.mybaseprojectandroid.ui.user.calendar.CalendarFragment
+import com.mybaseprojectandroid.ui.user.history.HistoryFragment
+import com.mybaseprojectandroid.ui.user.home.HomeFragment
+import com.mybaseprojectandroid.ui.user.profile.ProfileFragment
 
 @Suppress("DEPRECATION")
 class MainPagerAdapter(var fm : FragmentManager) : FragmentStatePagerAdapter(fm){

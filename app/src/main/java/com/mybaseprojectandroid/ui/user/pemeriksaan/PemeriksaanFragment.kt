@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.ui.examples.calendar
+package com.mybaseprojectandroid.ui.user.pemeriksaan
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,13 +8,7 @@ import android.view.ViewGroup
 import com.mybaseprojectandroid.R
 
 
-class CalendarFragment : Fragment() {
-
-    companion object{
-        fun newInstance() : CalendarFragment{
-            return CalendarFragment()
-        }
-    }
+class PemeriksaanFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +20,7 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+        return inflater.inflate(R.layout.fragment_pemeriksaan, container, false)
     }
-
 
 }

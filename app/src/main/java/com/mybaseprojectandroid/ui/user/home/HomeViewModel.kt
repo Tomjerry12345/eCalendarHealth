@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.ui.examples.home
+package com.mybaseprojectandroid.ui.user.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

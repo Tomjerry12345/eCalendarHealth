@@ -1,21 +1,18 @@
-package com.mybaseprojectandroid.ui.examples
+package com.mybaseprojectandroid.ui.user
 
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.view.View
-import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.mybaseprojectandroid.R
-import com.mybaseprojectandroid.ui.examples.auth.AutentikasiActivity
-import com.mybaseprojectandroid.ui.examples.base.BaseActivity
+import com.mybaseprojectandroid.ui.user.auth.AutentikasiActivity
 import com.mybaseprojectandroid.utils.system.SliderAdapter
 
 

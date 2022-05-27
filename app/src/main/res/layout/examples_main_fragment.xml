@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.mybaseprojectandroid.ui.examples.main.ExamplesMainViewModel" />
+            type="com.mybaseprojectandroid.ui.user.main.ExamplesMainViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.examples.main.ExamplesMainFragment"
+        tools:context=".ui.user.main.ExamplesMainFragment"
         android:padding="8dp">
 
         <com.google.android.material.textview.MaterialTextView

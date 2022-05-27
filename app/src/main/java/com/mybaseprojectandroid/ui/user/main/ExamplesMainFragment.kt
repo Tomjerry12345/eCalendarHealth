@@ -1,11 +1,10 @@
-package com.mybaseprojectandroid.ui.examples.main
+package com.mybaseprojectandroid.ui.user.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.mybaseprojectandroid.R
-import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.ExamplesMainFragmentBinding
 
 class ExamplesMainFragment : Fragment(R.layout.examples_main_fragment) {

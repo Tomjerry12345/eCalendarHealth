@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.ui.examples.main
+package com.mybaseprojectandroid.ui.user.main
 
 import android.view.View
 import androidx.lifecycle.*

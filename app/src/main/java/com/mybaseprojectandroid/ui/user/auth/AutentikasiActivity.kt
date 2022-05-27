@@ -1,11 +1,11 @@
-package com.mybaseprojectandroid.ui.examples.auth
+package com.mybaseprojectandroid.ui.user.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.mybaseprojectandroid.R
-import com.mybaseprojectandroid.ui.examples.base.BaseActivity
+import com.mybaseprojectandroid.ui.user.base.BaseActivity
 
 class AutentikasiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +14,7 @@ class AutentikasiActivity : AppCompatActivity() {
     }
 
     fun daftar(view: View) {
-        startActivity(Intent(this,RegisterActivity::class.java))
+        startActivity(Intent(this, RegisterActivity::class.java))
     }
 
     fun masuk(view: View) {

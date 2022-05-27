@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.ui.examples.listPasien
+package com.mybaseprojectandroid.ui.user.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,12 @@ import android.view.ViewGroup
 import com.mybaseprojectandroid.R
 
 
-class ListPasienFragment : Fragment() {
+class ProfileFragment : Fragment() {
+    companion object{
+        fun newInstance() : ProfileFragment {
+            return ProfileFragment()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +25,8 @@ class ListPasienFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_pasien, container, false)
+        return inflater.inflate(R.layout.fragment_profile, container, false)
     }
+
 
 }

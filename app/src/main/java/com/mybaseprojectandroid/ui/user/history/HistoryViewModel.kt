@@ -1,14 +1,11 @@
-package com.mybaseprojectandroid.ui.examples.history
+package com.mybaseprojectandroid.ui.user.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mybaseprojectandroid.model.Progress
 import com.mybaseprojectandroid.model.Week
-import com.mybaseprojectandroid.ui.examples.home.CardAdapter
-import com.mybaseprojectandroid.ui.examples.home.HomeViewModel
 
 class HistoryViewModel(val rvWeekItem : RecyclerView) : ViewModel() {
     class Factory(val rvWeekItem : RecyclerView) : ViewModelProvider.Factory {

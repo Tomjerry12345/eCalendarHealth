@@ -1,13 +1,10 @@
-package com.mybaseprojectandroid.ui.examples.history
+package com.mybaseprojectandroid.ui.user.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mybaseprojectandroid.databinding.ItemHomeBinding
 import com.mybaseprojectandroid.databinding.ItemProgressBinding
-import com.mybaseprojectandroid.model.CardItem
 import com.mybaseprojectandroid.model.Progress
-import com.mybaseprojectandroid.ui.examples.home.CardAdapter
 
 class ProgressAdapter(val list : ArrayList<Progress>): RecyclerView.Adapter<ProgressAdapter.ViewHolder>()  {
     inner class ViewHolder(private var binding : ItemProgressBinding) : RecyclerView.ViewHolder(binding.root){

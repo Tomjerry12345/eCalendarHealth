@@ -20,19 +20,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".ui.examples.base.BaseActivity"
+            android:name=".ui.user.base.BaseActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.examples.auth.RegisterActivity"
+            android:name=".ui.user.auth.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.examples.auth.AutentikasiActivity"
+            android:name=".ui.user.auth.AutentikasiActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.examples.OnBoarding"
+            android:name=".ui.user.OnBoarding"
             android:exported="false" />
         <activity
-            android:name=".ui.examples.splash.SplashActivity"
+            android:name=".ui.user.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

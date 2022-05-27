@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.ui.examples.home
+package com.mybaseprojectandroid.ui.user.home
 
 import android.graphics.Color
 import android.os.Bundle
