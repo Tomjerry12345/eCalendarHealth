@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">EHealthCalendar</string>
+
+    <!--    firebase nootification string-->
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="quickstart_message">Click the SUBSCRIBE TO WEATHER button below to subscribe to the
+        weather topic. Messages sent to the weather topic will be received. The LOG TOKEN button logs the
+        FCM registration token to logcat.</string>
+    <string name="subscribe_to_weather">Subscribe To Weather</string>
+    <string name="log_token">Log Token</string>
+    <!-- [START fcm_default_icon_string] -->
+    <string name="default_notification_channel_name" translatable="true">Weather</string>
+    <!-- [END fcm_default_icon_string] -->
+    <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
+    <string name="fcm_message">FCM Message</string>
+
+    <!--    text for examples pdf-->
+    <string name="pdf_text_title">Judul Dokumen</string>
+    <string name="pdf_text_isi">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,
+        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+        It has survived not only five centuries, but also the leap into electronic typesetting,
+        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+        PageMaker including versions of Lorem Ipsum.
+    </string>
+
+    <!-- Strings for On Boarding Screen -->
+
+    <!--Titles-->
+    <string name="first_slide_title">Fokus Manajemen Diri \n Aktivitas Fisik</string>
+    <string name="second_slide_title">Dilengkapi Pengingat</string>
+    <string name="third_slide_title">Memuat Parameter \n Klinis HbA1c</string>
+    <string name="fourth_slide_title">Dibuat Untuk Lansia</string>
+
+
+    <!--Descriptions-->
+    <string name="first_slide_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae tellus tempor, vulputate vel dui. Lacus, imperdiet id est dignissim.</string>
+    <string name="second_slide_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae tellus tempor, vulputate vel dui. Lacus, imperdiet id est dignissim.</string>
+    <string name="third_slide_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae tellus tempor, vulputate vel dui. Lacus, imperdiet id est dignissim.</string>
+    <string name="fourth_slide_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae tellus tempor, vulputate vel dui. Lacus, imperdiet id est dignissim.</string>
+
+    <!--Buttons-->
+    <string name="skip_btn">Lewati</string>
+    <string name="next_btn">Selanjutnya</string>
+    <string name="let_get_started">Mulai Sekarang</string>
+    <string name="login_start"><![CDATA[Silahkan masukkan username & passowrd anda]]></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hi">Hi, <b>Fadhil</b></string>
+    <string name="descc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id bibendum ac sed magna porta eget feugiat cras dictum. Integer neque mauris suspendisse tellus massa. Consectetur tellus sed nisi justo, nisl adipiscing eget etiam. In lorem tellus viverra posuere.</string>
+</resources>

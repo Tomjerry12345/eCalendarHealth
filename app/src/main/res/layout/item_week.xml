@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="itemWeek"
+            type="com.mybaseprojectandroid.model.Week" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/_16dp"
+            style="@style/DMSansBoldTitle"
+            android:textSize="@dimen/_14sp"
+            android:text="@{itemWeek.title}"
+            android:background="@drawable/bg_week"
+            android:gravity="center_vertical|center_horizontal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:listitem="@layout/item_progress"
+            android:layout_marginStart="@dimen/_16dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:itemCount="5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

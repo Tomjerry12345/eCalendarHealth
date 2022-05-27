@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.examples.auth.RegisterActivity"
+        android:paddingBottom="@dimen/_16dp">
+
+        <TextView
+            android:id="@+id/txtregister"
+            style="@style/DMSansBoldTitleGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16dp"
+            android:layout_marginTop="@dimen/_30dp"
+            android:text="Daftar"
+            android:textSize="@dimen/_20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8dp"
+            android:fontFamily="@font/dmsans_regular"
+            android:text="@string/login_start"
+            android:textColor="#99181C32"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintStart_toStartOf="@id/txtregister"
+            app:layout_constraintTop_toBottomOf="@id/txtregister" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_nama"
+            style="@style/inputfield"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_40dp"
+            android:layout_marginEnd="@dimen/_16dp"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtregister"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dmsans_regular"
+                android:hint="Nama Lengkap"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_alamat"
+            style="@style/inputfield"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
+            android:layout_marginEnd="@dimen/_16dp"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtregister"
+            app:layout_constraintTop_toBottomOf="@+id/layout_nama">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dmsans_regular"
+                android:hint="Alamat"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_tanggal"
+            style="@style/inputfield"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
+            android:layout_marginEnd="@dimen/_16dp"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtregister"
+            app:layout_constraintTop_toBottomOf="@+id/layout_alamat">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dmsans_regular"
+                android:hint="Tanggal Lahir"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_diagnosa"
+            style="@style/inputfield"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
+            android:layout_marginEnd="@dimen/_16dp"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtregister"
+            app:layout_constraintTop_toBottomOf="@+id/layout_tanggal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dmsans_regular"
+                android:hint="Lama terdiagnosa DM"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_pengobatan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_diagnosa"
+            style="@style/DMSansRegular"
+            android:text="Pengobatan"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginStart="@dimen/_16dp"/>
+
+        <RadioButton
+            android:id="@+id/rb_oral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_pengobatan"
+            android:layout_marginStart="@dimen/_16dp"
+            android:text="Oral"
+            android:layout_marginTop="@dimen/_8dp"
+            android:textColor="#66181C32"
+            android:fontFamily="@font/dmsans_regular"/>
+
+        <RadioButton
+            android:id="@+id/rb_insulin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/rb_oral"
+            app:layout_constraintTop_toBottomOf="@id/tv_pengobatan"
+            android:layout_marginStart="@dimen/_16dp"
+            android:text="Insulin"
+            android:layout_marginTop="@dimen/_8dp"
+            android:textColor="#66181C32"
+            android:fontFamily="@font/dmsans_regular"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_pendamping"
+            style="@style/inputfield"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
+            android:layout_marginEnd="@dimen/_16dp"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtregister"
+            app:layout_constraintTop_toBottomOf="@+id/rb_insulin">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dmsans_regular"
+                android:hint="Pendamping / Keluarga"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_username"
+            style="@style/inputfield"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
+            android:layout_marginEnd="@dimen/_16dp"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtregister"
+            app:layout_constraintTop_toBottomOf="@+id/layout_pendamping">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dmsans_regular"
+                android:hint="Username"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_password"
+            style="@style/inputfield"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
+            android:layout_marginEnd="@dimen/_16dp"
+            app:endIconMode="password_toggle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtregister"
+            app:layout_constraintTop_toBottomOf="@+id/layout_username">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dmsans_regular"
+                android:hint="Password"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            android:layout_marginTop="@dimen/_16dp"
+            android:layout_marginBottom="@dimen/_16dp"
+            android:text="Daftar"
+            android:background="@drawable/bg_input"
+            android:textAllCaps="false"
+            android:fontFamily="@font/dmsans_bold"
+            android:textSize="@dimen/_16sp"
+
+            android:onClick="daftarBaru"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

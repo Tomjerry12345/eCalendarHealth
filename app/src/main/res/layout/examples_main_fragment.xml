@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.mybaseprojectandroid.ui.examples.main.ExamplesMainViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.examples.main.ExamplesMainFragment"
+        android:padding="8dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Examples code by Monkey D Luffy"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"
+            android:textStyle="bold"
+            android:textSize="24sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Implementation API"
+            android:onClick="@{(view) -> viewModel.onMoveToApi(view)}"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:onClick="@{(view) -> viewModel.onMoveToFirebase(view)}"
+            android:text="Implementation Firebase"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Implementation Room"
+            android:onClick="@{(view) -> viewModel.onMoveToRoom(view)}"
+            android:backgroundTint="@color/red"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Widget"
+            android:onClick="@{(view) -> viewModel.onMoveToWidget(view)}"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Implementation Midtrans"
+            android:backgroundTint="@color/red"
+            android:onClick="@{(view) -> viewModel.onMoveToMidtrans(view)}"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Manipulasi Files"
+            android:onClick="@{(view) -> viewModel.onMoveToManipulasiFiles(view)}"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/examples_nav"
+    app:startDestination="@id/examplesFragment">
+
+    <fragment
+        android:id="@+id/examplesFragment"
+        android:name="com.mybaseprojectandroid.ui.examples.main.ExamplesMainFragment"
+        android:label="Main"
+        tools:layout="@layout/examples_main_fragment" >
+        <action
+            android:id="@+id/action_examplesFragment_to_examplesApiFragment"
+            app:destination="@id/examplesApiFragment" />
+        <action
+            android:id="@+id/action_examplesFragment_to_examplesWidgetFragment"
+            app:destination="@id/examplesWidgetFragment" />
+        <action
+            android:id="@+id/action_examplesFragment_to_examplesFirebaseFragment"
+            app:destination="@id/examplesFirebaseFragment" />
+        <action
+            android:id="@+id/action_examplesFragment_to_examplesManipulasiFilesFragment"
+            app:destination="@id/examplesManipulasiFilesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/examplesApiFragment"
+        android:name="com.mybaseprojectandroid.ui.examples.api.ExamplesApiFragment"
+        android:label="Examples API"
+        tools:layout="@layout/examples_api_fragment" >
+        <action
+            android:id="@+id/action_examplesApiFragment_to_examplesApiAddFragment"
+            app:destination="@id/examplesApiAddFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/examplesWidgetFragment"
+        android:name="com.mybaseprojectandroid.ui.examples.widget.ExamplesWidgetFragment"
+        android:label="Examples Widget"
+        tools:layout="@layout/examples_widget_fragment"/>
+    <fragment
+        android:id="@+id/examplesApiAddFragment"
+        android:name="com.mybaseprojectandroid.ui.examples.api.add.ExamplesApiAddFragment"
+        android:label="Examples Api Add"
+        tools:layout="@layout/examples_api_add_fragment"/>
+    <fragment
+        android:id="@+id/examplesFirebaseFragment"
+        android:name="com.mybaseprojectandroid.ui.examples.firebase.ExamplesFirebaseFragment"
+        android:label="Examples Firebase"
+        tools:layout="@layout/examples_firebase_fragment">
+        <action
+            android:id="@+id/action_examplesFirebaseFragment_to_examplesFirebaseNotificationFragment"
+            app:destination="@id/examplesFirebaseNotificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/examplesFirebaseNotificationFragment"
+        android:name="com.mybaseprojectandroid.ui.examples.firebase.notification.ExamplesFirebaseNotificationFragment"
+        android:label="Examples Firebase Notification"
+        tools:layout="@layout/examples_firebase_notification_fragment"/>
+    <fragment
+        android:id="@+id/examplesManipulasiFilesFragment"
+        android:name="com.mybaseprojectandroid.ui.examples.files.ExamplesManipulasiFilesFragment"
+        android:label="Examples Manipulasi Files"
+        tools:layout="@layout/examples_manipulasi_files_fragment">
+        <action
+            android:id="@+id/action_examplesManipulasiFilesFragment_to_examplesPdfFragment"
+            app:destination="@id/examplesPdfFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/examplesPdfFragment"
+        android:name="com.mybaseprojectandroid.ui.examples.files.pdf.ExamplesPdfFragment"
+        android:label="Examples Pdf"
+        tools:layout="@layout/examples_pdf_fragment"/>
+</navigation>

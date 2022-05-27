@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/drawable/bg_carddtop.xml" value="0.1245" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/drawable/bg_circular.xml" value="0.2355" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/drawable/bg_gradient_horizontal.xml" value="0.255" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/drawable/bg_input.xml" value="0.219" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/drawable/ic_frame.xml" value="0.1245" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/drawable/stroke_bg.xml" value="0.2355" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/drawable/toolbar_dropshadow.xml" value="0.1185" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/activity_autentikasi.xml" value="0.3333333333333333" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/activity_base.xml" value="0.22905405405405405" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/activity_on_boarding.xml" value="0.16666666666666666" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/activity_register.xml" value="0.16666666666666666" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/examples_firebase_notification_fragment.xml" value="0.18854166666666666" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_aktivitas.xml" value="0.22" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_base.xml" value="0.1" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_calendar.xml" value="0.23817567567567569" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_history.xml" value="0.22" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_list_pasien.xml" value="0.23817567567567569" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_pemeriksaan.xml" value="0.23817567567567569" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_profile.xml" value="0.3333333333333333" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/item_home.xml" value="0.1" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/item_list_pasien.xml" value="0.23817567567567569" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/item_progress.xml" value="0.22" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/item_week.xml" value="0.17333333333333334" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/slides_layout.xml" value="0.3671875" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/menu/bottom_nav_menu.xml" value="0.23817567567567569" />
+        <entry key="..\:/Users/ARMAN/3D Objects/MyBaseProjectAndroid/app/src/main/res/layout/examples_api_add_fragment.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/ARMAN/3D Objects/MyBaseProjectAndroid/app/src/main/res/layout/examples_api_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/ARMAN/3D Objects/MyBaseProjectAndroid/app/src/main/res/layout/examples_custom_alert_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/ARMAN/3D Objects/MyBaseProjectAndroid/app/src/main/res/layout/examples_custom_list_dropdown.xml" value="0.1" />
+        <entry key="..\:/Users/ARMAN/3D Objects/MyBaseProjectAndroid/app/src/main/res/layout/examples_firebase_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/ARMAN/3D Objects/MyBaseProjectAndroid/app/src/main/res/layout/examples_firebase_notification_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/ARMAN/3D Objects/MyBaseProjectAndroid/app/src/main/res/layout/examples_main_fragment.xml" value="0.15" />
+        <entry key="..\:/Users/ARMAN/3D Objects/MyBaseProjectAndroid/app/src/main/res/layout/examples_manipulasi_files_fragment.xml" value="0.25" />
+        <entry key="..\:/Users/ARMAN/3D Objects/MyBaseProjectAndroid/app/src/main/res/layout/examples_pdf_fragment.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/ARMAN/3D Objects/MyBaseProjectAndroid/app/src/main/res/layout/examples_widget_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/Andi/3D Objects/luffy-dev/MyBaseProjectAndroid/app/src/main/res/layout/examples_activity.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Andi/3D Objects/luffy-dev/MyBaseProjectAndroid/app/src/main/res/layout/examples_fragment.xml" value="0.12409420289855072" />
+        <entry key="..\:/Users/Andi/3D Objects/luffy-dev/MyBaseProjectAndroid/app/src/main/res/layout/main_fragment.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/ikrim/3D Objects/luffy-dev/MyBaseProjectAndroid/app/src/main/res/layout/examples_main_fragment.xml" value="0.15" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

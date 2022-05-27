@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/slider_image"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:padding="@dimen/_50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/slide1"
+        android:background="#DBEEE3"
+        />
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_3dp"
+        app:layout_constraintTop_toBottomOf="@id/slider_image"
+        android:background="@color/primary_color"/>
+
+    <TextView
+        android:id="@+id/slider_heading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/DMSansBoldTitleGreen"
+        android:text="@string/first_slide_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        android:layout_marginTop="@dimen/_35dp"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/slider_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/DMSansRegular"
+        android:text="@string/first_slide_desc"
+        app:layout_constraintTop_toBottomOf="@id/slider_heading"
+        android:gravity="center_horizontal"
+        android:paddingVertical="@dimen/_18dp"
+        android:paddingHorizontal="@dimen/_28dp"
+        android:textColor="#66181C32" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
