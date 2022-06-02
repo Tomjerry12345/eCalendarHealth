@@ -95,4 +95,6 @@ dependencies {
 
     implementation 'io.github.pelmenstar1:rangeCalendar:0.9.2'
 
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1'
+
 }

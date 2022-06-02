@@ -10,4 +10,23 @@
         android:name="com.mybaseprojectandroid.ui.user.base.BaseFragment"
         android:label="BaseFragment"
         tools:layout="@layout/fragment_base"/>
+    <fragment
+        android:id="@+id/testimoniFragment"
+        android:name="com.mybaseprojectandroid.ui.user.testimoni.TestimoniFragment"
+        android:label="TestimoniFragment" />
+    <fragment
+        android:id="@+id/aktivitasFragment"
+        android:name="com.mybaseprojectandroid.ui.user.aktivitas.AktivitasFragment"
+        android:label="fragment_aktivitas"
+        tools:layout="@layout/fragment_aktivitas" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.mybaseprojectandroid.ui.user.calendar.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/pemeriksaanFragment"
+        android:name="com.mybaseprojectandroid.ui.user.pemeriksaan.PemeriksaanFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_pemeriksaan" />
 </navigation>

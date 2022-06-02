@@ -4,6 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="viewmodel"
+            type="com.mybaseprojectandroid.ui.user.history.HistoryViewModel" />
 
     </data>
 

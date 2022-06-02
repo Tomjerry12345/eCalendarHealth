@@ -2,7 +2,9 @@ package com.mybaseprojectandroid.ui.user.home
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.github.mikephil.charting.charts.LineChart
@@ -28,24 +30,43 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             return HomeFragment()
         }
     }
-    private val viewModel: HomeViewModel by viewModels {
-        HomeViewModel.Factory(binding.rvItemCard)
-    }
+//    private var viewModel: HomeViewModel by viewModels {
+//        HomeViewModel.Factory(binding.rvItemCard)
+//    }
+    private lateinit var viewModel: HomeViewModel
+
 
     private lateinit var binding : FragmentHomeBinding
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentHomeBinding.bind(view)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentHomeBinding.inflate(inflater,container,false)
+        viewModel = HomeViewModel(binding.rvItemCard)
         viewModel.setData()
+        binding.setLifecycleOwner(this)
+        binding.viewModel = viewModel
         setGraphHbA1C()
         setGraphLBS()
 
-
-
+        return binding.root
 
     }
+
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        binding = FragmentHomeBinding.bind(view)
+//        viewModel.setData()
+//        setGraphHbA1C()
+//        setGraphLBS()
+//
+//
+//
+//
+//    }
 
     private fun setGraphLBS() {
         var dataSets: ArrayList<ILineDataSet?> = ArrayList()
