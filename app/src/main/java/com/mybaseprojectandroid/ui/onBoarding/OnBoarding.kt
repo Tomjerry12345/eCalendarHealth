@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.ui.user
+package com.mybaseprojectandroid.ui.onBoarding
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.mybaseprojectandroid.R
-import com.mybaseprojectandroid.ui.user.auth.AutentikasiActivity
+import com.mybaseprojectandroid.ui.auth.AuthActivity
 import com.mybaseprojectandroid.utils.system.SliderAdapter
 
 
@@ -47,7 +47,7 @@ class OnBoarding : AppCompatActivity() {
     }
 
     fun skip(view: View?) {
-        startActivity(Intent(this, AutentikasiActivity::class.java))
+        startActivity(Intent(this, AuthActivity::class.java))
         finish()
     }
 
@@ -97,7 +97,7 @@ class OnBoarding : AppCompatActivity() {
     }
 
     fun start(view: View) {
-        startActivity(Intent(this, AutentikasiActivity::class.java))
+        startActivity(Intent(this, AuthActivity::class.java))
         finish()
     }
 

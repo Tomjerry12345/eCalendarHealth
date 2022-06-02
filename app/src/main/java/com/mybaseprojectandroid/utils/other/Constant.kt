@@ -16,4 +16,8 @@ object Constant {
 
     // list dropdown examples
     val exampleListDropwdownText = listOf("dropdown 1", "dropdown 2")
+
+    const val KEY_PASIEN = "pasien"
+
+    const val KEY_IS_LOGGIN = "pasien"
 }

@@ -3,8 +3,10 @@ package com.mybaseprojectandroid.database.firebase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mybaseprojectandroid.model.ExamplesModel
+import com.mybaseprojectandroid.model.PasienModel
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.local.SavedData
+import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import kotlinx.coroutines.tasks.await
 
@@ -82,7 +84,7 @@ class FirebaseDatabase {
         }
     }
 
-    suspend fun login(path: String, username: String, password: String, msgSuccess: String, msgError: String): Response {
+    suspend fun login(path: String, username: String, password: String): Response {
         return try {
             val data = db.collection(path).whereEqualTo("username", username).get().await()
             var password1 = ""
@@ -103,10 +105,10 @@ class FirebaseDatabase {
                 if (password1 == password) {
                     data.forEach {
                         showLogAssert("data", "${it.toObject(ExamplesModel::class.java)}")
-                        val model = it.toObject(ExamplesModel::class.java)
-                        SavedData.setObject(model)
+                        val model = it.toObject(PasienModel::class.java)
+                        SavedData.setObject(Constant.KEY_PASIEN, model)
                     }
-
+                    SavedData.setBoolean(Constant.KEY_IS_LOGGIN, true)
                     Response.Success("Sukses")
                 } else {
                     Response.Error("Password salah")

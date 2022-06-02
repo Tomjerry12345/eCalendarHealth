@@ -20,26 +20,26 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".ui.auth.AuthActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.user.base.BaseActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.user.auth.RegisterActivity"
+            android:name=".ui.onBoarding.OnBoarding"
             android:exported="false" />
         <activity
-            android:name=".ui.user.auth.AutentikasiActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.user.OnBoarding"
-            android:exported="false" />
-        <activity
-            android:name=".ui.user.splash.SplashActivity"
+            android:name="com.mybaseprojectandroid.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- [START fcm_default_icon] -->
+        </activity>
+
+
+        <!-- [START fcm_default_icon] -->
         <!--
  Set custom default icon. This is used when no icon is set for incoming notification messages.
              See README(https://goo.gl/l4GJaQ) for more.
@@ -58,10 +58,9 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" /> <!-- [END fcm_default_channel] -->
-        <activity
-            android:name=".ui.examples.ExamplesActivity"
-            android:exported="true" />
-
+        <!-- <activity -->
+        <!-- android:name=".ui.examples.ExamplesActivity" -->
+        <!-- android:exported="true" /> -->
         <service
             android:name=".database.firebase.MyFirebaseMessagingService"
             android:exported="false">

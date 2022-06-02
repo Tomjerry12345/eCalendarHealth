@@ -113,7 +113,4 @@
             android:textSize="@dimen/_16sp" />
     </LinearLayout>
 
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

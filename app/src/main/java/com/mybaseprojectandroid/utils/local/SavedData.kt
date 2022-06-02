@@ -37,6 +37,17 @@ object SavedData {
         return sharedPref.getInt(Constant.examplesKeySavedDataString, 0)
     }
 
+    fun setBoolean(key: String, params: Boolean) {
+        with (sharedPref.edit()) {
+            setBoolean(key, params)
+            commit()
+        }
+    }
+
+    fun getBoolean(key: String): Boolean {
+        return sharedPref.getBoolean(key, false)
+    }
+
     fun setObject(key: String, params: Any?) {
         val json = gson.toJson(params)
         with (sharedPref.edit()) {

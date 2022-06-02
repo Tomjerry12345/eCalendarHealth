@@ -1,19 +1,26 @@
-package com.mybaseprojectandroid.ui.user.splash
+package com.mybaseprojectandroid.ui.splash
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.mybaseprojectandroid.R
-import com.mybaseprojectandroid.ui.user.OnBoarding
+import com.mybaseprojectandroid.ui.onBoarding.OnBoarding
+import com.mybaseprojectandroid.ui.user.base.BaseActivity
+import com.mybaseprojectandroid.utils.local.SavedData
+import com.mybaseprojectandroid.utils.other.Constant
+import com.mybaseprojectandroid.utils.system.moveIntentTo
 
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
-    var onBoardingScreeen: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        SavedData.init(this)
         // This is used to hide the status bar and make
         // the splash screen as a full screen activity.
 
@@ -35,9 +42,13 @@ class SplashActivity : AppCompatActivity() {
 //                startActivity(intent)
 //                finish()
 //            }
-            val intent = Intent(this, OnBoarding::class.java)
-            startActivity(intent)
-            finish()
+            val isLoggin = SavedData.getBoolean(Constant.KEY_IS_LOGGIN)
+
+            if (isLoggin) {
+                moveIntentTo(this, BaseActivity(), true)
+            } else {
+                moveIntentTo(this, OnBoarding(), true)
+            }
         }, 3000) // 3000 is the delayed time in milliseconds.
     }
 }

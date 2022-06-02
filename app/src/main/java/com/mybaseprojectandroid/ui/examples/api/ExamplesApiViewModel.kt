@@ -7,9 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.repository.ExamplesApiRepository
-import com.mybaseprojectandroid.ui.examples.ExamplesActivity
 import com.mybaseprojectandroid.utils.network.Response
-import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
