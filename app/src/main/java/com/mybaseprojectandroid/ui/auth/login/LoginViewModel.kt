@@ -19,23 +19,21 @@ class LoginViewModel(private val db: FirebaseDatabase) : ViewModel() {
 
     val response = MutableLiveData<Response>()
 
-    fun onLogin(view: View) {
-        val dialog = DialogProgress.initDialog(view.context)
-
+    fun onLogin() {
         try {
             val username = checkEmpty(username.value, "Username tidak boleh kosong")
             val password = checkEmpty(password.value, "Password tidak boleh kosong")
 
-            dialog.show()
+            response.value = Response.Progress(true)
 
             viewModelScope.launch {
                 response.value = db.login(Constant.KEY_PASIEN, username, password)
-                dialog.hide()
+                Response.Progress(false)
             }
 
         } catch (e: Exception) {
-            dialog.hide()
-            showToast(view.context, e.message.toString())
+            Response.Progress(false)
+            Response.Error(e.message.toString())
         }
     }
 }

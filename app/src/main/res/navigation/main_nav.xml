@@ -13,12 +13,17 @@
     <fragment
         android:id="@+id/testimoniFragment"
         android:name="com.mybaseprojectandroid.ui.user.testimoni.TestimoniFragment"
-        android:label="TestimoniFragment" />
+        android:label="TestimoniFragment"
+        tools:layout="@layout/fragment_testimoni"/>
     <fragment
         android:id="@+id/aktivitasFragment"
         android:name="com.mybaseprojectandroid.ui.user.aktivitas.AktivitasFragment"
         android:label="fragment_aktivitas"
-        tools:layout="@layout/fragment_aktivitas" />
+        tools:layout="@layout/fragment_aktivitas" >
+        <action
+            android:id="@+id/action_aktivitasFragment_to_timerFragment"
+            app:destination="@id/timerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.mybaseprojectandroid.ui.user.calendar.CalendarFragment"
@@ -29,4 +34,9 @@
         android:name="com.mybaseprojectandroid.ui.user.pemeriksaan.PemeriksaanFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_pemeriksaan" />
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="com.mybaseprojectandroid.ui.user.timer.TimerFragment"
+        android:label="fragment_timer"
+        tools:layout="@layout/fragment_timer" />
 </navigation>

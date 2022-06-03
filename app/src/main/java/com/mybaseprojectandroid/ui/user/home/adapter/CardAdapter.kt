@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.ui.user.home
+package com.mybaseprojectandroid.ui.user.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,8 @@ import com.mybaseprojectandroid.databinding.ItemHomeBinding
 import com.mybaseprojectandroid.model.CardItem
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 
-class CardAdapter (val list: ArrayList<CardItem>) : RecyclerView.Adapter<CardAdapter.ViewHolder>() {
+class CardAdapter (val list: List<CardItem>) : RecyclerView.Adapter<CardAdapter.ViewHolder>() {
+
     inner class ViewHolder(private var binding : ItemHomeBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(card : CardItem){
             binding.itemCard = card
@@ -23,7 +24,7 @@ class CardAdapter (val list: ArrayList<CardItem>) : RecyclerView.Adapter<CardAda
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = list.get(position)
+        val item = list[position]
         holder.bind(item)
         holder.itemView.setOnClickListener {
             when(item.title){

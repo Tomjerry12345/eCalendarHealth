@@ -17,7 +17,8 @@ class FirebaseDatabase {
     suspend fun addData(path: String, data: Any): Response {
         return try {
             val response = db.collection(path).add(data).await()
-            Response.Changed(response.id)
+            update(path, response.id, "id", response.id)
+            Response.Success("Berhasil")
         } catch (e: Exception) {
             Response.Error("${e.message}")
         }
@@ -125,7 +126,8 @@ class FirebaseDatabase {
         return try {
             val sameUsername = db.collection(path).whereEqualTo("username", username).get().await()
             if (sameUsername.isEmpty) {
-                db.collection(path).add(data).await()
+                val response = db.collection(path).add(data).await()
+                update(path, response.id, "id", response.id)
                 Response.Success("Berhasil")
             } else {
                 Response.Error("Username sudah terdaftar")

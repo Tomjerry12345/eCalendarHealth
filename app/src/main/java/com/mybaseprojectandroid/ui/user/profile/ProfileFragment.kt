@@ -1,32 +1,33 @@
 package com.mybaseprojectandroid.ui.user.profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.mybaseprojectandroid.R
+import com.mybaseprojectandroid.databinding.FragmentProfileBinding
+import com.mybaseprojectandroid.ui.auth.AuthActivity
+import com.mybaseprojectandroid.utils.local.SavedData
+import com.mybaseprojectandroid.utils.other.Constant
+import com.mybaseprojectandroid.utils.system.moveIntentTo
 
 
-class ProfileFragment : Fragment() {
-    companion object{
-        fun newInstance() : ProfileFragment {
-            return ProfileFragment()
+class ProfileFragment : Fragment(R.layout.fragment_profile) {
+
+    companion object {
+        fun newInstance(): ProfileFragment = ProfileFragment()
+    }
+
+    private lateinit var binding: FragmentProfileBinding
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding = FragmentProfileBinding.bind(view)
+
+        binding.keluar.setOnClickListener {
+            SavedData.setBoolean(Constant.KEY_IS_LOGGIN, false)
+            SavedData.setObject(Constant.KEY_PASIEN, null)
+            moveIntentTo(requireActivity(), AuthActivity(), true)
         }
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
-    }
-
-
 }

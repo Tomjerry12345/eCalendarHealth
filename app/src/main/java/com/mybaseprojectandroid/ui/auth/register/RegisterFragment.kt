@@ -16,6 +16,7 @@ import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
+import com.mybaseprojectandroid.utils.widget.DialogProgress
 
 class RegisterFragment : Fragment(R.layout.register_fragment) {
 
@@ -53,9 +54,17 @@ class RegisterFragment : Fragment(R.layout.register_fragment) {
                 }
                 is Response.Success -> {
                     showLogAssert("succes register", "Succes")
-//                    SavedData.setBoolean(Constant.KEY_IS_LOGGIN, true)
-//                    SavedData.setObject(Constant.KEY_IS_LOGGIN, viewModel.pasienModel)
+                    SavedData.setBoolean(Constant.KEY_IS_LOGGIN, true)
+                    SavedData.setObject(Constant.KEY_PASIEN, viewModel.pasienModel)
                     moveIntentTo(requireActivity(), BaseActivity(), true)
+                }
+                is Response.Progress -> {
+                    val dialog = DialogProgress.initDialog(view.context)
+
+                    if (it.activated)
+                        dialog.show()
+                    else
+                        dialog.hide()
                 }
             }
         }

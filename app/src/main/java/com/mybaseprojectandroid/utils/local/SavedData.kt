@@ -39,7 +39,7 @@ object SavedData {
 
     fun setBoolean(key: String, params: Boolean) {
         with (sharedPref.edit()) {
-            setBoolean(key, params)
+            putBoolean(key, params)
             commit()
         }
     }
@@ -54,7 +54,6 @@ object SavedData {
             putString(key, json)
             commit()
         }
-
     }
 
     fun getObject(key: String, model: Any): Any? {

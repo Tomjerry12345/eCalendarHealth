@@ -245,7 +245,7 @@
                 android:layout_marginVertical="@dimen/_16dp"
                 android:background="@drawable/bg_input"
                 android:fontFamily="@font/dmsans_bold"
-                android:onClick="@{(view) -> viewModel.onRegister(view)}"
+                android:onClick="@{() -> viewModel.onRegister()}"
                 android:text="Daftar"
                 android:textAllCaps="false"
                 android:textSize="@dimen/_16sp"

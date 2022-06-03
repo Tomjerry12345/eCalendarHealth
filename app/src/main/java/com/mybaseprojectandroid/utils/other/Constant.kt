@@ -1,5 +1,8 @@
 package com.mybaseprojectandroid.utils.other
 
+import com.mybaseprojectandroid.R
+import com.mybaseprojectandroid.model.CardItem
+
 object Constant {
 
     // mime type
@@ -19,5 +22,12 @@ object Constant {
 
     const val KEY_PASIEN = "pasien"
 
-    const val KEY_IS_LOGGIN = "pasien"
+    const val KEY_IS_LOGGIN = "isLoggin"
+
+    val listCardItem = listOf(
+        CardItem(R.drawable.item_card1,"Aktivitas","Lorem ipsum dolor sit consectetur adipis", R.drawable.card1),
+        CardItem(R.drawable.item_card2,"Edukasi","Lorem ipsum dolor sit consectetur adipis",R.drawable.card2),
+        CardItem(R.drawable.item_card3,"Konsultasi","Lorem ipsum dolor sit consectetur adipis",R.drawable.card3),
+        CardItem(R.drawable.item_card4,"Pemeriksaan","Lorem ipsum dolor sit consectetur adipis",R.drawable.card4)
+    )
 }

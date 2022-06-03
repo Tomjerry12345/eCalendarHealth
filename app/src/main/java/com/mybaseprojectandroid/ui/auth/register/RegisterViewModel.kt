@@ -29,9 +29,7 @@ class RegisterViewModel(val db: FirebaseDatabase) : ViewModel() {
 
     var pasienModel: PasienModel? = null
 
-    fun onRegister(view: View) {
-        val dialog = DialogProgress.initDialog(view.context)
-
+    fun onRegister() {
         try {
             val namaLengkap = checkEmpty(namaLengkap.value, "Nama lengkap tidak boleh kosong")
             val alamat = checkEmpty(alamat.value, "Alamat tidak boleh kosong")
@@ -43,7 +41,7 @@ class RegisterViewModel(val db: FirebaseDatabase) : ViewModel() {
             val username = checkEmpty(username.value, "Username tidak boleh kosong")
             val password = checkEmpty(password.value, "Password tidak boleh kosong")
 
-            dialog.show()
+            response.value = Response.Progress(true)
 
             pasienModel = PasienModel(
                 namaLengkap = namaLengkap,
@@ -57,25 +55,14 @@ class RegisterViewModel(val db: FirebaseDatabase) : ViewModel() {
             )
 
             viewModelScope.launch {
-                val responseAdd = db.addData(Constant.KEY_PASIEN, pasienModel!!)
-                updateId(responseAdd)
-                dialog.hide()
+                response.value = db.register(Constant.KEY_PASIEN, pasienModel!!, username)
+//                updateId(responseAdd)
+                response.value = Response.Progress(false)
             }
 
         } catch (e: Exception) {
-            dialog.hide()
-            showToast(view.context, e.message.toString())
-        }
-    }
-
-    private suspend fun updateId(responseRegister: Response) {
-        when (responseRegister) {
-            is Response.Changed -> {
-                val id = responseRegister.data as String
-                response.value = db.update(Constant.KEY_PASIEN, id, "id", id)
-            }
-            is Response.Error -> showLogAssert("error responseAdd", responseRegister.error)
-            is Response.Success -> TODO()
+            response.value = Response.Progress(false)
+            response.value = Response.Error(e.message.toString())
         }
     }
 }

@@ -12,8 +12,10 @@ import com.mybaseprojectandroid.ui.user.base.BaseActivity
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
+import com.mybaseprojectandroid.utils.other.showToast
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
+import com.mybaseprojectandroid.utils.widget.DialogProgress
 
 class LoginFragment : Fragment(R.layout.login_fragment) {
 
@@ -30,6 +32,8 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 
         binding.viewModel = viewModel
 
+        val dialog = DialogProgress.initDialog(view.context)
+
         binding.daftar.setOnClickListener {
             moveNavigationTo(requireView(), R.id.action_loginFragment_to_registerFragment)
         }
@@ -38,13 +42,19 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             when(it) {
                 is Response.Changed -> {}
                 is Response.Error -> {
-                    showLogAssert("error register", it.error)
+                    showToast(view.context, it.error)
                 }
                 is Response.Success -> {
                     showLogAssert("succes register", "Succes")
 //                    SavedData.setBoolean(Constant.KEY_IS_LOGGIN, true)
 //                    SavedData.setObject(Constant.KEY_IS_LOGGIN, viewModel.pasienModel)
                     moveIntentTo(requireActivity(), BaseActivity(), true)
+                }
+                is Response.Progress -> {
+                    if (it.activated)
+                        dialog.show()
+                    else
+                        dialog.hide()
                 }
             }
         }

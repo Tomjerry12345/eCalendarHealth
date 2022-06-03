@@ -6,7 +6,6 @@
         <variable
             name="viewModel"
             type="com.mybaseprojectandroid.ui.user.home.HomeViewModel" />
-
     </data>
 
     <androidx.core.widget.NestedScrollView
