@@ -92,10 +92,13 @@ dependencies {
 
     //calendar
 
-    implementation 'io.github.pelmenstar1:rangeCalendar:0.9.2'
+//    implementation 'io.github.pelmenstar1:rangeCalendar:0.9.2'
 
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1'
 
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'org.jetbrains:annotations:23.0.0'
 
 }

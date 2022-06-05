@@ -42,6 +42,29 @@ class FirebaseDatabase {
         }
     }
 
+    suspend fun getDataBy2Query(
+        reference: String,
+        query: String,
+        value: String,
+        query1: String,
+        value1: Boolean
+    ): Response {
+        return try {
+            val data = db
+                .collection(reference)
+                .whereEqualTo(query, value)
+                .whereEqualTo(query1, value1)
+                .get()
+                .await()
+
+            Response.Changed(data)
+
+        } catch (e: Exception) {
+            showLogAssert("error", "${e.message}")
+            Response.Error("${e.message}")
+        }
+    }
+
     suspend fun update(
         reference: String,
         colection: String,

@@ -196,7 +196,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/line_chart" />
 
-    <io.github.pelmenstar1.rangecalendar.RangeCalendarView
+    <com.mybaseprojectandroid.utils.system.rangecalendar.RangeCalendarView
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_300dp"

@@ -50,4 +50,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hi">Hi, <b>Fadhil</b></string>
     <string name="descc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id bibendum ac sed magna porta eget feugiat cras dictum. Integer neque mauris suspendisse tellus massa. Consectetur tellus sed nisi justo, nisl adipiscing eget etiam. In lorem tellus viverra posuere.</string>
+
+    <string name="previousMonthDescription">Previous month</string>
+
+    <string name="nextMonthDescription">Next month</string>
+
+    <string name="clearSelectionDescription">Clear selection</string>
 </resources>

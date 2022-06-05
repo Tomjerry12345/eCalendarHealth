@@ -42,6 +42,7 @@ object Timer {
     }
 
     fun cancelTimer() {
+        _getResponseTimer.postValue(Response.Finish(false))
         timer.cancel()
     }
 
@@ -51,8 +52,6 @@ object Timer {
             TimeUnit.SECONDS.toMinutes(totalSeconds),
             totalSeconds - TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(totalSeconds))
         )
-        showLogAssert("time", time)
-
         _getResponseTimer.postValue(Response.Time(time))
 
         totalSeconds -= 1

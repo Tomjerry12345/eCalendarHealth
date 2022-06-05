@@ -1,32 +1,38 @@
 package com.mybaseprojectandroid.ui.user.calendar
 
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import com.mybaseprojectandroid.R
+import com.mybaseprojectandroid.databinding.FragmentCalendarBinding
+import java.time.LocalDate
+import java.util.*
 
+class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
-class CalendarFragment : Fragment() {
-
-    companion object{
-        fun newInstance() : CalendarFragment {
+    companion object {
+        fun newInstance(): CalendarFragment {
             return CalendarFragment()
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var binding: FragmentCalendarBinding
 
-    }
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+        binding = FragmentCalendarBinding.bind(view)
+
+        binding.calendar.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                selectCustomMultiple(LocalDate.of(2022, 6, 8), LocalDate.of(2022, 6, 14))
+//                selectCustom(LocalDate.of(2022, 6, 12), LocalDate.of(2022, 6, 20), true)
+            }
+//            selectWeek(2022, 6, 0, true)
+        }
     }
 
 

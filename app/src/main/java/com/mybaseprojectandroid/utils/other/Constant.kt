@@ -22,6 +22,8 @@ object Constant {
 
     const val KEY_PASIEN = "pasien"
 
+    const val KEY_AKTIVITAS = "aktivitas"
+
     const val KEY_IS_LOGGIN = "isLoggin"
 
     val listCardItem = listOf(
