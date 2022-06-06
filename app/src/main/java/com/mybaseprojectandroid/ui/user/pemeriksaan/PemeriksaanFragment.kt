@@ -41,9 +41,6 @@ class PemeriksaanFragment : Fragment(R.layout.fragment_pemeriksaan) {
                     showToast(view.context, it.error)
                 }
                 is Response.Success -> {
-                    showLogAssert("succes register", "Succes")
-//                    SavedData.setBoolean(Constant.KEY_IS_LOGGIN, true)
-//                    SavedData.setObject(Constant.KEY_IS_LOGGIN, viewModel.pasienModel)
                     moveIntentTo(requireActivity(), BaseActivity(), true)
                 }
                 is Response.Progress -> {
