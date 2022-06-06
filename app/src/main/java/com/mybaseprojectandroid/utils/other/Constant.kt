@@ -21,9 +21,8 @@ object Constant {
     val exampleListDropwdownText = listOf("dropdown 1", "dropdown 2")
 
     const val KEY_PASIEN = "pasien"
-
     const val KEY_AKTIVITAS = "aktivitas"
-
+    const val KEY_PEMERIKSAAN = "pemeriksaan"
     const val KEY_IS_LOGGIN = "isLoggin"
 
     val listCardItem = listOf(

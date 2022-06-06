@@ -46,7 +46,6 @@
         <item name="boxCornerRadiusTopEnd">@dimen/_8dp</item>
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
-
     </style>
 
 </resources>

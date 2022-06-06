@@ -16,6 +16,7 @@ import com.mybaseprojectandroid.model.DateModel
 import com.mybaseprojectandroid.model.PasienModel
 import com.mybaseprojectandroid.ui.user.base.BaseActivity
 import com.mybaseprojectandroid.utils.local.SavedData
+import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
@@ -41,7 +42,7 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
 
         binding = FragmentTimerBinding.bind(view)
 
-        val savedPasien = SavedData.getObject(Constant.KEY_PASIEN, PasienModel()) as PasienModel
+        val savedPasien = getSavedPasien()
 
         val dayNow = TimerCustom.getDayNow()
         val monthNow = TimerCustom.getMonthNow()

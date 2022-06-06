@@ -32,8 +32,6 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 
         binding.viewModel = viewModel
 
-        val dialog = DialogProgress.initDialog(view.context)
-
         binding.daftar.setOnClickListener {
             moveNavigationTo(requireView(), R.id.action_loginFragment_to_registerFragment)
         }
@@ -45,12 +43,10 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
                     showToast(view.context, it.error)
                 }
                 is Response.Success -> {
-                    showLogAssert("succes register", "Succes")
-//                    SavedData.setBoolean(Constant.KEY_IS_LOGGIN, true)
-//                    SavedData.setObject(Constant.KEY_IS_LOGGIN, viewModel.pasienModel)
                     moveIntentTo(requireActivity(), BaseActivity(), true)
                 }
                 is Response.Progress -> {
+                    val dialog = DialogProgress.initDialog(view.context)
                     if (it.activated)
                         dialog.show()
                     else
