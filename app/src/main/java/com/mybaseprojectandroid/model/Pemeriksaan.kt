@@ -5,5 +5,5 @@ data class Pemeriksaan(
     val idUser: String? = null,
     val tanggal: String? = null,
     val jenis: String? = null,
-    val nilai: Int? = null
+    val nilai: Float? = null
 )

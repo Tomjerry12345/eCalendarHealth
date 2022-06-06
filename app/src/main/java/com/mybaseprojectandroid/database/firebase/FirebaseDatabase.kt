@@ -4,8 +4,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mybaseprojectandroid.model.ExamplesModel
 import com.mybaseprojectandroid.model.PasienModel
-import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.local.SavedData
+import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import kotlinx.coroutines.tasks.await
@@ -42,19 +42,18 @@ class FirebaseDatabase {
         }
     }
 
-    suspend fun getDataBy2Query(
+    suspend fun getDataByQuery(
         reference: String,
-        query: String,
-        value: String,
-        query1: String,
-        value1: Boolean
+        listQuery: List<HashMap<String, Any>>
     ): Response {
         return try {
             val data = db
                 .collection(reference)
-                .whereEqualTo(query, value)
-                .whereEqualTo(query1, value1)
-                .get()
+            listQuery.map {
+                data
+                    .whereEqualTo(it["key"].toString(), it["value"])
+            }
+            data.get()
                 .await()
 
             Response.Changed(data)

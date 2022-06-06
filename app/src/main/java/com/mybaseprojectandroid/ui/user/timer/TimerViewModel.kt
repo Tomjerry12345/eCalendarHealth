@@ -3,30 +3,37 @@ package com.mybaseprojectandroid.ui.user.timer
 import androidx.lifecycle.*
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.model.Aktivitas
-import com.mybaseprojectandroid.model.PasienModel
-import com.mybaseprojectandroid.utils.local.SavedData
+import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import kotlinx.coroutines.launch
 
 class TimerViewModel(private val db: FirebaseDatabase) : ViewModel() {
 
-    val savedPasien = SavedData.getObject(Constant.KEY_PASIEN, PasienModel()) as PasienModel
+    val savedPasien = getSavedPasien()
 
     private val _response = MutableLiveData<Response>()
     val response: LiveData<Response> = _response
 
+    private val listQuery = listOf(
+        hashMapOf(
+            "key" to "idUser",
+            "value" to savedPasien.id
+        ),
+        hashMapOf(
+            "key" to "statusUpdate",
+            "value" to true
+        )
+    )
+
     val data: LiveData<Response> = liveData {
-        val response = savedPasien.id?.let {
-            db.getDataBy2Query(
+        val response =
+            db.getDataByQuery(
                 Constant.KEY_AKTIVITAS,
-                "idUser",
-                it,
-                "statusUpdate",
-                true
+                listQuery as List<HashMap<String, Any>>
             )
-        }
-        response?.let { emit(it) }
+
+        emit(response)
     }
 
     fun addAktivitas(aktivitasModel: Aktivitas) {

@@ -15,23 +15,21 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.toObjects
 import com.mybaseprojectandroid.R
+import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.FragmentHomeBinding
 import com.mybaseprojectandroid.model.CardItem
-import com.mybaseprojectandroid.model.PasienModel
+import com.mybaseprojectandroid.model.Pemeriksaan
 import com.mybaseprojectandroid.ui.user.home.adapter.CardAdapter
-import com.mybaseprojectandroid.utils.local.SavedData
+import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
-import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
-import java.util.*
+import com.mybaseprojectandroid.utils.other.showLogAssert
 
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
-
-    lateinit var linelist: ArrayList<Entry>
-    lateinit var lineDataSet: LineDataSet
-    lateinit var lineData: LineData
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -42,12 +40,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel: HomeViewModel by viewModels {
-        FactoryViewModel(HomeViewModel())
+        FactoryViewModel(HomeViewModel(FirebaseDatabase()))
     }
 
-    val pasien: PasienModel by lazy {
-        SavedData.getObject(Constant.KEY_PASIEN, PasienModel()) as PasienModel
-    }
+    private val pasien = getSavedPasien()
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +54,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.setData()
         setGraphHbA1C()
         setGraphLBS()
+
+        getDataHbA1C()
+        getDataLBS()
 
         viewModel.response.observe(viewLifecycleOwner) {
             when (it) {
@@ -78,10 +77,47 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.tvTitle.text = "Hi, ${pasien.namaLengkap}"
     }
 
+    private fun getDataHbA1C() {
+        viewModel.dataHbA1C.observe(viewLifecycleOwner) {
+            when (it) {
+                is Response.Changed -> {
+                    val querySnapshot = it.data as QuerySnapshot
+
+                    val dataHbA1C = querySnapshot.toObjects<Pemeriksaan>()
+
+                    showLogAssert("dataHbA1C", "$dataHbA1C")
+                }
+                is Response.Error -> {
+                    showLogAssert("error", it.error)
+                }
+                is Response.Progress -> TODO()
+                is Response.Success -> TODO()
+            }
+        }
+    }
+
+    private fun getDataLBS() {
+        viewModel.dataLBS.observe(viewLifecycleOwner) {
+            when (it) {
+                is Response.Changed -> {
+                    val querySnapshot = it.data as QuerySnapshot
+
+                    val dataHbA1C = querySnapshot.toObjects<Pemeriksaan>()
+
+                    showLogAssert("dataHbA1C", "$dataHbA1C")
+                }
+                is Response.Error -> {
+                    showLogAssert("error", it.error)
+                }
+                is Response.Progress -> TODO()
+                is Response.Success -> TODO()
+            }
+        }
+    }
+
     private fun setGraphLBS() {
-        var dataSets: ArrayList<ILineDataSet?> = ArrayList()
         val xAxisValues: List<String> = ArrayList(
-            Arrays.asList(
+            listOf(
                 "Jan",
                 "Feb",
                 "March",
@@ -97,11 +133,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             )
         )
         val incomeEntries = getIncomeEntries()
-        dataSets = ArrayList()
-        val set1: LineDataSet
+        val dataSets: ArrayList<ILineDataSet?> = ArrayList()
 
-        set1 = LineDataSet(incomeEntries, "Income")
-        set1.color = resources.getColor(R.color.yellow)
+        val set1 = LineDataSet(incomeEntries, "Income")
+        set1.color = ContextCompat.getColor(requireContext(), R.color.yellow)
         set1.valueTextColor = Color.rgb(55, 70, 73)
         set1.valueTextSize = 10f
         set1.mode = LineDataSet.Mode.CUBIC_BEZIER
@@ -246,7 +281,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun getIncomeEntries(): List<Entry> {
         val incomeEntries: ArrayList<Entry> = ArrayList()
         incomeEntries.add(Entry(1f, 11300f))
-        incomeEntries.add(Entry(2f, 1390f))
+        incomeEntries.add(Entry(2f, 50f))
         incomeEntries.add(Entry(3f, 1190f))
         incomeEntries.add(Entry(4f, 7200f))
         incomeEntries.add(Entry(5f, 4790f))

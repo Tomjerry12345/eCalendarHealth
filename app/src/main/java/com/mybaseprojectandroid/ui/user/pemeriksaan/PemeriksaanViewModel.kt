@@ -40,7 +40,7 @@ class PemeriksaanViewModel(private val db: FirebaseDatabase) : ViewModel() {
                 idUser = savedPasien.id,
                 tanggal = date,
                 jenis = jenis,
-                nilai = nilai.toInt()
+                nilai = nilai.toFloat()
             )
 
             viewModelScope.launch {
