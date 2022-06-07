@@ -1,9 +1,11 @@
 package com.mybaseprojectandroid.ui.user.pemeriksaan
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.mybaseprojectandroid.R
@@ -14,6 +16,7 @@ import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.other.showToast
+import com.mybaseprojectandroid.utils.system.TimerCustom
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 
@@ -26,11 +29,14 @@ class PemeriksaanFragment : Fragment(R.layout.fragment_pemeriksaan) {
         FactoryViewModel(PemeriksaanViewModel(FirebaseDatabase()))
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentPemeriksaanBinding.bind(view)
         binding.viewModel = viewModel
+
+        showLogAssert("timestamp", TimerCustom.getTimestamp().toString())
 
         setDropdown()
 

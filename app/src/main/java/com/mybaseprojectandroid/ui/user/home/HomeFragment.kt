@@ -20,11 +20,11 @@ import com.google.firebase.firestore.ktx.toObjects
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.FragmentHomeBinding
-import com.mybaseprojectandroid.model.CardItem
 import com.mybaseprojectandroid.model.Pemeriksaan
 import com.mybaseprojectandroid.ui.user.home.adapter.CardAdapter
 import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
+import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 
@@ -51,30 +51,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding = FragmentHomeBinding.bind(view)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        viewModel.setData()
-        setGraphHbA1C()
-        setGraphLBS()
+
+        setRecyclerView()
 
         getDataHbA1C()
         getDataLBS()
 
-        viewModel.response.observe(viewLifecycleOwner) {
-            when (it) {
-                is Response.Changed -> {
-                    val data = it.data as List<CardItem>
-                    val adapterr = CardAdapter(data)
-                    binding.rvItemCard.apply {
-                        layoutManager = GridLayoutManager(context, 2)
-                        adapter = adapterr
-                    }
-                }
-                is Response.Error -> TODO()
-                is Response.Progress -> TODO()
-                is Response.Success -> TODO()
-            }
-        }
-
         binding.tvTitle.text = "Hi, ${pasien.namaLengkap}"
+    }
+
+    private fun setRecyclerView() {
+        val adapterr = CardAdapter(Constant.listCardItem)
+        binding.rvItemCard.apply {
+            layoutManager = GridLayoutManager(context, 2)
+            adapter = adapterr
+        }
     }
 
     private fun getDataHbA1C() {
@@ -86,6 +77,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     val dataHbA1C = querySnapshot.toObjects<Pemeriksaan>()
 
                     showLogAssert("dataHbA1C", "$dataHbA1C")
+
+                    val xAxis = ArrayList<String>()
+                    val yAxis = ArrayList<Float>()
+
+                    val sorting = dataHbA1C.sortedBy { pemeriksaan ->
+                        pemeriksaan.timeStamp
+                    }
+
+                    sorting.forEach { pemeriksaan ->
+                        pemeriksaan.tanggal?.let { it1 -> xAxis.add(it1) }
+                        pemeriksaan.nilai?.let { it1 -> yAxis.add(it1) }
+                    }
+
+                    setGraphHbA1C(xAxis, yAxis)
                 }
                 is Response.Error -> {
                     showLogAssert("error", it.error)
@@ -97,14 +102,26 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun getDataLBS() {
-        viewModel.dataLBS.observe(viewLifecycleOwner) {
+        viewModel.dataLBS.observe(viewLifecycleOwner) { it ->
             when (it) {
                 is Response.Changed -> {
                     val querySnapshot = it.data as QuerySnapshot
 
-                    val dataHbA1C = querySnapshot.toObjects<Pemeriksaan>()
+                    val dataLBS = querySnapshot.toObjects<Pemeriksaan>()
 
-                    showLogAssert("dataHbA1C", "$dataHbA1C")
+                    val xAxis = ArrayList<String>()
+                    val yAxis = ArrayList<Float>()
+
+                    val sorting = dataLBS.sortedBy { pemeriksaan ->
+                        pemeriksaan.timeStamp
+                    }
+
+                    sorting.forEach { pemeriksaan ->
+                        pemeriksaan.tanggal?.let { it1 -> xAxis.add(it1) }
+                        pemeriksaan.nilai?.let { it1 -> yAxis.add(it1) }
+                    }
+
+                    setGraphLBS(xAxis, yAxis)
                 }
                 is Response.Error -> {
                     showLogAssert("error", it.error)
@@ -115,27 +132,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun setGraphLBS() {
-        val xAxisValues: List<String> = ArrayList(
-            listOf(
-                "Jan",
-                "Feb",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "Decemeber"
-            )
-        )
-        val incomeEntries = getIncomeEntries()
+    private fun setGraphLBS(xAxisValues: ArrayList<String>, yAxisValues: ArrayList<Float>) {
+
+        val entryList = getEntryList(yAxisValues)
+
+        showLogAssert("entryList", "$entryList")
+
         val dataSets: ArrayList<ILineDataSet?> = ArrayList()
 
-        val set1 = LineDataSet(incomeEntries, "Income")
+        val set1 = LineDataSet(entryList, "LBS")
         set1.color = ContextCompat.getColor(requireContext(), R.color.yellow)
         set1.valueTextColor = Color.rgb(55, 70, 73)
         set1.valueTextSize = 10f
@@ -197,27 +202,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     }
 
-    private fun setGraphHbA1C() {
-        val xAxisValues: List<String> = ArrayList(
-            listOf(
-                "Jan",
-                "Feb",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "Decemeber"
-            )
-        )
-        val incomeEntries = getIncomeEntries()
+    private fun setGraphHbA1C(xAxisValues: ArrayList<String>, yAxisValues: ArrayList<Float>) {
+
+        val entryList = getEntryList(yAxisValues)
+
         val dataSets: ArrayList<ILineDataSet?> = ArrayList()
 
-        val set1 = LineDataSet(incomeEntries, "Income")
+        val set1 = LineDataSet(entryList, "Income")
         set1.color = Color.rgb(65, 168, 121)
         set1.valueTextColor = Color.rgb(55, 70, 73)
         set1.valueTextSize = 10f
@@ -278,21 +269,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         mLineGraph.description.isEnabled = false
     }
 
-    private fun getIncomeEntries(): List<Entry> {
-        val incomeEntries: ArrayList<Entry> = ArrayList()
-        incomeEntries.add(Entry(1f, 11300f))
-        incomeEntries.add(Entry(2f, 50f))
-        incomeEntries.add(Entry(3f, 1190f))
-        incomeEntries.add(Entry(4f, 7200f))
-        incomeEntries.add(Entry(5f, 4790f))
-        incomeEntries.add(Entry(6f, 4500f))
-        incomeEntries.add(Entry(7f, 8000f))
-        incomeEntries.add(Entry(8f, 7034f))
-        incomeEntries.add(Entry(9f, 4307f))
-        incomeEntries.add(Entry(10f, 8762f))
-        incomeEntries.add(Entry(11f, 4355f))
-        incomeEntries.add(Entry(12f, 6000f))
-        return incomeEntries.subList(0, 12)
+    private fun getEntryList(yAxisValues: ArrayList<Float>): List<Entry> {
+        val entries: ArrayList<Entry> = ArrayList()
+
+        var x = 0f
+
+        for (y in yAxisValues) {
+            entries.add(Entry(x, y))
+            x += 1
+        }
+
+        return entries
     }
 
 

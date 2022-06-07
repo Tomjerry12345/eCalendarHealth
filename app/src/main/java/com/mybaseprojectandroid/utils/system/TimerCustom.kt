@@ -2,6 +2,7 @@ package com.mybaseprojectandroid.utils.system
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import java.sql.Timestamp
 import java.time.LocalDateTime
 import java.time.temporal.ChronoField
 import java.time.temporal.WeekFields
@@ -35,5 +36,10 @@ object TimerCustom {
     fun getWeeksMonth(): Int {
         val weekFields = WeekFields.of(Locale.getDefault())
         return current.get(weekFields.weekOfMonth())
+    }
+
+    fun getTimestamp(): Long {
+        val timestamp = Timestamp(System.currentTimeMillis())
+        return timestamp.time
     }
 }

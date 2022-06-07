@@ -43,7 +43,7 @@ class HomeViewModel(val db: FirebaseDatabase) : ViewModel() {
     val dataHbA1C: LiveData<Response> = liveData {
         val response =
             db.getDataByQuery(
-                Constant.KEY_AKTIVITAS,
+                Constant.KEY_PEMERIKSAAN,
                 listQueryHbA1C as List<HashMap<String, Any>>
             )
         emit(response)
@@ -52,7 +52,7 @@ class HomeViewModel(val db: FirebaseDatabase) : ViewModel() {
     val dataLBS: LiveData<Response> = liveData {
         val response =
             db.getDataByQuery(
-                Constant.KEY_AKTIVITAS,
+                Constant.KEY_PEMERIKSAAN,
                 listQueryLBS as List<HashMap<String, Any>>
             )
         emit(response)

@@ -1,5 +1,7 @@
 package com.mybaseprojectandroid.database.firebase
 
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mybaseprojectandroid.model.ExamplesModel
@@ -47,21 +49,52 @@ class FirebaseDatabase {
         listQuery: List<HashMap<String, Any>>
     ): Response {
         return try {
+
             val data = db
                 .collection(reference)
-            listQuery.map {
-                data
-                    .whereEqualTo(it["key"].toString(), it["value"])
-            }
-            data.get()
-                .await()
 
-            Response.Changed(data)
+            val response = getQuery(data, listQuery).get().await()
+
+            Response.Changed(response)
 
         } catch (e: Exception) {
             showLogAssert("error", "${e.message}")
             Response.Error("${e.message}")
         }
+    }
+
+    private fun getQuery(
+        reference: CollectionReference,
+        listQuery: List<HashMap<String, Any>>,
+    ): Query {
+        var query: Query? = null
+
+        listQuery.map {
+            val key = it["key"].toString()
+            val value = it["value"]
+            query = if (query == null)
+                initQuery(reference, key, value)
+            else
+                indexingQuery(query!!, key, value)
+        }
+
+        return query!!
+    }
+
+    private fun initQuery(
+        reference: CollectionReference,
+        key: String,
+        value: Any?
+    ): Query {
+        return reference.whereEqualTo(key, value)
+    }
+
+    private fun indexingQuery(
+        query: Query,
+        key: String,
+        value: Any?
+    ): Query {
+        return query.whereEqualTo(key, value)
     }
 
     suspend fun update(

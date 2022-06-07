@@ -1,5 +1,7 @@
 package com.mybaseprojectandroid.ui.user.pemeriksaan
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +12,7 @@ import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.checkEmpty
+import com.mybaseprojectandroid.utils.system.TimerCustom
 import kotlinx.coroutines.launch
 
 class PemeriksaanViewModel(private val db: FirebaseDatabase) : ViewModel() {
@@ -28,6 +31,7 @@ class PemeriksaanViewModel(private val db: FirebaseDatabase) : ViewModel() {
 
     val savedPasien = getSavedPasien()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onAddPemeriksaan() {
         try {
             val date = checkEmpty(date.value, "Date tidak boleh kosong")
@@ -40,12 +44,13 @@ class PemeriksaanViewModel(private val db: FirebaseDatabase) : ViewModel() {
                 idUser = savedPasien.id,
                 tanggal = date,
                 jenis = jenis,
-                nilai = nilai.toFloat()
+                nilai = nilai.toFloat(),
+                timeStamp = TimerCustom.getTimestamp()
             )
 
             viewModelScope.launch {
-                _response.value = db.addData(Constant.KEY_PEMERIKSAAN, pemeriksaan)
                 Response.Progress(false)
+                _response.value = db.addData(Constant.KEY_PEMERIKSAAN, pemeriksaan)
             }
 
         } catch (e: Exception) {
