@@ -76,8 +76,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                     val dataHbA1C = querySnapshot.toObjects<Pemeriksaan>()
 
-                    showLogAssert("dataHbA1C", "$dataHbA1C")
-
                     val xAxis = ArrayList<String>()
                     val yAxis = ArrayList<Float>()
 
@@ -135,8 +133,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun setGraphLBS(xAxisValues: ArrayList<String>, yAxisValues: ArrayList<Float>) {
 
         val entryList = getEntryList(yAxisValues)
-
-        showLogAssert("entryList", "$entryList")
 
         val dataSets: ArrayList<ILineDataSet?> = ArrayList()
 

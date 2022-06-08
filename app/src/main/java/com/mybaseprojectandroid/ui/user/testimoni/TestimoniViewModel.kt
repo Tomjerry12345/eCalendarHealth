@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mybaseprojectandroid.model.Testimoni
-import com.mybaseprojectandroid.ui.user.history.HistoryAdapter
-import com.mybaseprojectandroid.ui.user.history.HistoryViewModel
 
 class TestimoniViewModel(val rvVideoTesti : RecyclerView) : ViewModel() {
     class Factory(val rvVideoTesti : RecyclerView) : ViewModelProvider.Factory {

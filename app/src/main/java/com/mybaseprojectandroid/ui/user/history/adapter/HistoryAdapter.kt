@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.ui.user.history
+package com.mybaseprojectandroid.ui.user.history.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,8 +9,10 @@ import com.mybaseprojectandroid.databinding.ItemWeekBinding
 import com.mybaseprojectandroid.model.Progress
 import com.mybaseprojectandroid.model.Week
 
-class HistoryAdapter(val listWeek : ArrayList<Week>,
-                     val listProgress : ArrayList<Progress>) :
+class HistoryAdapter(
+    val listWeek: List<Week>,
+    val listProgress: List<Progress>
+) :
     RecyclerView.Adapter<HistoryAdapter.ViewHolder>(){
     inner class ViewHolder(private var binding : ItemWeekBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(week : Week,position: Int){
@@ -22,7 +24,7 @@ class HistoryAdapter(val listWeek : ArrayList<Week>,
                 layoutManager = GridLayoutManager(context,2)
                 adapter = adapterr
             }
-            var pos = position+1
+            val pos = position+1
             if (pos %2 == 0) binding.title.setBackgroundResource(R.drawable.bg_week_blue) else binding.title.setBackgroundResource(R.drawable.bg_week)
 
         }
@@ -35,7 +37,7 @@ class HistoryAdapter(val listWeek : ArrayList<Week>,
         return ViewHolder(itemWeekBinding)    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = listWeek.get(position)
+        val item = listWeek[position]
         holder.bind(item,position)
 
 

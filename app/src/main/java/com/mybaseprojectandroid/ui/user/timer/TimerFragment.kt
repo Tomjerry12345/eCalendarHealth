@@ -66,9 +66,7 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                     beforeDataAktivitas = dataExtract[0]
 
                     if (dayNow == beforeDataAktivitas?.endBringDate?.day!!) {
-                        showLogAssert("dayNow", "same $hoursNow")
                         if (beforeDataAktivitas?.endBringDate?.hours!! >= hoursNow) {
-                            showLogAssert("dayNow", ">= hoursNow")
                             beforeDataAktivitas!!.sumDayBring = 0
                         }
                     } else if (dayNow > beforeDataAktivitas?.endBringDate?.day!!) {

@@ -2,6 +2,8 @@ package com.mybaseprojectandroid.utils.other
 
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.model.CardItem
+import com.mybaseprojectandroid.model.Progress
+import com.mybaseprojectandroid.model.Week
 
 object Constant {
 
@@ -31,4 +33,21 @@ object Constant {
         CardItem(R.drawable.item_card3,"Konsultasi","Lorem ipsum dolor sit consectetur adipis",R.drawable.card3),
         CardItem(R.drawable.item_card4,"Pemeriksaan","Lorem ipsum dolor sit consectetur adipis",R.drawable.card4)
     )
+
+    val listProgress = listOf(
+        Progress("Brisk Walking 1"),
+        Progress("Brisk Walking 2"),
+        Progress("Brisk Walking 3"),
+        Progress("Brisk Walking 4"),
+        Progress("Brisk Walking 5"),
+    )
+
+    val listWeek = listOf(
+        Week("Minggu 1", listProgress),
+        Week("Minggu 2", listProgress),
+        Week("Minggu 3", listProgress),
+        Week("Minggu 4", listProgress),
+    )
+
+
 }

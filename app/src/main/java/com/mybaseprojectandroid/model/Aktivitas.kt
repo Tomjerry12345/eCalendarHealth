@@ -7,6 +7,7 @@ data class Aktivitas(
     val endDate: DateModel? = null,
     var sumWeekBring: Int? = null,
     var sumDayBring: Int? = null,
+    val month: Int? = null,
     val week: Int? = null,
     val startBringDate: DateModel? = null,
     val endBringDate: DateModel? = null,
