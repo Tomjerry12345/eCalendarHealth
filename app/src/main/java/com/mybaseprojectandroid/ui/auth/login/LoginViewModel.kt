@@ -28,12 +28,12 @@ class LoginViewModel(private val db: FirebaseDatabase) : ViewModel() {
 
             viewModelScope.launch {
                 response.value = db.login(Constant.KEY_PASIEN, username, password)
-                Response.Progress(false)
+                response.value = Response.Progress(false)
             }
 
         } catch (e: Exception) {
-            Response.Progress(false)
-            Response.Error(e.message.toString())
+            response.value = Response.Progress(false)
+            response.value = Response.Error(e.message.toString())
         }
     }
 }

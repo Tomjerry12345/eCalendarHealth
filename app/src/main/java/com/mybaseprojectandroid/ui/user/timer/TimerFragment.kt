@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.firebase.firestore.QuerySnapshot
@@ -19,7 +20,7 @@ import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.Timer
-import com.mybaseprojectandroid.utils.system.TimerCustom
+import com.mybaseprojectandroid.utils.system.DateCustom
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 
 
@@ -36,13 +37,13 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
 
     private val savedPasien = getSavedPasien()
 
-    private val dayNow = TimerCustom.getDayNow()
-    private val monthNow = TimerCustom.getMonthNow()
-    private val yearNow = TimerCustom.getYearNow()
+    private val dayNow = DateCustom.getDayNow()
+    private val monthNow = DateCustom.getMonthNow()
+    private val yearNow = DateCustom.getYearNow()
 
-    private val hoursNow = TimerCustom.getHoursNow()
+    private val hoursNow = DateCustom.getHoursNow()
 
-    private val weekOfMonth = TimerCustom.getWeeksMonth()
+    private val weekOfMonth = DateCustom.getWeeksMonth()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,35 +64,42 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
 
                     val dataExtract = data.toObjects<Aktivitas>()
 
-                    beforeDataAktivitas = dataExtract[0]
+                    if (dataExtract.isNotEmpty()) {
+                        beforeDataAktivitas = dataExtract[0]
 
-                    if (dayNow == beforeDataAktivitas?.dateUpdate?.day!!) {
-                        if (beforeDataAktivitas?.dateUpdate?.hours!! >= hoursNow) {
+                        if (dayNow == beforeDataAktivitas?.dateUpdate?.day!!) {
+                            if (beforeDataAktivitas?.dateUpdate?.hours!! >= hoursNow) {
+                                beforeDataAktivitas!!.sumDayBring = 0
+                            }
+                        } else if (dayNow > beforeDataAktivitas?.dateUpdate?.day!!) {
+                            showLogAssert("dayNow", "> hoursNow")
                             beforeDataAktivitas!!.sumDayBring = 0
                         }
-                    } else if (dayNow > beforeDataAktivitas?.dateUpdate?.day!!) {
-                        showLogAssert("dayNow", "> hoursNow")
-                        beforeDataAktivitas!!.sumDayBring = 0
+
+                        if (beforeDataAktivitas?.sumDayBring!! >= 2 || beforeDataAktivitas?.sumWeekBring!! >= 5) {
+                            binding.mulai.apply {
+                                isEnabled = false
+                            }
+
+                            binding.bgGreen.background = ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.bg_circular_error
+                            )
+
+                            binding.timer.apply {
+                                setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                                text = "Limit"
+                            }
+                        }
+
+                        if (weekOfMonth > beforeDataAktivitas!!.week!!) {
+                            beforeDataAktivitas!!.isUpdate = false
+                        }
+
+                        showLogAssert("dataPasienModel", "$beforeDataAktivitas")
                     }
 
-                    if (beforeDataAktivitas?.sumDayBring!! >= 2 || beforeDataAktivitas?.sumWeekBring!! >= 5) {
-                        binding.mulai.isEnabled = false
-                    }
 
-                    if (beforeDataAktivitas?.sumWeekBring!! >= 5 && weekOfMonth > beforeDataAktivitas!!.week!!) {
-                        beforeDataAktivitas!!.isUpdate = false
-                    }
-//
-//                    if (dayNow >= beforeDataAktivitas?.endDate?.day!!) {
-//
-//                        if (binding.mulai.isEnabled) {
-//                            binding.mulai.isEnabled = false
-//                        }
-//
-//                        beforeDataAktivitas?.statusUpdate = false
-//                    }
-
-                    showLogAssert("dataPasienModel", "$dataExtract")
                 }
                 is Response.Error -> {
                     showLogAssert("error get aktivitas", it.error)
@@ -107,8 +115,8 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                     if (it.isFinish) {
                         Timer.cancelTimer()
 
-                        if (beforeDataAktivitas!!.isUpdate == true) {
-                            if (beforeDataAktivitas != null) {
+                        if (beforeDataAktivitas != null) {
+                            if (beforeDataAktivitas!!.isUpdate == true) {
                                 beforeDataAktivitas!!.sumDayBring =
                                     beforeDataAktivitas!!.sumDayBring?.plus(
                                         1
@@ -117,12 +125,16 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                                     beforeDataAktivitas!!.sumWeekBring?.plus(
                                         1
                                     )
+                                addNewData()
                             } else {
+                                initData()
                                 addNewData()
                             }
+
+                        } else {
+                            initData()
+                            addNewData()
                         }
-
-
 
                         showLogAssert("aktivitas", "$beforeDataAktivitas")
 
@@ -149,7 +161,7 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
         }
     }
 
-    private fun addNewData() {
+    fun initData() {
         beforeDataAktivitas = Aktivitas(
             idUser = savedPasien.id,
             sumDayBring = 1,
@@ -161,9 +173,12 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                 year = yearNow,
                 hours = hoursNow
             ),
+            month = monthNow,
             isUpdate = true
         )
+    }
 
+    private fun addNewData() {
         viewModel.addAktivitas(beforeDataAktivitas!!)
     }
 }

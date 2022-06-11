@@ -36,6 +36,7 @@ object Timer {
 
     fun startTimer() {
         _getResponseTimer.postValue(Response.Finish(false))
+        totalSeconds = TimeUnit.MINUTES.toSeconds(2)
         timer = startCoroutineTimer(delayMillis = 0, repeatMillis = 1000) {
             processTimer()
         }

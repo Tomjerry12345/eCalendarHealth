@@ -4,9 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+<!--        <variable-->
+<!--            name="itemWeek"-->
+<!--            type="com.mybaseprojectandroid.model.Aktivitas" />-->
+
         <variable
             name="itemWeek"
-            type="com.mybaseprojectandroid.model.Week" />
+            type="String" />
 
     </data>
 
@@ -23,7 +27,7 @@
             android:layout_marginTop="@dimen/_16dp"
             style="@style/DMSansBoldTitle"
             android:textSize="@dimen/_14sp"
-            android:text="@{itemWeek.title}"
+            android:text="@{itemWeek}"
             android:background="@drawable/bg_week"
             android:gravity="center_vertical|center_horizontal" />
 

@@ -16,7 +16,7 @@ import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.other.showToast
-import com.mybaseprojectandroid.utils.system.TimerCustom
+import com.mybaseprojectandroid.utils.system.DateCustom
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 
@@ -36,7 +36,7 @@ class PemeriksaanFragment : Fragment(R.layout.fragment_pemeriksaan) {
         binding = FragmentPemeriksaanBinding.bind(view)
         binding.viewModel = viewModel
 
-        showLogAssert("timestamp", TimerCustom.getTimestamp().toString())
+        showLogAssert("timestamp", DateCustom.getTimestamp().toString())
 
         setDropdown()
 

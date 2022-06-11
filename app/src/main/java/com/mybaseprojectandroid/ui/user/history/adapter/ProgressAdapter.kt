@@ -5,11 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mybaseprojectandroid.databinding.ItemProgressBinding
 
-class ProgressAdapter(val sumBring: Int): RecyclerView.Adapter<ProgressAdapter.ViewHolder>()  {
+class ProgressAdapter(private val sumBring: Int): RecyclerView.Adapter<ProgressAdapter.ViewHolder>()  {
     inner class ViewHolder(private var binding : ItemProgressBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int) {
 //            binding.itemProgress = progress
-            binding.item = "Bring walking $position"
+            binding.item = "Bring walking ${position.plus(1)}"
+            if (position > sumBring) {
+
+            }
+
             binding.executePendingBindings()
         }
     }
@@ -23,7 +27,7 @@ class ProgressAdapter(val sumBring: Int): RecyclerView.Adapter<ProgressAdapter.V
         holder.bind(position)
     }
 
-    override fun getItemCount(): Int  = sumBring
+    override fun getItemCount(): Int  = 5
 
 
 

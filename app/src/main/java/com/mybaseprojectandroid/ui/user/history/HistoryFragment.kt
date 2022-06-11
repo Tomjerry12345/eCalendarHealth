@@ -1,7 +1,11 @@
 package com.mybaseprojectandroid.ui.user.history
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,11 +17,11 @@ import com.mybaseprojectandroid.databinding.FragmentHistoryBinding
 import com.mybaseprojectandroid.model.Aktivitas
 import com.mybaseprojectandroid.ui.user.history.adapter.HistoryAdapter
 import com.mybaseprojectandroid.utils.network.Response
-import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
+import com.mybaseprojectandroid.utils.system.DateCustom
 
-
+@RequiresApi(Build.VERSION_CODES.O)
 class HistoryFragment : Fragment(R.layout.fragment_history) {
 
     companion object {
@@ -38,20 +42,24 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         binding = FragmentHistoryBinding.bind(view)
         binding.viewmodel = viewModel
 
-        setAdapter()
-
-        getDataRiwayat()
-
-
+        setDropdown()
     }
 
     private fun getDataRiwayat() {
-        viewModel.dataRiwayat.observe(viewLifecycleOwner) {
+        viewModel.response.observe(viewLifecycleOwner) {
             when (it) {
                 is Response.Changed -> {
                     val querySnapshot = it.data as QuerySnapshot
                     val riwayat = querySnapshot.toObjects<Aktivitas>()
                     showLogAssert("querySnapshot", "$riwayat")
+
+                    val sorting = riwayat.sortedBy { riwayat ->
+                        riwayat.week
+                    }
+
+                    setAdapter(sorting)
+
+
                 }
                 is Response.Error -> {
                     showLogAssert("error", it.error)
@@ -62,13 +70,25 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         }
     }
 
-    private fun setAdapter() {
+    private fun setAdapter(riwayat: List<Aktivitas>) {
         val adapterr = HistoryAdapter(
-            Constant.listWeek
+            riwayat
         )
         binding.rvWeek.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = adapterr
+        }
+    }
+
+    private fun setDropdown() {
+        val adapter =
+            ArrayAdapter(requireContext(), R.layout.item_dropdown, DateCustom.listNameMonth)
+        (binding.dropdownMonth.editText as? AutoCompleteTextView)?.apply {
+            setAdapter(adapter)
+            setOnItemClickListener { adapterView, view, i, l ->
+                viewModel.setByMonth(i.plus(1))
+                getDataRiwayat()
+            }
         }
     }
 }

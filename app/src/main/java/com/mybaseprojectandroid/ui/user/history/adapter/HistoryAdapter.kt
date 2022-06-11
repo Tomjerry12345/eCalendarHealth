@@ -6,19 +6,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.ItemWeekBinding
-import com.mybaseprojectandroid.model.Week
+import com.mybaseprojectandroid.model.Aktivitas
 
 class HistoryAdapter(
-    private val listWeek: List<Week>
+    private val listWeek: List<Aktivitas>
 ) :
     RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
     inner class ViewHolder(private var binding: ItemWeekBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(week: Week, position: Int) {
-            binding.itemWeek = week
+        fun bind(aktivitas: Aktivitas, position: Int) {
+            binding.itemWeek = "Minggu ${aktivitas.week}"
             binding.executePendingBindings()
 //            binding.rvProgress
-            val adapterr = week.sumBring?.let { ProgressAdapter(it) }
+            val adapterr = aktivitas.sumWeekBring?.let { ProgressAdapter(it) }
             binding.rvProgress.apply {
                 layoutManager = GridLayoutManager(context, 2)
                 adapter = adapterr

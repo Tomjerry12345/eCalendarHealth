@@ -12,7 +12,7 @@ import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.checkEmpty
-import com.mybaseprojectandroid.utils.system.TimerCustom
+import com.mybaseprojectandroid.utils.system.DateCustom
 import kotlinx.coroutines.launch
 
 class PemeriksaanViewModel(private val db: FirebaseDatabase) : ViewModel() {
@@ -45,7 +45,7 @@ class PemeriksaanViewModel(private val db: FirebaseDatabase) : ViewModel() {
                 tanggal = date,
                 jenis = jenis,
                 nilai = nilai.toFloat(),
-                timeStamp = TimerCustom.getTimestamp()
+                timeStamp = DateCustom.getTimestamp()
             )
 
             viewModelScope.launch {

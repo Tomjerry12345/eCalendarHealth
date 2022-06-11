@@ -21,7 +21,7 @@ class TimerViewModel(private val db: FirebaseDatabase) : ViewModel() {
             "value" to savedPasien.id
         ),
         hashMapOf(
-            "key" to "statusUpdate",
+            "key" to "update",
             "value" to true
         )
     )

@@ -30,6 +30,8 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 
         binding = LoginFragmentBinding.bind(view)
 
+        val dialog = DialogProgress.initDialog(view.context)
+
         binding.viewModel = viewModel
 
         binding.daftar.setOnClickListener {
@@ -40,17 +42,17 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             when(it) {
                 is Response.Changed -> {}
                 is Response.Error -> {
+                    dialog.dismiss()
                     showToast(view.context, it.error)
                 }
                 is Response.Success -> {
                     moveIntentTo(requireActivity(), BaseActivity(), true)
                 }
                 is Response.Progress -> {
-                    val dialog = DialogProgress.initDialog(view.context)
                     if (it.activated)
                         dialog.show()
                     else
-                        dialog.hide()
+                        dialog.dismiss()
                 }
             }
         }
