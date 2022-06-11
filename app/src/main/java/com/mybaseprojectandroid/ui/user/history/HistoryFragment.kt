@@ -64,8 +64,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
 
     private fun setAdapter() {
         val adapterr = HistoryAdapter(
-            Constant.listWeek,
-            Constant.listProgress
+            Constant.listWeek
         )
         binding.rvWeek.apply {
             layoutManager = LinearLayoutManager(context)

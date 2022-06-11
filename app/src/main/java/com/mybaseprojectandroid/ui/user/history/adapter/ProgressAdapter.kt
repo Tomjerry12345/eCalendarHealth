@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mybaseprojectandroid.databinding.ItemProgressBinding
-import com.mybaseprojectandroid.model.Progress
 
-class ProgressAdapter(val list: List<Progress>): RecyclerView.Adapter<ProgressAdapter.ViewHolder>()  {
+class ProgressAdapter(val sumBring: Int): RecyclerView.Adapter<ProgressAdapter.ViewHolder>()  {
     inner class ViewHolder(private var binding : ItemProgressBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(progress: Progress ){
-            binding.itemProgress = progress
+        fun bind(position: Int) {
+//            binding.itemProgress = progress
+            binding.item = "Bring walking $position"
             binding.executePendingBindings()
         }
     }
@@ -20,11 +20,10 @@ class ProgressAdapter(val list: List<Progress>): RecyclerView.Adapter<ProgressAd
         return ViewHolder(itemHomeBinding)    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = list[position]
-        holder.bind(item)
+        holder.bind(position)
     }
 
-    override fun getItemCount(): Int  = list.size
+    override fun getItemCount(): Int  = sumBring
 
 
 
