@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.ExamplesPdfFragmentBinding
 import com.mybaseprojectandroid.utils.other.showToast
-import com.mybaseprojectandroid.utils.system.DocumentUtils
+import com.mybaseprojectandroid.utils.system.PdfUtils
 
 class ExamplesPdfFragment : Fragment(R.layout.examples_pdf_fragment) {
 
@@ -20,7 +20,7 @@ class ExamplesPdfFragment : Fragment(R.layout.examples_pdf_fragment) {
         val linear = binding.linearId
 
         binding.mbExportPdf.setOnClickListener {
-            val documentUtils = DocumentUtils(requireActivity())
+            val documentUtils = PdfUtils(requireActivity())
 
             val bitmap = documentUtils.createBitmapFromLayout(linear, linear.width, linear.height)
             if (bitmap != null) {

@@ -27,6 +27,7 @@ import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
+import com.mybaseprojectandroid.utils.system.ExcellUtils
 
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -58,6 +59,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         getDataLBS()
 
         binding.tvTitle.text = "Hi, ${pasien.namaLengkap}"
+
+        testExcell()
+    }
+
+    fun testExcell() {
+        val excellObj = ExcellUtils(requireActivity())
+
+        val excellWorkbook = excellObj.createWorkbook()
+        excellObj.createExcel(excellWorkbook)
     }
 
     private fun setRecyclerView() {

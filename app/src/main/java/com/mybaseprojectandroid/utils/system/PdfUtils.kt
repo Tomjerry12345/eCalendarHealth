@@ -9,6 +9,7 @@ import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.provider.DocumentsContract
 import android.util.DisplayMetrics
 import android.view.View
@@ -21,9 +22,9 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 
-class DocumentUtils(val activity: ComponentActivity) {
+class PdfUtils(val activity: ComponentActivity) {
 
-    val targetPdf = "/sdcard/page.pdf"
+    val path = Environment.getExternalStorageDirectory().path + "/" + Environment.DIRECTORY_DOCUMENTS
 
     fun createBitmapFromLayout(v: View, width: Int, height: Int): Bitmap? {
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -56,7 +57,7 @@ class DocumentUtils(val activity: ComponentActivity) {
 
         pdfDocument.finishPage(page)
 
-        val file = File(targetPdf)
+        val file = File(path)
 
 
 
@@ -91,8 +92,8 @@ class DocumentUtils(val activity: ComponentActivity) {
         activity.startActivityForResult(intent, CREATE_FILE)
     }
 
-    fun openPdf() {
-        val file = File(targetPdf)
+    private fun openPdf() {
+        val file = File(path)
 
         if (file.exists()) {
             val intent = Intent(Intent.ACTION_VIEW)
