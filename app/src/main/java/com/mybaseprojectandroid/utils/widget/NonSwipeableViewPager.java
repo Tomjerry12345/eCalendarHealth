@@ -1,4 +1,4 @@
-package com.mybaseprojectandroid.utils.system;
+package com.mybaseprojectandroid.utils.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

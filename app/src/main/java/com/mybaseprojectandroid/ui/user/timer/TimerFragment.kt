@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.firebase.firestore.QuerySnapshot
@@ -19,9 +18,7 @@ import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
-import com.mybaseprojectandroid.utils.system.Timer
-import com.mybaseprojectandroid.utils.system.DateCustom
-import com.mybaseprojectandroid.utils.system.moveIntentTo
+import com.mybaseprojectandroid.utils.system.*
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -51,8 +48,6 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
 
         binding = FragmentTimerBinding.bind(view)
 
-
-
         binding.mulai.setOnClickListener {
             Timer.startTimer()
         }
@@ -72,7 +67,6 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                                 beforeDataAktivitas!!.sumDayBring = 0
                             }
                         } else if (dayNow > beforeDataAktivitas?.dateUpdate?.day!!) {
-                            showLogAssert("dayNow", "> hoursNow")
                             beforeDataAktivitas!!.sumDayBring = 0
                         }
 
@@ -81,13 +75,11 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                                 isEnabled = false
                             }
 
-                            binding.bgGreen.background = ContextCompat.getDrawable(
-                                requireContext(),
-                                R.drawable.bg_circular_error
-                            )
+                            binding.bgGreen.background =
+                                getDrawable(requireContext(), R.drawable.bg_circular_error)
 
                             binding.timer.apply {
-                                setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                                setTextColor(getColor(requireContext(), R.color.red))
                                 text = "Limit"
                             }
                         }
@@ -95,8 +87,6 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                         if (weekOfMonth > beforeDataAktivitas!!.week!!) {
                             beforeDataAktivitas!!.isUpdate = false
                         }
-
-                        showLogAssert("dataPasienModel", "$beforeDataAktivitas")
                     }
 
 
@@ -161,7 +151,7 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
         }
     }
 
-    fun initData() {
+    private fun initData() {
         beforeDataAktivitas = Aktivitas(
             idUser = savedPasien.id,
             sumDayBring = 1,

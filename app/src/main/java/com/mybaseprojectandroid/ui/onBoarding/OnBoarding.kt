@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.ui.auth.AuthActivity
-import com.mybaseprojectandroid.utils.system.SliderAdapter
+import com.mybaseprojectandroid.utils.widget.SliderAdapter
 
 
 class OnBoarding : AppCompatActivity() {
@@ -38,7 +38,7 @@ class OnBoarding : AppCompatActivity() {
         letsGetStarted = findViewById(R.id.get_started_btn)
 
         //Call adapter
-        sliderAdapter =  SliderAdapter(this)
+        sliderAdapter = SliderAdapter(this)
         viewPager.setAdapter(sliderAdapter)
 
         //Dots

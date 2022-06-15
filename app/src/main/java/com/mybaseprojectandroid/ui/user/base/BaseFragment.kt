@@ -3,15 +3,13 @@ package com.mybaseprojectandroid.ui.user.base
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.FragmentBaseBinding
-import com.mybaseprojectandroid.utils.system.MainPagerAdapter
+import com.mybaseprojectandroid.utils.widget.MainPagerAdapter
 
 
 class BaseFragment : Fragment(R.layout.fragment_base) {
