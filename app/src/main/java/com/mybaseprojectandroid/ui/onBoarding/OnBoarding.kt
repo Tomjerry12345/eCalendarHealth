@@ -13,7 +13,9 @@ import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.ui.auth.AuthActivity
-import com.mybaseprojectandroid.utils.widget.SliderAdapter
+import com.mybaseprojectandroid.ui.onBoarding.adapter.SliderAdapter
+import com.mybaseprojectandroid.utils.local.setSavedAdmin
+import com.mybaseprojectandroid.utils.local.setSavedPasien
 
 
 class OnBoarding : AppCompatActivity() {
@@ -31,14 +33,16 @@ class OnBoarding : AppCompatActivity() {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_on_boarding)
 
-
         //Hooks
         viewPager = findViewById(R.id.slider);
         dotsLayout = findViewById(R.id.dots);
         letsGetStarted = findViewById(R.id.get_started_btn)
 
         //Call adapter
-        sliderAdapter = SliderAdapter(this)
+        sliderAdapter =
+            SliderAdapter(
+                this
+            )
         viewPager.setAdapter(sliderAdapter)
 
         //Dots

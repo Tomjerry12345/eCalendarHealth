@@ -1,6 +1,5 @@
 package com.mybaseprojectandroid.ui.auth.register
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -8,14 +7,13 @@ import androidx.fragment.app.viewModels
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.RegisterFragmentBinding
-import com.mybaseprojectandroid.ui.user.base.BaseActivity
+import com.mybaseprojectandroid.ui.main.base.BaseActivity
 import com.mybaseprojectandroid.utils.local.SavedData
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.moveIntentTo
-import com.mybaseprojectandroid.utils.system.moveNavigationTo
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 
 class RegisterFragment : Fragment(R.layout.register_fragment) {

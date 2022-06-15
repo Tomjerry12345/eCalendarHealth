@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/examplesFragment"
-        android:name="com.mybaseprojectandroid.ui.user.main.ExamplesMainFragment"
+        android:name="com.mybaseprojectandroid.ui.examples.main.ExamplesMainFragment"
         android:label="Main"
         tools:layout="@layout/examples_main_fragment" >
         <action

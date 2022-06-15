@@ -24,7 +24,7 @@
             android:name=".ui.auth.AuthActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.user.base.BaseActivity"
+            android:name=".ui.main.base.BaseActivity"
             android:exported="false" />
         <activity
             android:name=".ui.onBoarding.OnBoarding"

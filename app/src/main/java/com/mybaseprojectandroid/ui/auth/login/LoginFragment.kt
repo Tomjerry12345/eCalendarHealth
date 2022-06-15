@@ -1,6 +1,5 @@
 package com.mybaseprojectandroid.ui.auth.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -8,10 +7,9 @@ import androidx.fragment.app.viewModels
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.LoginFragmentBinding
-import com.mybaseprojectandroid.ui.user.base.BaseActivity
+import com.mybaseprojectandroid.ui.main.base.BaseActivity
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
-import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.other.showToast
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
@@ -39,8 +37,9 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
         }
 
         viewModel.response.observe(viewLifecycleOwner) {
-            when(it) {
-                is Response.Changed -> {}
+            when (it) {
+                is Response.Changed -> {
+                }
                 is Response.Error -> {
                     dialog.dismiss()
                     showToast(view.context, it.error)
@@ -57,12 +56,6 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             }
         }
 
-//        binding.masuk.setOnClickListener {
-//            requireActivity().apply {
-//                startActivity(Intent(requireContext(), BaseActivity::class.java))
-//                finish()
-//            }
-//        }
     }
 
 }

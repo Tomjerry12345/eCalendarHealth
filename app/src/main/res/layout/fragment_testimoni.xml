@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.mybaseprojectandroid.ui.user.testimoni.TestimoniViewModel" />
+            type="com.mybaseprojectandroid.ui.main.testimoni.TestimoniViewModel" />
 
     </data>
 

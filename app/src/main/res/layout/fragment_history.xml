@@ -6,14 +6,14 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.mybaseprojectandroid.ui.user.history.HistoryViewModel" />
+            type="com.mybaseprojectandroid.ui.main.history.HistoryViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.user.history.HistoryFragment"
+        tools:context=".ui.main.history.HistoryFragment"
         >
 
         <androidx.cardview.widget.CardView

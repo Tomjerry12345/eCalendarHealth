@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.user.timer.TimerFragment"
+        tools:context=".ui.main.timer.TimerFragment"
         android:background="@android:color/black">
 
         <View

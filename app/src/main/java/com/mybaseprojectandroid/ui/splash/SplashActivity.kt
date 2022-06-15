@@ -1,16 +1,16 @@
 package com.mybaseprojectandroid.ui.splash
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.ui.onBoarding.OnBoarding
-import com.mybaseprojectandroid.ui.user.base.BaseActivity
+import com.mybaseprojectandroid.ui.main.base.BaseActivity
 import com.mybaseprojectandroid.utils.local.SavedData
+import com.mybaseprojectandroid.utils.local.setSavedAdmin
+import com.mybaseprojectandroid.utils.local.setSavedPasien
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.moveIntentTo
@@ -32,6 +32,8 @@ class SplashActivity : AppCompatActivity() {
             if (isLoggin) {
                 moveIntentTo(this, BaseActivity(), true)
             } else {
+                setSavedAdmin(null)
+                setSavedPasien(null)
                 moveIntentTo(this, OnBoarding(), true)
             }
         }, 3000) // 3000 is the delayed time in milliseconds.

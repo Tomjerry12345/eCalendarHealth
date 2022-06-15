@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/_16dp"
-            tools:context=".ui.user.auth.RegisterActivity">
+            tools:context=".ui.main.auth.RegisterActivity">
 
             <TextView
                 android:id="@+id/txtregister"

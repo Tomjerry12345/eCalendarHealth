@@ -1,16 +1,14 @@
 package com.mybaseprojectandroid.ui.auth.login
 
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
-import com.mybaseprojectandroid.model.PasienModel
+import com.mybaseprojectandroid.model.AdminModel
+import com.mybaseprojectandroid.utils.local.setSavedAdmin
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.checkEmpty
-import com.mybaseprojectandroid.utils.other.showToast
-import com.mybaseprojectandroid.utils.widget.DialogProgress
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val db: FirebaseDatabase) : ViewModel() {
@@ -27,8 +25,17 @@ class LoginViewModel(private val db: FirebaseDatabase) : ViewModel() {
             response.value = Response.Progress(true)
 
             viewModelScope.launch {
-                response.value = db.login(Constant.KEY_PASIEN, username, password)
-                response.value = Response.Progress(false)
+                if (username == "admin" && password == "55555") {
+                    val adminModel = AdminModel(
+                        username
+                    )
+                    setSavedAdmin(adminModel)
+                    response.value = Response.Success("Berhasil")
+                } else {
+                    response.value = db.login(Constant.KEY_PASIEN, username, password)
+                    response.value = Response.Progress(false)
+                }
+
             }
 
         } catch (e: Exception) {
