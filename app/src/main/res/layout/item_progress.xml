@@ -33,6 +33,7 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <ImageView
+            android:id="@+id/ceklis"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintEnd_toEndOf="parent"
