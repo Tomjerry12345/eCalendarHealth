@@ -18,6 +18,7 @@ import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.other.showToast
 import com.mybaseprojectandroid.utils.system.DateCustom
 import com.mybaseprojectandroid.utils.system.moveIntentTo
+import com.mybaseprojectandroid.utils.system.popNavigation
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 
 
@@ -36,21 +37,28 @@ class PemeriksaanFragment : Fragment(R.layout.fragment_pemeriksaan) {
         binding = FragmentPemeriksaanBinding.bind(view)
         binding.viewModel = viewModel
 
-        showLogAssert("timestamp", DateCustom.getTimestamp().toString())
-
         setDropdown()
 
+        getResponse()
+
+        binding.back.setOnClickListener {
+            popNavigation(requireView())
+        }
+
+    }
+
+    private fun getResponse() {
         viewModel.response.observe(viewLifecycleOwner) {
             when(it) {
                 is Response.Changed -> {}
                 is Response.Error -> {
-                    showToast(view.context, it.error)
+                    showToast(requireContext(), it.error)
                 }
                 is Response.Success -> {
                     moveIntentTo(requireActivity(), BaseActivity(), true)
                 }
                 is Response.Progress -> {
-                    val dialog = DialogProgress.initDialog(view.context)
+                    val dialog = DialogProgress.initDialog(requireContext())
                     if (it.activated)
                         dialog.show()
                     else
@@ -58,7 +66,6 @@ class PemeriksaanFragment : Fragment(R.layout.fragment_pemeriksaan) {
                 }
             }
         }
-
     }
 
     private fun setDropdown() {

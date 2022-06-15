@@ -11,6 +11,10 @@ fun moveNavigationTo(view: View, destination: Int, bundle: Bundle? = null) {
     view.findNavController().navigate(destination, bundle)
 }
 
+fun popNavigation(view: View) {
+    view.findNavController().popBackStack()
+}
+
 fun moveIntentTo(
     start: ComponentActivity,
     destination: AppCompatActivity,

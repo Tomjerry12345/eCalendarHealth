@@ -25,9 +25,7 @@ import com.mybaseprojectandroid.utils.system.DateCustom
 class HistoryFragment : Fragment(R.layout.fragment_history) {
 
     companion object {
-        fun newInstance(): HistoryFragment {
-            return HistoryFragment()
-        }
+        fun newInstance() = HistoryFragment()
     }
 
     private lateinit var binding: FragmentHistoryBinding

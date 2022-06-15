@@ -9,7 +9,7 @@
         android:id="@+id/loginFragment"
         android:name="com.mybaseprojectandroid.ui.auth.login.LoginFragment"
         android:label="login_fragment"
-        tools:layout="@layout/login_fragment" >
+        tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -18,5 +18,5 @@
         android:id="@+id/registerFragment"
         android:name="com.mybaseprojectandroid.ui.auth.register.RegisterFragment"
         android:label="RegisterFragment"
-        tools:layout="@layout/register_fragment"/>
+        tools:layout="@layout/fragment_register"/>
 </navigation>

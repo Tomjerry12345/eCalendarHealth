@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
-import com.mybaseprojectandroid.databinding.RegisterFragmentBinding
+import com.mybaseprojectandroid.databinding.FragmentRegisterBinding
 import com.mybaseprojectandroid.ui.main.base.BaseActivity
 import com.mybaseprojectandroid.utils.local.SavedData
 import com.mybaseprojectandroid.utils.network.Response
@@ -16,18 +16,18 @@ import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 
-class RegisterFragment : Fragment(R.layout.register_fragment) {
+class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private val viewModel: RegisterViewModel by viewModels {
         FactoryViewModel(RegisterViewModel(FirebaseDatabase()))
     }
 
-    private lateinit var binding: RegisterFragmentBinding
+    private lateinit var binding: FragmentRegisterBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = RegisterFragmentBinding.bind(view)
+        binding = FragmentRegisterBinding.bind(view)
 
         binding.viewModel = viewModel
 
