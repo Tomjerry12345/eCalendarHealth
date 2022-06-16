@@ -9,27 +9,33 @@ import com.mybaseprojectandroid.databinding.FragmentTestimoniBinding
 
 class TestimoniFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     private lateinit var binding : FragmentTestimoniBinding
     private lateinit var viewModel: TestimoniViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentTestimoniBinding.inflate(inflater,container,false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding = FragmentTestimoniBinding.bind(view)
         viewModel = TestimoniViewModel(binding.rvListPasien)
         viewModel.setData()
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         binding.viewmodel = viewModel
 
-        return binding.root
-     }
+    }
+
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        // Inflate the layout for this fragment
+//        binding = FragmentTestimoniBinding.inflate(inflater,container,false)
+//        viewModel = TestimoniViewModel(binding.rvListPasien)
+//        viewModel.setData()
+//        binding.lifecycleOwner = this
+//        binding.viewmodel = viewModel
+//
+//        return binding.root
+//     }
 
 
 }

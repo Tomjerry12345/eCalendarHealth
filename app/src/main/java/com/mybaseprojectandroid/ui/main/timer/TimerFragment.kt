@@ -52,6 +52,28 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
             Timer.startTimer()
         }
 
+        val range = DateCustom.getRangeWeek()
+
+        var dayStart = DateCustom.getDayByLocalDate(range.startDate)
+        val monthStart = DateCustom.getMonthByLocalDate(range.startDate)
+        val yearStart = DateCustom.getYearByLocalDate(range.startDate)
+
+        val dateStart = DateModel(
+            dayStart,
+            monthStart,
+            yearStart
+        )
+
+        var dayEnd = DateCustom.getDayByLocalDate(range.endDate)
+        val monthEnd = DateCustom.getMonthByLocalDate(range.endDate)
+        val yearEnd = DateCustom.getYearByLocalDate(range.endDate)
+
+        val dateEnd = DateModel(
+            dayEnd,
+            monthEnd,
+            yearEnd
+        )
+
         viewModel.data.observe(viewLifecycleOwner) {
             when (it) {
                 is Response.Changed -> {
@@ -117,12 +139,12 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                                     )
                                 addNewData()
                             } else {
-                                initData()
+                                initData(dateStart, dateEnd)
                                 addNewData()
                             }
 
                         } else {
-                            initData()
+                            initData(dateStart, dateEnd)
                             addNewData()
                         }
 
@@ -151,7 +173,7 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
         }
     }
 
-    private fun initData() {
+    private fun initData(dateStart: DateModel, dateEnd: DateModel) {
         beforeDataAktivitas = Aktivitas(
             idUser = savedPasien?.id,
             sumDayBring = 1,
@@ -163,6 +185,8 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                 year = yearNow,
                 hours = hoursNow
             ),
+            startDate = dateStart,
+            endDate = dateEnd,
             month = monthNow,
             isUpdate = true
         )
