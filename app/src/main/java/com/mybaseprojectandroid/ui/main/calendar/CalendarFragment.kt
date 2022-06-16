@@ -1,6 +1,5 @@
 package com.mybaseprojectandroid.ui.main.calendar
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -15,8 +14,8 @@ import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.getColor
-import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import sun.bob.mcalendarview.MarkStyle
+import sun.bob.mcalendarview.vo.DateData
 
 class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
@@ -36,33 +35,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentCalendarBinding.bind(view)
-
-        binding.calendar.selectionMode = MaterialCalendarView.SELECTION_MODE_NONE
-
         getData()
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-//            val range = DateCustom.getRangeWeek()
-//
-//            var day = DateCustom.getDayByLocalDate(range.startDate)
-//            val month = DateCustom.getMonthByLocalDate(range.startDate)
-//            val year = DateCustom.getYearByLocalDate(range.startDate)
-//
-//            for (i in 1..7) {
-//                showLogAssert("day", "$day")
-//                binding.calendar.setDateSelected(CalendarDay.from(year, month, day), true)
-//                day += 1
-//            }
-        }
-
-//        binding.calendar.apply {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                selectCustomMultiple(LocalDate.of(2022, 6, 8), LocalDate.of(2022, 6, 14))
-////                selectCustom(LocalDate.of(2022, 6, 12), LocalDate.of(2022, 6, 20), true)
-//            }
-////            selectWeek(2022, 6, 0, true)
-//        }
     }
 
     private fun getData() {
@@ -82,25 +55,13 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
                         showLogAssert("sumWeekBring", "$sumWeekBring")
 
-                        if (sumWeekBring!! < 7) {
-                            showLogAssert("sumWeekBring!! < 7", "true")
-                            binding.calendar.selectionColor =
-                                getColor(requireContext(), R.color.red)
-                        } else {
-                            showLogAssert("sumWeekBring!! >= 7", "true")
-                            binding.calendar.selectionColor =
-                                getColor(requireContext(), R.color.primary_color)
-                        }
+                        val colorRed = getColor(requireContext(), R.color.red)
+                        val colorGreen = getColor(requireContext(), R.color.primary_color)
 
-                        for (i in 1..7) {
-                            binding.calendar.setDateSelected(
-                                CalendarDay.from(
-                                    year!!,
-                                    month!!,
-                                    day!!
-                                ), true
-                            )
-                            day += 1
+                        if (sumWeekBring!! < 7) {
+                            setDate(day!!, month!!, year!!, colorRed)
+                        } else {
+                            setDate(day!!, month!!, year!!, colorGreen)
                         }
                     }
 
@@ -109,6 +70,18 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                 is Response.Progress -> TODO()
                 is Response.Success -> TODO()
             }
+        }
+    }
+
+    private fun setDate(day: Int, month: Int, year: Int, color: Int) {
+        var day1 = day
+        for (i in 1..7) {
+            binding.calendar.markDate(
+                DateData(year, month, day1).setMarkStyle(
+                    MarkStyle(MarkStyle.BACKGROUND, color)
+                )
+            )
+            day1 += 1
         }
     }
 
