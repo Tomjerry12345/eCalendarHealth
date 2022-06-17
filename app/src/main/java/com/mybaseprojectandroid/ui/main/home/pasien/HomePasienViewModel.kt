@@ -25,7 +25,7 @@ class HomePasienViewModel(private val db: FirebaseDatabase) : ViewModel() {
         "value" to "HbA1C"
     )
 
-    val mapLBS = hashMapOf(
+    private val mapLBS = hashMapOf(
         "key" to "jenis",
         "value" to "LBS"
     )

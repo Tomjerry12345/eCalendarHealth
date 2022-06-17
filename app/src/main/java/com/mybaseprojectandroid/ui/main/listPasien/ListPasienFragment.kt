@@ -24,14 +24,11 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
     private val viewModel: ListPasienViewModel by viewModels {
         FactoryViewModel(ListPasienViewModel(FirebaseDatabase()))
-//        ListPasienViewModel.Factory(binding.rvListPasien)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentListPasienBinding.bind(view)
-//        viewModel.setData()
-
         viewModel.data.observe(viewLifecycleOwner) {
             when(it) {
                 is Response.Changed -> {

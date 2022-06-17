@@ -26,6 +26,7 @@ object Constant {
     const val KEY_IS_LOGGIN = "isLoggin"
 
     const val KEY_NAMA_LENGKAP = "nama-lengkap"
+    const val KEY_ID_USER = "id-user"
 
     val listCardItem = listOf(
         CardItem(

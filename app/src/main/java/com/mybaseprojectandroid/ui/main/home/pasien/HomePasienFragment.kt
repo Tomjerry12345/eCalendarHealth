@@ -28,6 +28,7 @@ import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.ExcellUtils
+import com.mybaseprojectandroid.utils.system.getColor
 
 
 class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
@@ -60,14 +61,6 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
         binding.tvTitle.text = "Hi, ${pasien?.namaLengkap}"
 
-        testExcell()
-    }
-
-    fun testExcell() {
-        val excellObj = ExcellUtils(requireActivity())
-
-        val excellWorkbook = excellObj.createWorkbook()
-        excellObj.createExcel(excellWorkbook)
     }
 
     private fun setRecyclerView() {
@@ -191,8 +184,8 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         set1.lineWidth = 2f
         set1.circleRadius = 3f
         set1.setDrawValues(false)
-        set1.circleHoleColor = resources.getColor(R.color.yellow)
-        set1.setCircleColor(resources.getColor(R.color.yellow))
+        set1.circleHoleColor = getColor(requireContext(), R.color.yellow)
+        set1.setCircleColor(getColor(requireContext(), R.color.yellow))
 
 //String setter in x-Axis
 
@@ -287,6 +280,5 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
         return entries
     }
-
 
 }

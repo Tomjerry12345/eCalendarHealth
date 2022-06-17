@@ -25,7 +25,8 @@ class ListPasienAdapter(val list: List<PasienModel>) :
             )
 
             val bundle = bundleOf(
-                Constant.KEY_NAMA_LENGKAP to pasien.namaLengkap
+                Constant.KEY_NAMA_LENGKAP to pasien.namaLengkap,
+                Constant.KEY_ID_USER to pasien.id
             )
 
             binding.root.setOnClickListener {

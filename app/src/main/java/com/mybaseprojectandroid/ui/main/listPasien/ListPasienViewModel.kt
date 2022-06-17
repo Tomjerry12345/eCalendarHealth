@@ -13,25 +13,6 @@ import com.mybaseprojectandroid.utils.other.Constant
 
 class ListPasienViewModel(val db: FirebaseDatabase) : ViewModel() {
 
-//    var listPasien = ArrayList<Pasien>()
-//
-//    fun setData(){
-//        listPasien.add(Pasien("Fadhil","10%"))
-//        listPasien.add(Pasien("Fadhil","10%"))
-//        listPasien.add(Pasien("Fadhil","10%"))
-//        listPasien.add(Pasien("Fadhil","10%"))
-//        listPasien.add(Pasien("Fadhil","10%"))
-//
-//        setList()
-//    }
-//
-//    private fun setList() {
-//        val adapterr = ListPasienAdapter(listPasien)
-//        rvItemPasien.apply {
-//            layoutManager = LinearLayoutManager(context)
-//            adapter = adapterr
-//        }    }
-
     val data: LiveData<Response> = liveData {
         val response =
             db.getAllData(
