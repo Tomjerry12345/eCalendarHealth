@@ -49,4 +49,8 @@
         android:name="com.mybaseprojectandroid.ui.main.detailPasien.DetailPasienFragment"
         android:label="fragment_detail_pasien"
         tools:layout="@layout/fragment_detail_pasien" />
+    <fragment
+        android:id="@+id/ubahProfilFragment"
+        android:name="com.mybaseprojectandroid.ui.main.ubahProfil.UbahProfilFragment"
+        android:label="UbahProfilFragment" />
 </navigation>

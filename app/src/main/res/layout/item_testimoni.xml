@@ -12,7 +12,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16dp"
+        android:layout_marginBottom="@dimen/_16dp"
         app:cardCornerRadius="@dimen/_8dp"
         android:layout_marginHorizontal="@dimen/_16dp">
 
@@ -28,7 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:autoPlay="false" />
+                app:autoPlay="false"
+                />
 
             <TextView
                 android:id="@+id/title_video"
@@ -40,7 +41,7 @@
                 android:layout_marginTop="@dimen/_16dp"
                 android:layout_marginHorizontal="@dimen/_16dp"
                 style="@style/DMSansBoldTitle"
-                android:text="Lorem Ipsum Text" />
+                android:text="@{itemTestimoni.title}" />
 
             <TextView
                 android:layout_width="0dp"
@@ -51,7 +52,7 @@
                 android:layout_marginTop="@dimen/_16dp"
                 android:layout_marginHorizontal="@dimen/_16dp"
                 style="@style/DMSansRegular"
-                android:text="Lorem Ipsum Text description" />
+                android:text="@{itemTestimoni.desc}" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

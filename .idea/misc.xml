@@ -24,12 +24,15 @@
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_dashboard_perawat.xml" value="0.16666666666666666" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_history.xml" value="0.22" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_home_pasien.xml" value="0.23817567567567569" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_list_pasien.xml" value="0.23817567567567569" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_pemeriksaan.xml" value="0.23817567567567569" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_profile.xml" value="0.13333333333333333" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_register.xml" value="0.15608108108108107" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_t_imer.xml" value="0.10574324324324325" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_testimoni.xml" value="0.10574324324324325" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_timer.xml" value="0.10574324324324325" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_ubah_profil.xml" value="0.15608108108108107" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/item_home.xml" value="0.1" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/item_list_pasien.xml" value="0.16666666666666666" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/item_progress.xml" value="0.22" />

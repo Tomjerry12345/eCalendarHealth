@@ -29,6 +29,7 @@ import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.ExcellUtils
 import com.mybaseprojectandroid.utils.system.getColor
+import com.mybaseprojectandroid.utils.system.moveNavigationTo
 
 
 class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
@@ -60,8 +61,12 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         getDataLBS()
 
         binding.tvTitle.text = "Hi, ${pasien?.namaLengkap}"
+        binding.parentTestimoni.setOnClickListener {
+            moveNavigationTo(binding.view,R.id.testimoniFragment)
+        }
 
     }
+
 
     private fun setRecyclerView() {
         val adapterr = CardAdapter(Constant.listCardItem)

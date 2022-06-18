@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1044732151190",
+    "project_id": "e-healt-calender",
+    "storage_bucket": "e-healt-calender.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044732151190:android:e9a52bbf11917edc2f49b7",
+        "android_client_info": {
+          "package_name": "com.mybaseprojectandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044732151190-6rarc5eh97062ea68plaq34lqe50e81s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbI6RP2wouGf3vIQZe-RempK99PFwhxKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044732151190-6rarc5eh97062ea68plaq34lqe50e81s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

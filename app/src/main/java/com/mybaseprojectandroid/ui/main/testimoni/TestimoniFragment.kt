@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.FragmentTestimoniBinding
+import com.mybaseprojectandroid.utils.system.popNavigation
 
-class TestimoniFragment : Fragment() {
+class TestimoniFragment : Fragment(R.layout.fragment_testimoni) {
 
     private lateinit var binding : FragmentTestimoniBinding
     private lateinit var viewModel: TestimoniViewModel
@@ -20,7 +22,16 @@ class TestimoniFragment : Fragment() {
         viewModel.setData()
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
+        back()
 
+
+
+    }
+
+    private fun back() {
+        binding.backButton.setOnClickListener {
+            popNavigation(requireView())
+        }
     }
 
 //    override fun onCreateView(

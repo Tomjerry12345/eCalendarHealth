@@ -9,6 +9,7 @@ import com.mybaseprojectandroid.ui.auth.AuthActivity
 import com.mybaseprojectandroid.utils.local.SavedData
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.system.moveIntentTo
+import com.mybaseprojectandroid.utils.system.moveNavigationTo
 
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -28,6 +29,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             SavedData.setBoolean(Constant.KEY_IS_LOGGIN, false)
             SavedData.setObject(Constant.KEY_PASIEN, null)
             moveIntentTo(requireActivity(), AuthActivity(), true)
+        }
+        binding.tvUbahProfil.setOnClickListener{
+            moveNavigationTo(requireView(),R.id.ubahProfilFragment)
         }
     }
 }
