@@ -8,6 +8,7 @@ import android.widget.AutoCompleteTextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.FragmentPemeriksaanBinding
@@ -44,8 +45,29 @@ class PemeriksaanFragment : Fragment(R.layout.fragment_pemeriksaan) {
         binding.back.setOnClickListener {
             popNavigation(requireView())
         }
+        binding.teTanggal.setOnClickListener {
+            showDate()
+        }
+
 
     }
+    private fun showDate() {
+        val materialDateBuilder: MaterialDatePicker.Builder<*> =
+            MaterialDatePicker.Builder.datePicker()
+        val materialDatePicker: MaterialDatePicker<*> = materialDateBuilder.build()
+
+
+
+        materialDatePicker.show(getParentFragmentManager() , "MATERIAL_DATE_PICKER")
+
+
+        materialDatePicker.addOnPositiveButtonClickListener {
+
+            binding.teTanggal.setText(materialDatePicker.headerText)
+
+        }
+    }
+
 
     private fun getResponse() {
         viewModel.response.observe(viewLifecycleOwner) {

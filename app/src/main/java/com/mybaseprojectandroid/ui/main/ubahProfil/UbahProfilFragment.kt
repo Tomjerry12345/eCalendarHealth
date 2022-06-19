@@ -25,7 +25,8 @@ class UbahProfilFragment : Fragment(R.layout.fragment_ubah_profil) {
 
         binding = FragmentUbahProfilBinding.bind(view)
 
-        binding.layoutTanggal.setOnClickListener {
+
+        binding.tiTanggal.setOnClickListener {
             showDate()
         }
 
@@ -36,28 +37,15 @@ class UbahProfilFragment : Fragment(R.layout.fragment_ubah_profil) {
             MaterialDatePicker.Builder.datePicker()
         val materialDatePicker: MaterialDatePicker<*> = materialDateBuilder.build()
 
-        // handle select date button which opens the
-        // material design date picker
-
-        // handle select date button which opens the
-        // material design date picker
-
-                materialDatePicker.show(getParentFragmentManager() , "MATERIAL_DATE_PICKER")
 
 
-        // now handle the positive button click from the
-        // material design date picker
+        materialDatePicker.show(getParentFragmentManager() , "MATERIAL_DATE_PICKER")
 
-        // now handle the positive button click from the
-        // material design date picker
+
         materialDatePicker.addOnPositiveButtonClickListener {
-            // if the user clicks on the positive
-            // button that is ok button update the
-            // selected date
+
             binding.tiTanggal.setText(materialDatePicker.headerText)
-            // in the above statement, getHeaderText
-            // is the selected date preview from the
-            // dialog
+
         }
     }
 
