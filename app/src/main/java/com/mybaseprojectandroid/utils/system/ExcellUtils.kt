@@ -140,7 +140,7 @@ class ExcellUtils(private val activity: ComponentActivity, val dataPasienModel: 
             val fileOut = FileOutputStream(excelFile)
             workbook.write(fileOut)
             fileOut.close()
-            showToast(activity, "Berhasil membuat file")
+            showToast(activity, "Berhasil membuat file Di folder Document/test.xlsx")
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
             showLogAssert("error", "${e.printStackTrace()}")
