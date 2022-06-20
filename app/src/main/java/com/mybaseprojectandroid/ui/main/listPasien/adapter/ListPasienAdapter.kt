@@ -11,12 +11,16 @@ import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.RecyclerViewUtils
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 
-class ListPasienAdapter(val list: List<PasienModel>, private val listPersenAktivitas: ArrayList<Int>) :
+class ListPasienAdapter(
+    val list: List<PasienModel>,
+    private val listPersenAktivitas: ArrayList<Int>
+) :
     RecyclerView.Adapter<ListPasienAdapter.ViewHolder>() {
 
     inner class ViewHolder(private var binding: ItemListPasienBinding) :
         RecyclerView.ViewHolder(binding.root), RecyclerViewUtils {
         fun bind(pasien: PasienModel, position: Int, persen: Int) {
+
             binding.itemPasien = pasien
             binding.persen = "$persen %"
 
@@ -34,7 +38,11 @@ class ListPasienAdapter(val list: List<PasienModel>, private val listPersenAktiv
             )
 
             binding.root.setOnClickListener {
-                moveNavigationTo(binding.root, R.id.action_listPasienFragment_to_detailPasienFragment, bundle)
+                moveNavigationTo(
+                    binding.root,
+                    R.id.action_listPasienFragment_to_detailPasienFragment,
+                    bundle
+                )
             }
 
         }

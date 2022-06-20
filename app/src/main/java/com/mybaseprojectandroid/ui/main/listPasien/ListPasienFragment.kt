@@ -1,6 +1,8 @@
 package com.mybaseprojectandroid.ui.main.listPasien
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
@@ -14,11 +16,14 @@ import com.mybaseprojectandroid.databinding.FragmentListPasienBinding
 import com.mybaseprojectandroid.model.Aktivitas
 import com.mybaseprojectandroid.model.PasienModel
 import com.mybaseprojectandroid.ui.main.listPasien.adapter.ListPasienAdapter
+import com.mybaseprojectandroid.utils.local.SavedData
 import com.mybaseprojectandroid.utils.network.Response
+import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.ExcellUtils
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
+import com.mybaseprojectandroid.utils.widget.DialogProgress
 
 
 class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
@@ -36,6 +41,11 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentListPasienBinding.bind(view)
+
+        val dialog = DialogProgress.initDialog(requireContext())
+
+        dialog.show()
+
         viewModel.data.observe(viewLifecycleOwner) {
             when (it) {
                 is Response.Changed -> {
@@ -46,38 +56,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
                     dataPasienModel = querySnapshot.toObjects()
 
-                    dataPasienModel.forEach { pasien ->
-                        viewModel.getAktivitas(pasien.id!!).observe(viewLifecycleOwner) { respons ->
-                            when (respons) {
-                                is Response.Changed -> {
-                                    val queryRespons = respons.data as QuerySnapshot
-
-                                    val aktivitas = queryRespons.toObjects<Aktivitas>()
-
-                                    showLogAssert("aktivitas", "$aktivitas")
-                                    showLogAssert("i", "$i")
-
-                                    var hasilPersen = 0
-
-                                    if (aktivitas.isNotEmpty()) {
-                                        hasilPersen = (aktivitas[0].sumWeekBring!! * 100) / 5
-                                    }
-
-                                    listPersenAktivitas.add(hasilPersen)
-
-                                    if (i == dataPasienModel.size - 1) {
-                                        viewModel.setIsSucces(true)
-                                    }
-                                    i += 1
-                                }
-                                is Response.Error -> TODO()
-                                is Response.Progress -> TODO()
-                                is Response.Success -> TODO()
-                            }
-                        }
-
-                    }
-
+                    getAktivitas()
                 }
                 is Response.Error -> {
                     showLogAssert("error", it.error)
@@ -90,8 +69,12 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
         viewModel.isSucces.observe(viewLifecycleOwner) {
             showLogAssert("isSucces", "$it")
             if (it) {
+                dialog.hide()
                 showLogAssert("listPersenAktivitas", "$listPersenAktivitas")
-                val adapter1 = ListPasienAdapter(dataPasienModel, listPersenAktivitas)
+                val adapter1 = ListPasienAdapter(
+                    dataPasienModel,
+                    listPersenAktivitas
+                )
 
                 binding.rvListPasien.apply {
                     adapter = adapter1
@@ -112,6 +95,47 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
         binding.btnExport.setOnClickListener {
             exportExcell()
         }
+    }
+
+    fun getAktivitas() {
+        Handler(Looper.getMainLooper()).postDelayed({
+//            SavedData.setBoolean(Constant.KEY_IS_LOGGIN, false)
+            val isLoggin = SavedData.getBoolean(Constant.KEY_IS_LOGGIN)
+
+            showLogAssert("isLoggin", "$isLoggin")
+            dataPasienModel[i].id?.let {
+                viewModel.getAktivitas(it).observe(viewLifecycleOwner) { respons ->
+                    when (respons) {
+                        is Response.Changed -> {
+                            val queryRespons = respons.data as QuerySnapshot
+
+                            val aktivitas = queryRespons.toObjects<Aktivitas>()
+
+                            showLogAssert("aktivitas", "$aktivitas")
+                            showLogAssert("i", "$i")
+
+                            if (aktivitas.isNotEmpty()) {
+                                val hasilPersen = (aktivitas[0].sumWeekBring!! * 100) / 5
+                                listPersenAktivitas.add(hasilPersen)
+                            } else {
+                                listPersenAktivitas.add(0)
+                            }
+
+                            if (i == this.dataPasienModel.size - 1) {
+                                viewModel.setIsSucces(true)
+                            } else {
+                                i += 1
+                                getAktivitas()
+                            }
+                        }
+                        is Response.Error -> TODO()
+                        is Response.Progress -> TODO()
+                        is Response.Success -> TODO()
+                    }
+                }
+            }
+
+        }, 100)
     }
 
     private fun exportExcell() {
