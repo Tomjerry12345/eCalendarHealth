@@ -7,6 +7,7 @@ import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.FragmentProfileBinding
 import com.mybaseprojectandroid.ui.auth.AuthActivity
 import com.mybaseprojectandroid.utils.local.SavedData
+import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
@@ -25,13 +26,18 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         binding = FragmentProfileBinding.bind(view)
 
+        val pasien = getSavedPasien()
+
+        binding.txtNameInisial.text = pasien?.namaLengkap?.get(0)?.toString()
+        binding.tvNamaLengkap.text = pasien?.namaLengkap
+
         binding.keluar.setOnClickListener {
             SavedData.setBoolean(Constant.KEY_IS_LOGGIN, false)
             SavedData.setObject(Constant.KEY_PASIEN, null)
             moveIntentTo(requireActivity(), AuthActivity(), true)
         }
         binding.tvUbahProfil.setOnClickListener{
-            moveNavigationTo(requireView(),R.id.ubahProfilFragment)
+            moveNavigationTo(requireView(),R.id.ubahProfilFragment, )
         }
     }
 }

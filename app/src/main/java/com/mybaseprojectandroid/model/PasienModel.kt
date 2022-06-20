@@ -2,12 +2,12 @@ package com.mybaseprojectandroid.model
 
 data class PasienModel(
     var id: String? = null,
-    val namaLengkap: String? = null,
-    val alamat: String? = null,
-    val tanggalLahir: String? = null,
-    val lamaDiagnosaDm: String? = null,
-    val pengobatan: String? = null,
-    val pendamping: String? = null,
+    var namaLengkap: String? = null,
+    var alamat: String? = null,
+    var tanggalLahir: String? = null,
+    var lamaDiagnosaDm: String? = null,
+    var pengobatan: String? = null,
+    var pendamping: String? = null,
     val username: String? = null,
-    val password: String? = null,
+    var password: String? = null,
 )

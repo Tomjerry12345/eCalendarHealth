@@ -80,9 +80,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             MaterialDatePicker.Builder.datePicker()
         val materialDatePicker: MaterialDatePicker<*> = materialDateBuilder.build()
 
-
-
-        materialDatePicker.show(getParentFragmentManager() , "MATERIAL_DATE_PICKER")
+        materialDatePicker.show(parentFragmentManager, "MATERIAL_DATE_PICKER")
 
 
         materialDatePicker.addOnPositiveButtonClickListener {
