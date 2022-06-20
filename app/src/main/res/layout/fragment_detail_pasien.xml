@@ -103,6 +103,7 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_aktivitas" />
 
                     <TextView
+                        android:id="@+id/txtPersen"
                         style="@style/DMSansBoldTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -11,6 +11,7 @@ import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import kotlinx.coroutines.tasks.await
+import java.util.HashMap
 
 class FirebaseDatabase {
 
@@ -46,7 +47,7 @@ class FirebaseDatabase {
 
     suspend fun getDataByQuery(
         reference: String,
-        listQuery: List<HashMap<String, Any>>
+        listQuery: List<HashMap<String, out Any>>
     ): Response {
         return try {
 
@@ -65,7 +66,7 @@ class FirebaseDatabase {
 
     private fun getQuery(
         reference: CollectionReference,
-        listQuery: List<HashMap<String, Any>>,
+        listQuery: List<HashMap<String, out Any>>,
     ): Query {
         var query: Query? = null
 
@@ -183,7 +184,7 @@ class FirebaseDatabase {
             if (sameUsername.isEmpty) {
                 val response = db.collection(path).add(data).await()
                 update(path, response.id, "id", response.id)
-                Response.Success("Berhasil")
+                Response.Changed(response.id)
             } else {
                 Response.Error("Username sudah terdaftar")
             }

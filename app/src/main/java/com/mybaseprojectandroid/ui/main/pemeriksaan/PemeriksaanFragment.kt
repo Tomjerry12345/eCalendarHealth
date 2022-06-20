@@ -15,9 +15,7 @@ import com.mybaseprojectandroid.databinding.FragmentPemeriksaanBinding
 import com.mybaseprojectandroid.ui.main.base.BaseActivity
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
-import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.other.showToast
-import com.mybaseprojectandroid.utils.system.DateCustom
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.system.popNavigation
 import com.mybaseprojectandroid.utils.widget.DialogProgress

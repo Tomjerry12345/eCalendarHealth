@@ -8,29 +8,33 @@ import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.ItemListPasienBinding
 import com.mybaseprojectandroid.model.PasienModel
 import com.mybaseprojectandroid.utils.other.Constant
+import com.mybaseprojectandroid.utils.other.RecyclerViewUtils
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 
-class ListPasienAdapter(val list: List<PasienModel>) :
+class ListPasienAdapter(val list: List<PasienModel>, private val listPersenAktivitas: ArrayList<Int>) :
     RecyclerView.Adapter<ListPasienAdapter.ViewHolder>() {
 
     inner class ViewHolder(private var binding: ItemListPasienBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(pasien: PasienModel, position: Int) {
+        RecyclerView.ViewHolder(binding.root), RecyclerViewUtils {
+        fun bind(pasien: PasienModel, position: Int, persen: Int) {
             binding.itemPasien = pasien
+            binding.persen = "$persen %"
+
             binding.executePendingBindings()
             binding.number.text = position.plus(1).toString()
-            var pos = position + 1
+            val pos = position + 1
             if (pos % 2 == 0) binding.bgCard.setBackgroundResource(R.drawable.bg_gradient_horizontal_blue) else binding.bgCard.setBackgroundResource(
                 R.drawable.bg_gradient_horizontal
             )
 
             val bundle = bundleOf(
                 Constant.KEY_NAMA_LENGKAP to pasien.namaLengkap,
-                Constant.KEY_ID_USER to pasien.id
+                Constant.KEY_ID_USER to pasien.id,
+                Constant.KEY_PERSEN to "$persen %"
             )
 
             binding.root.setOnClickListener {
-                moveNavigationTo(binding.root, R.id.detailPasienFragment, bundle)
+                moveNavigationTo(binding.root, R.id.action_listPasienFragment_to_detailPasienFragment, bundle)
             }
 
         }
@@ -45,7 +49,8 @@ class ListPasienAdapter(val list: List<PasienModel>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
-        holder.bind(item, position)
+        val persen = listPersenAktivitas[position]
+        holder.bind(item, position, persen)
     }
 
     override fun getItemCount(): Int = list.size

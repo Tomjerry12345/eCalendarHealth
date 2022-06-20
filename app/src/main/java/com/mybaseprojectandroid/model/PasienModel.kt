@@ -1,7 +1,7 @@
 package com.mybaseprojectandroid.model
 
 data class PasienModel(
-    val id: String? = null,
+    var id: String? = null,
     val namaLengkap: String? = null,
     val alamat: String? = null,
     val tanggalLahir: String? = null,

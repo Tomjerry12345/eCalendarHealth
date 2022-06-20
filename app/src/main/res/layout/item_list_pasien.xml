@@ -7,11 +7,15 @@
             name="itemPasien"
             type="com.mybaseprojectandroid.model.PasienModel" />
 
+        <variable
+            name="persen"
+            type="String" />
+
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
 
         >
 
@@ -86,7 +90,7 @@
                 app:layout_constraintEnd_toEndOf="@id/progresss"
                 style="@style/DMSansRegular"
                 android:textSize="@dimen/_11sp"
-                android:text="100%" />
+                android:text="@{persen}" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

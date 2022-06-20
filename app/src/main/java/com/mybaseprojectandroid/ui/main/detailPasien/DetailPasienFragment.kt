@@ -3,6 +3,7 @@ package com.mybaseprojectandroid.ui.main.detailPasien
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,6 +26,7 @@ import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.getColor
+import com.mybaseprojectandroid.utils.system.moveNavigationTo
 import com.mybaseprojectandroid.utils.system.popNavigation
 import sun.bob.mcalendarview.MarkStyle
 import sun.bob.mcalendarview.vo.DateData
@@ -45,12 +47,19 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
 
         val namaLengkap = arguments?.getString(Constant.KEY_NAMA_LENGKAP)
         val idUser = arguments?.getString(Constant.KEY_ID_USER)
+        val persen = arguments?.getString(Constant.KEY_PERSEN)
 
         viewModel.setAktivitas(idUser!!)
         viewModel.setGrafikHbA1C(idUser)
         viewModel.setGrafikLBS(idUser)
 
+        requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
+            // Handle the back button event
+            back()
+        }
+
         binding.nama.text = namaLengkap
+        binding.txtPersen.text = persen
 
         getAktivitas()
 
@@ -59,13 +68,19 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
         getDataLBS()
 
         binding.back.setOnClickListener {
-            popNavigation(requireView())
+            back()
         }
 
     }
 
+    fun back() {
+        moveNavigationTo(requireView(), R.id.action_detailPasienFragment_to_listPasienFragment)
+    }
+
     private fun getAktivitas() {
         viewModel.responseAktivitas.observe(viewLifecycleOwner) {
+//            showLogAssert("getAktivitas", "$it")
+            binding.calendar.visibility = View.GONE
             when (it) {
                 is Response.Changed -> {
                     val querySnapshot = it.data as QuerySnapshot
@@ -79,7 +94,7 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
 
                         val sumWeekBring = aktivitas.sumWeekBring
 
-                        showLogAssert("sumWeekBring", "$sumWeekBring")
+                        showLogAssert("responseAktivitas", "$data")
 
                         val colorRed = getColor(requireContext(), R.color.red)
                         val colorGreen = getColor(requireContext(), R.color.primary_color)
@@ -100,6 +115,7 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
     }
 
     private fun setDate(day: Int, month: Int, year: Int, color: Int) {
+        binding.calendar.visibility = View.VISIBLE
         var day1 = day
         for (i in 1..7) {
             binding.calendar.markDate(
@@ -112,12 +128,11 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
     }
 
     private fun getHbA1C() {
+        binding.lineChartHB1AC.visibility = View.GONE
         viewModel.responseHbA1C.observe(viewLifecycleOwner) {
             when (it) {
                 is Response.Changed -> {
                     val querySnapshot = it.data as QuerySnapshot
-
-                    val data = querySnapshot.toObjects<Aktivitas>()
 
                     val dataHbA1C = querySnapshot.toObjects<Pemeriksaan>()
 
@@ -135,6 +150,8 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
 
                     setGraphHbA1C(xAxis, yAxis)
 
+                    binding.lineChartHB1AC.visibility = View.VISIBLE
+
                 }
                 is Response.Error -> TODO()
                 is Response.Progress -> TODO()
@@ -144,6 +161,7 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
     }
 
     private fun getDataLBS() {
+        binding.lineCHartLBS.visibility = View.GONE
         viewModel.responseLBS.observe(viewLifecycleOwner) { it ->
             when (it) {
                 is Response.Changed -> {
@@ -164,6 +182,8 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
                     }
 
                     setGraphLBS(xAxis, yAxis)
+
+                    binding.lineCHartLBS.visibility = View.VISIBLE
                 }
                 is Response.Error -> {
                     showLogAssert("error", it.error)

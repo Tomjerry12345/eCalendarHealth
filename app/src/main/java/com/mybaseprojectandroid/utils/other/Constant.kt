@@ -27,6 +27,7 @@ object Constant {
 
     const val KEY_NAMA_LENGKAP = "nama-lengkap"
     const val KEY_ID_USER = "id-user"
+    const val KEY_PERSEN = "persen-user"
 
     val listCardItem = listOf(
         CardItem(

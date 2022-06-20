@@ -27,7 +27,7 @@ class HomePerawatFragment : Fragment(R.layout.fragment_home_perawat) {
         binding = FragmentHomePerawatBinding.bind(view)
 
         binding.cardBtn.setOnClickListener {
-            moveNavigationTo(requireView(), R.id.listPasienFragment)
+            moveNavigationTo(requireView(), R.id.action_baseFragment_to_listPasienFragment)
         }
     }
 

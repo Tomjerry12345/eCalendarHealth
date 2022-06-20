@@ -2,9 +2,7 @@ package com.mybaseprojectandroid.ui.main.testimoni
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.FragmentTestimoniBinding
 import com.mybaseprojectandroid.utils.system.popNavigation

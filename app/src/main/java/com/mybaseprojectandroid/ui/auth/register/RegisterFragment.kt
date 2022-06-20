@@ -50,15 +50,18 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
         viewModel.response.observe(viewLifecycleOwner) {
             when(it) {
-                is Response.Changed -> {}
+                is Response.Changed -> {
+                    showLogAssert("succes register", "Succes")
+                    viewModel.pasienModel?.id = it.data as String
+                    SavedData.setBoolean(Constant.KEY_IS_LOGGIN, true)
+                    SavedData.setObject(Constant.KEY_PASIEN, viewModel.pasienModel)
+                    moveIntentTo(requireActivity(), BaseActivity(), true)
+                }
                 is Response.Error -> {
                     showLogAssert("error register", it.error)
                 }
                 is Response.Success -> {
-                    showLogAssert("succes register", "Succes")
-                    SavedData.setBoolean(Constant.KEY_IS_LOGGIN, true)
-                    SavedData.setObject(Constant.KEY_PASIEN, viewModel.pasienModel)
-                    moveIntentTo(requireActivity(), BaseActivity(), true)
+
                 }
                 is Response.Progress -> {
                     val dialog = DialogProgress.initDialog(view.context)

@@ -9,7 +9,11 @@
         android:id="@+id/baseFragment"
         android:name="com.mybaseprojectandroid.ui.main.base.BaseFragment"
         android:label="BaseFragment"
-        tools:layout="@layout/fragment_base"/>
+        tools:layout="@layout/fragment_base">
+        <action
+            android:id="@+id/action_baseFragment_to_listPasienFragment"
+            app:destination="@id/listPasienFragment" />
+    </fragment>
     <fragment
         android:id="@+id/testimoniFragment"
         android:name="com.mybaseprojectandroid.ui.main.testimoni.TestimoniFragment"
@@ -43,12 +47,28 @@
         android:id="@+id/listPasienFragment"
         android:name="com.mybaseprojectandroid.ui.main.listPasien.ListPasienFragment"
         android:label="ListPasienFragment"
-        tools:layout="@layout/fragment_list_pasien"/>
+        tools:layout="@layout/fragment_list_pasien">
+        <action
+            android:id="@+id/action_listPasienFragment_to_detailPasienFragment"
+            app:destination="@id/detailPasienFragment" />
+        <action
+            android:id="@+id/action_listPasienFragment_to_baseFragment"
+            app:destination="@id/baseFragment"
+            app:popUpTo="@id/listPasienFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/detailPasienFragment"
         android:name="com.mybaseprojectandroid.ui.main.detailPasien.DetailPasienFragment"
         android:label="fragment_detail_pasien"
-        tools:layout="@layout/fragment_detail_pasien" />
+        tools:layout="@layout/fragment_detail_pasien" >
+        <action
+            android:id="@+id/action_detailPasienFragment_to_listPasienFragment"
+            app:destination="@id/listPasienFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/detailPasienFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/ubahProfilFragment"
         android:name="com.mybaseprojectandroid.ui.main.ubahProfil.UbahProfilFragment"
