@@ -17,8 +17,8 @@ import com.mybaseprojectandroid.ui.main.listPasien.adapter.ListPasienAdapter
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
+import com.mybaseprojectandroid.utils.system.ExcellUtils
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
-import com.mybaseprojectandroid.utils.system.popNavigation
 
 
 class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
@@ -78,7 +78,6 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
                     }
 
-
                 }
                 is Response.Error -> {
                     showLogAssert("error", it.error)
@@ -109,6 +108,21 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
         binding.backButton.setOnClickListener {
             back()
         }
+
+        binding.btnExport.setOnClickListener {
+            exportExcell()
+        }
+    }
+
+    private fun exportExcell() {
+        if (dataPasienModel.isNotEmpty()) {
+            showLogAssert("dataPasienModel", "$dataPasienModel")
+            val excellUtils = ExcellUtils(requireActivity(), dataPasienModel)
+            excellUtils.createExcel(excellUtils.createWorkbook())
+        } else {
+            binding.btnExport.isEnabled = false
+        }
+
     }
 
     fun back() {

@@ -55,6 +55,8 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         binding.lifecycleOwner = this
         binding.viewModel = pasienViewModel
 
+        showLogAssert("pasien", "$pasien")
+
         setRecyclerView()
 
         getDataHbA1C()

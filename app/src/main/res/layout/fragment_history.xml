@@ -33,6 +33,12 @@
                     android:layout_width="@dimen/_200dp"
                     android:layout_height="wrap_content"
                     android:hint="Pilih bulan"
+                    app:boxBackgroundColor="#F1F3F6"
+                    app:boxCornerRadiusBottomEnd="@dimen/_8dp"
+                    app:boxCornerRadiusBottomStart="@dimen/_8dp"
+                    app:boxCornerRadiusTopStart="@dimen/_8dp"
+                    app:boxCornerRadiusTopEnd="@dimen/_8dp"
+                    android:layout_margin="@dimen/_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 

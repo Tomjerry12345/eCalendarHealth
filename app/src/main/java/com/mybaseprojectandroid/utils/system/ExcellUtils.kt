@@ -1,13 +1,10 @@
 package com.mybaseprojectandroid.utils.system
 
-import android.content.Intent
-import android.net.Uri
-import android.os.Build
 import android.os.Environment
-import android.provider.DocumentsContract
 import androidx.activity.ComponentActivity
-import androidx.annotation.RequiresApi
+import com.mybaseprojectandroid.model.PasienModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
+import com.mybaseprojectandroid.utils.other.showToast
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.IndexedColorMap
 import org.apache.poi.xssf.usermodel.XSSFColor
@@ -17,7 +14,7 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 
-class ExcellUtils(val activity: ComponentActivity) {
+class ExcellUtils(private val activity: ComponentActivity, val dataPasienModel: List<PasienModel>) {
 
     val path =
         Environment.getExternalStorageDirectory().path + "/" + Environment.DIRECTORY_DOCUMENTS
@@ -28,7 +25,7 @@ class ExcellUtils(val activity: ComponentActivity) {
 
         //Creating first sheet inside workbook
         //Constants.SHEET_NAME is a string value of sheet name
-        val sheet: Sheet = workbook.createSheet("hello")
+        val sheet: Sheet = workbook.createSheet("test")
 
         //Create Header Cell Style
         val cellStyle = getHeaderStyle(workbook)
@@ -37,7 +34,11 @@ class ExcellUtils(val activity: ComponentActivity) {
         createSheetHeader(cellStyle, sheet)
 
         //Adding data to the sheet
-        addData(1, sheet)
+        var i = 1
+        dataPasienModel.forEach {
+            addData(i, sheet, it)
+            i += 1
+        }
 
         return workbook
     }
@@ -49,7 +50,15 @@ class ExcellUtils(val activity: ComponentActivity) {
         val row = sheet.createRow(0)
 
         //Header list
-        val HEADER_LIST = listOf("column_1", "column_2", "column_3")
+        val HEADER_LIST = listOf(
+            "username",
+            "alamat",
+            "umur",
+            "tanggal_lahir",
+            "lama_terdiagnosa",
+            "pengobatan",
+            "pendamping",
+        )
 
         //Loop to populate each column of header row
         for ((index, value) in HEADER_LIST.withIndex()) {
@@ -63,7 +72,6 @@ class ExcellUtils(val activity: ComponentActivity) {
             val cell = row.createCell(index)
 
             //value represents the header value from HEADER_LIST
-            showLogAssert("value header", value)
             cell?.setCellValue(value)
 
             //Apply style to cell
@@ -78,7 +86,7 @@ class ExcellUtils(val activity: ComponentActivity) {
 
         //Apply cell color
         val colorMap: IndexedColorMap = (workbook as XSSFWorkbook).stylesSource.indexedColors
-        var color = XSSFColor(IndexedColors.RED, colorMap).indexed
+        var color = XSSFColor(IndexedColors.GREEN, colorMap).indexed
         cellStyle.fillForegroundColor = color
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND)
 
@@ -93,15 +101,19 @@ class ExcellUtils(val activity: ComponentActivity) {
         return cellStyle
     }
 
-    private fun addData(rowIndex: Int, sheet: Sheet) {
+    private fun addData(rowIndex: Int, sheet: Sheet, pasienModel: PasienModel) {
 
         //Create row based on row index
         val row = sheet.createRow(rowIndex)
 
         //Add data to each cell
-        createCell(row, 0, "value 1") //Column 1
-        createCell(row, 1, "value 2") //Column 2
-        createCell(row, 2, "value 3") //Column 3
+        createCell(row, 0, pasienModel.username) //Column 1
+        createCell(row, 1, pasienModel.alamat) //Column 2
+        createCell(row, 2, pasienModel.tanggalLahir) //Column 3
+        createCell(row, 3, pasienModel.lamaDiagnosaDm) //Column 3
+        createCell(row, 4, pasienModel.lamaDiagnosaDm) //Column 3
+        createCell(row, 5, pasienModel.pengobatan) //Column 3
+        createCell(row, 6, pasienModel.pendamping) //Column 3
     }
 
     private fun createCell(row: Row, columnIndex: Int, value: String?) {
@@ -128,10 +140,15 @@ class ExcellUtils(val activity: ComponentActivity) {
             val fileOut = FileOutputStream(excelFile)
             workbook.write(fileOut)
             fileOut.close()
+            showToast(activity, "Berhasil membuat file")
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
+            showLogAssert("error", "${e.printStackTrace()}")
+            showToast(activity, "Gagal membuat file")
         } catch (e: IOException) {
             e.printStackTrace()
+            showLogAssert("error", "${e.printStackTrace()}")
+            showToast(activity, "Gagal membuat file 1")
         }
     }
 
