@@ -25,7 +25,15 @@
             android:id="@+id/bottomNavigationView"
             app:menu="@menu/bottom_nav_menu"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:labelVisibilityMode="selected"
+            app:labelVisibilityMode="labeled"
+            app:itemTextColor="#181C32"
+            android:background="@color/white"
+            style="@style/BottomNavigationViewStyle"
+
+
+
+
+
 
              />
 

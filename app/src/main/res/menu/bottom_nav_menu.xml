@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <item
         android:id="@+id/menu_home"
         android:icon="@drawable/bottom_ico1"
-        android:title="Home"/>
+        android:title="Home"
+        app:showAsAction="never"
+        />
 
 
 
     <item
         android:id="@+id/menu_history"
         android:icon="@drawable/bottom_ico2"
-        android:title="Riwayat"/>
+        android:title="Riwayat"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_calendar"
         android:icon="@drawable/bottom_ico3"
-        android:title="Kalender"/>
+        android:title="Kalender"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_profile"
         android:icon="@drawable/bottom_ico4"
-        android:title="Profil"/>
+        android:title="Profil"
+        app:showAsAction="never" />
 
 
 </menu>
