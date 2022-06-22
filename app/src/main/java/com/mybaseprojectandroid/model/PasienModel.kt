@@ -10,4 +10,5 @@ data class PasienModel(
     var pendamping: String? = null,
     val username: String? = null,
     var password: String? = null,
+    val readingDocument: Boolean = false
 )

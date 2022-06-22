@@ -31,6 +31,7 @@ import com.mybaseprojectandroid.utils.other.showToast
 import com.mybaseprojectandroid.utils.system.PdfUtils
 import com.mybaseprojectandroid.utils.system.getColor
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
+import com.mybaseprojectandroid.utils.widget.DialogProgress
 import com.mybaseprojectandroid.utils.widget.RecyclerViewUtils
 
 class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
@@ -71,11 +72,27 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
     }
 
     private fun setRecyclerView() {
+        val dialog = DialogProgress.initDialog(requireContext())
         val adapterr = CardAdapter(Constant.listCardItem, object : RecyclerViewUtils {
             override fun clicked() {
-                showToast(requireContext(), "Test")
-                val pdfUtils = PdfUtils(requireActivity())
-                pdfUtils.openPdf(pdfUtils.PATH_DOCUMENT, "edukasi.pdf")
+                pasienViewModel.isReadingDocument().observe(viewLifecycleOwner) {
+                    when(it) {
+                        is Response.Changed -> TODO()
+                        is Response.Error -> {
+                            dialog.dismiss()
+                            showToast(requireContext(), it.error)
+                        }
+                        is Response.Progress -> {
+                            dialog.show()
+                        }
+                        is Response.Success -> {
+                            dialog.dismiss()
+                            val pdfUtils = PdfUtils(requireActivity())
+                            pdfUtils.openPdf(pdfUtils.PATH_DOCUMENT, "edukasi.pdf")
+                        }
+                    }
+                }
+
             }
         })
         binding.rvItemCard.apply {
@@ -182,7 +199,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         val rightYAxis = mLineGraph.axisRight
         rightYAxis.isEnabled = false
         val leftYAxis = mLineGraph.axisLeft
-        leftYAxis.isEnabled = false
+        leftYAxis.isEnabled = true
         val topXAxis = mLineGraph.xAxis
         topXAxis.isEnabled = false
 
@@ -220,7 +237,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
         val dataSets: ArrayList<ILineDataSet?> = ArrayList()
 
-        val set1 = LineDataSet(entryList, "Income")
+        val set1 = LineDataSet(entryList, "hHbA1C")
         set1.color = Color.rgb(65, 168, 121)
         set1.valueTextColor = Color.rgb(55, 70, 73)
         set1.valueTextSize = 10f
@@ -250,7 +267,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         val rightYAxis = mLineGraph.axisRight
         rightYAxis.isEnabled = false
         val leftYAxis = mLineGraph.axisLeft
-        leftYAxis.isEnabled = false
+        leftYAxis.isEnabled = true
         val topXAxis = mLineGraph.xAxis
         topXAxis.isEnabled = false
 
@@ -279,6 +296,8 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         mLineGraph.invalidate()
         mLineGraph.legend.isEnabled = false
         mLineGraph.description.isEnabled = false
+
+//        mLineGraph.axisLeft.addLimitLine(getLimitByType())
     }
 
     private fun getEntryList(yAxisValues: ArrayList<Float>): List<Entry> {

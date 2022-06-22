@@ -8,6 +8,7 @@ import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.ItemListPasienBinding
 import com.mybaseprojectandroid.model.PasienModel
 import com.mybaseprojectandroid.utils.other.Constant
+import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 
 class ListPasienAdapter(
@@ -23,6 +24,8 @@ class ListPasienAdapter(
             binding.itemPasien = pasien
             binding.persen = "$persen %"
 
+            binding.progresss.progress = persen
+
             binding.executePendingBindings()
             binding.number.text = position.plus(1).toString()
             val pos = position + 1
@@ -30,10 +33,13 @@ class ListPasienAdapter(
                 R.drawable.bg_gradient_horizontal
             )
 
+            val isReadingDocument = if (pasien.readingDocument) 100 else 0
+
             val bundle = bundleOf(
                 Constant.KEY_NAMA_LENGKAP to pasien.namaLengkap,
                 Constant.KEY_ID_USER to pasien.id,
-                Constant.KEY_PERSEN to "$persen %"
+                Constant.KEY_PERSEN to persen,
+                Constant.KEY_IS_READING_DOCUMENT to isReadingDocument
             )
 
             binding.root.setOnClickListener {

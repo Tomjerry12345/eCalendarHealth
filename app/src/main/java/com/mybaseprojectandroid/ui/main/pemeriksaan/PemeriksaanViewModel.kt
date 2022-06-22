@@ -59,12 +59,4 @@ class PemeriksaanViewModel(private val db: FirebaseDatabase) : ViewModel() {
         }
     }
 
-    fun onAddTanggal() {
-//        MaterialDatePicker.Builder.datePicker()
-//            .setTitleText("Select date")
-//            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-//            .build()
-//            .show(this.parentFragmentManager, "")
-    }
-
 }

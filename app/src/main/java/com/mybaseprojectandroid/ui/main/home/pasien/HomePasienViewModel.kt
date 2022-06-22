@@ -1,13 +1,11 @@
 package com.mybaseprojectandroid.ui.main.home.pasien
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
+import kotlinx.coroutines.launch
 
 class HomePasienViewModel(private val db: FirebaseDatabase) : ViewModel() {
 
@@ -40,6 +38,10 @@ class HomePasienViewModel(private val db: FirebaseDatabase) : ViewModel() {
         mapLBS
     )
 
+    private val queryUserId = listOf(
+        mapIdUser
+    )
+
     val dataHbA1C: LiveData<Response> = liveData {
         val response =
             db.getDataByQuery(
@@ -58,7 +60,16 @@ class HomePasienViewModel(private val db: FirebaseDatabase) : ViewModel() {
         emit(response)
     }
 
-    fun setData() {
-        response.value = Response.Changed(Constant.listCardItem)
+    fun isReadingDocument(): LiveData<Response> {
+        val _response = MutableLiveData<Response>()
+        _response.value = Response.Progress(true)
+        viewModelScope.launch {
+            savedPasien?.id?.let {
+                _response.value = db.update(
+                    Constant.KEY_PASIEN, it, "readingDocument", true
+                )
+            }
+        }
+        return _response
     }
 }

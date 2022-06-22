@@ -28,6 +28,7 @@ object Constant {
     const val KEY_NAMA_LENGKAP = "nama-lengkap"
     const val KEY_ID_USER = "id-user"
     const val KEY_PERSEN = "persen-user"
+    const val KEY_IS_READING_DOCUMENT = "isReadingDocument"
 
     val listCardItem = listOf(
         CardItem(

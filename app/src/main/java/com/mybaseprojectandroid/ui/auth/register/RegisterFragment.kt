@@ -14,6 +14,7 @@ import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
+import com.mybaseprojectandroid.utils.other.showToast
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 
@@ -31,6 +32,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         binding = FragmentRegisterBinding.bind(view)
 
         binding.viewModel = viewModel
+
+        val dialog = DialogProgress.initDialog(view.context)
 
         binding.rgPengobatan.setOnCheckedChangeListener { radioGroup, i ->
             when (i) {
@@ -58,18 +61,18 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     moveIntentTo(requireActivity(), BaseActivity(), true)
                 }
                 is Response.Error -> {
+                    dialog.dismiss()
+                    showToast(requireContext(), it.error)
                     showLogAssert("error register", it.error)
                 }
                 is Response.Success -> {
 
                 }
                 is Response.Progress -> {
-                    val dialog = DialogProgress.initDialog(view.context)
-
                     if (it.activated)
                         dialog.show()
                     else
-                        dialog.hide()
+                        dialog.dismiss()
                 }
             }
         }

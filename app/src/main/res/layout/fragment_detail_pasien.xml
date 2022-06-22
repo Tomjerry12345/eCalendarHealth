@@ -91,11 +91,15 @@
 
                     <ProgressBar
                         android:id="@+id/progresss"
-                        android:layout_width="@dimen/_95dp"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="@dimen/_200dp"
                         android:layout_height="@dimen/_95dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/_16dp"
-                        android:indeterminate="true"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progressDrawable="@drawable/circular"
+                        android:secondaryProgress="100"
                         android:indeterminateTint="@color/primary_color"
                         android:indeterminateTintMode="src_atop"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -144,12 +148,16 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ProgressBar
+                        style="@android:style/Widget.ProgressBar.Horizontal"
                         android:id="@+id/progresss_buku"
-                        android:layout_width="@dimen/_95dp"
+                        android:layout_width="@dimen/_200dp"
                         android:layout_height="@dimen/_95dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/_16dp"
-                        android:indeterminate="true"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progressDrawable="@drawable/circular"
+                        android:secondaryProgress="100"
                         android:indeterminateTint="@color/primary_color"
                         android:indeterminateTintMode="src_atop"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -157,10 +165,11 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_edukasi" />
 
                     <TextView
+                        android:id="@+id/txtIsReading"
                         style="@style/DMSansBoldTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="100%"
+                        android:text="0%"
                         android:textSize="@dimen/_18sp"
                         app:layout_constraintBottom_toBottomOf="@id/progresss_buku"
                         app:layout_constraintEnd_toEndOf="@id/progresss_buku"

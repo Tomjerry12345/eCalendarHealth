@@ -56,7 +56,7 @@ class PemeriksaanFragment : Fragment(R.layout.fragment_pemeriksaan) {
 
 
 
-        materialDatePicker.show(getParentFragmentManager() , "MATERIAL_DATE_PICKER")
+        materialDatePicker.show(parentFragmentManager, "MATERIAL_DATE_PICKER")
 
 
         materialDatePicker.addOnPositiveButtonClickListener {

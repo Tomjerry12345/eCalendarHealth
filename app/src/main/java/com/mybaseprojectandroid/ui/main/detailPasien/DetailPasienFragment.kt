@@ -47,7 +47,8 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
 
         val namaLengkap = arguments?.getString(Constant.KEY_NAMA_LENGKAP)
         val idUser = arguments?.getString(Constant.KEY_ID_USER)
-        val persen = arguments?.getString(Constant.KEY_PERSEN)
+        val persen = arguments?.getInt(Constant.KEY_PERSEN, 0)
+        val isReadingDocument = arguments?.getInt(Constant.KEY_IS_READING_DOCUMENT, 0)
 
         viewModel.setAktivitas(idUser!!)
         viewModel.setGrafikHbA1C(idUser)
@@ -59,12 +60,13 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
         }
 
         binding.nama.text = namaLengkap
-        binding.txtPersen.text = persen
+        binding.txtIsReading.text = "$isReadingDocument %"
+        binding.txtPersen.text = "$persen %"
+        binding.progresss.progress = persen!!
+        binding.progresssBuku.progress = isReadingDocument!!
 
         getAktivitas()
-
         getHbA1C()
-
         getDataLBS()
 
         binding.back.setOnClickListener {
@@ -230,7 +232,7 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
         val rightYAxis = mLineGraph.axisRight
         rightYAxis.isEnabled = false
         val leftYAxis = mLineGraph.axisLeft
-        leftYAxis.isEnabled = false
+        leftYAxis.isEnabled = true
         val topXAxis = mLineGraph.xAxis
         topXAxis.isEnabled = false
 
@@ -297,7 +299,7 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
         val rightYAxis = mLineGraph.axisRight
         rightYAxis.isEnabled = false
         val leftYAxis = mLineGraph.axisLeft
-        leftYAxis.isEnabled = false
+        leftYAxis.isEnabled = true
         val topXAxis = mLineGraph.xAxis
         topXAxis.isEnabled = false
 
