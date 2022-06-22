@@ -12,7 +12,7 @@ class ProgressAdapter(private val sumBring: Int): RecyclerView.Adapter<ProgressA
         fun bind(position: Int) {
 //            binding.itemProgress = progress
             binding.item = "Bring walking ${position.plus(1)}"
-            if (position > sumBring) {
+            if (position > sumBring - 1) {
                 binding.ceklis.setImageDrawable(getDrawable(binding.root.context, R.drawable.ic_baseline_clear_24))
             }
 
