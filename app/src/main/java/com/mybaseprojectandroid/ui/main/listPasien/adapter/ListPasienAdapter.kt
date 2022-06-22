@@ -8,7 +8,6 @@ import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.ItemListPasienBinding
 import com.mybaseprojectandroid.model.PasienModel
 import com.mybaseprojectandroid.utils.other.Constant
-import com.mybaseprojectandroid.utils.other.RecyclerViewUtils
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 
 class ListPasienAdapter(
@@ -18,7 +17,7 @@ class ListPasienAdapter(
     RecyclerView.Adapter<ListPasienAdapter.ViewHolder>() {
 
     inner class ViewHolder(private var binding: ItemListPasienBinding) :
-        RecyclerView.ViewHolder(binding.root), RecyclerViewUtils {
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(pasien: PasienModel, position: Int, persen: Int) {
 
             binding.itemPasien = pasien

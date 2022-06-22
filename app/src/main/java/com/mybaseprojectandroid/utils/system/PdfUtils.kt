@@ -16,15 +16,22 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
+import androidx.core.content.FileProvider
+import com.mybaseprojectandroid.BuildConfig
+import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.other.showToast
 import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
 
 
-class PdfUtils(val activity: ComponentActivity) {
+class PdfUtils(private val activity: ComponentActivity) {
 
-    val path = Environment.getExternalStorageDirectory().path + "/" + Environment.DIRECTORY_DOCUMENTS
+    val path =
+        Environment.getExternalStorageDirectory().path + "/" + Environment.DIRECTORY_DOCUMENTS
+
+    val PATH_DOCUMENT =
+        "${activity.getExternalFilesDir(null)?.path}/${Environment.DIRECTORY_DOCUMENTS}"
+
 
     fun createBitmapFromLayout(v: View, width: Int, height: Int): Bitmap? {
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -59,20 +66,16 @@ class PdfUtils(val activity: ComponentActivity) {
 
         val file = File(path)
 
-
-
         try {
             createFile(Uri.fromFile(file))
-//            pdfDocument.writeTo(FileOutputStream(file))
         } catch (e: IOException) {
             e.printStackTrace()
 
             showToast(activity, "something wrong try again $e")
 
-            // after close document
             pdfDocument.close()
             showToast(activity, "succesfull download")
-            openPdf()
+            openPdf(path, "")
         }
     }
 
@@ -92,20 +95,24 @@ class PdfUtils(val activity: ComponentActivity) {
         activity.startActivityForResult(intent, CREATE_FILE)
     }
 
-    private fun openPdf() {
-        val file = File(path)
-
+    fun openPdf(path: String, name: String) {
+        val file = File(path, name)
         if (file.exists()) {
             val intent = Intent(Intent.ACTION_VIEW)
-            val uri = Uri.fromFile(file)
+            val uri =
+                FileProvider.getUriForFile(activity, "${BuildConfig.APPLICATION_ID}.provider", file)
             intent.setDataAndType(uri, "application/pdf")
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
             try {
                 activity.startActivity(intent)
             } catch (e: ActivityNotFoundException) {
+                showLogAssert("error", "No application for pdf view")
                 showToast(activity, "No application for pdf view")
             }
+        } else {
+            showLogAssert("error", "path incorrect")
+            showToast(activity, "path incorrect")
         }
     }
 

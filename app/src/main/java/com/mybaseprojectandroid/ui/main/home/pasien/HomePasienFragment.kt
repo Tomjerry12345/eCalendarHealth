@@ -27,10 +27,11 @@ import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
-import com.mybaseprojectandroid.utils.system.ExcellUtils
+import com.mybaseprojectandroid.utils.other.showToast
+import com.mybaseprojectandroid.utils.system.PdfUtils
 import com.mybaseprojectandroid.utils.system.getColor
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
-
+import com.mybaseprojectandroid.utils.widget.RecyclerViewUtils
 
 class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
@@ -64,14 +65,19 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
         binding.tvTitle.text = "Hi, ${pasien?.namaLengkap}"
         binding.parentTestimoni.setOnClickListener {
-            moveNavigationTo(binding.view,R.id.testimoniFragment)
+            moveNavigationTo(binding.view, R.id.testimoniFragment)
         }
 
     }
 
-
     private fun setRecyclerView() {
-        val adapterr = CardAdapter(Constant.listCardItem)
+        val adapterr = CardAdapter(Constant.listCardItem, object : RecyclerViewUtils {
+            override fun clicked() {
+                showToast(requireContext(), "Test")
+                val pdfUtils = PdfUtils(requireActivity())
+                pdfUtils.openPdf(pdfUtils.PATH_DOCUMENT, "edukasi.pdf")
+            }
+        })
         binding.rvItemCard.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = adapterr
