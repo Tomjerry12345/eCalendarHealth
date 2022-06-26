@@ -60,7 +60,7 @@ class BaseFragment : Fragment(R.layout.fragment_base) {
         if (getSavedAdmin()?.username != null) {
             bottomNavBar.menu.findItem(R.id.menu_history).isEnabled = false
             bottomNavBar.menu.findItem(R.id.menu_calendar).isEnabled = false
-            bottomNavBar.menu.findItem(R.id.menu_profile).isEnabled = false
+//            bottomNavBar.menu.findItem(R.id.menu_profile).isEnabled = false
         }
         bottomNavBar.setOnNavigationItemSelectedListener {
             when (it.itemId) {

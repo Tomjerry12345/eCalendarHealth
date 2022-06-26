@@ -1,5 +1,6 @@
 package com.mybaseprojectandroid.ui.main.calendar
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.FragmentCalendarBinding
 import com.mybaseprojectandroid.model.Aktivitas
+import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
@@ -33,8 +35,13 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding = FragmentCalendarBinding.bind(view)
+        showLogAssert("pasien", "${getSavedPasien()}")
+        binding.calendar.markDate(
+            DateData(2022, 6, 26).setMarkStyle(
+                MarkStyle(MarkStyle.BACKGROUND, Color.RED)
+            )
+        )
         getData()
     }
 
@@ -58,11 +65,11 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                         val colorRed = getColor(requireContext(), R.color.red)
                         val colorGreen = getColor(requireContext(), R.color.primary_color)
 
-                        if (sumWeekBring!! < 7) {
-                            setDate(day!!, month!!, year!!, colorRed)
-                        } else {
-                            setDate(day!!, month!!, year!!, colorGreen)
-                        }
+//                        if (sumWeekBring!! < 7) {
+//                            setDate(day!!, month!!, year!!, colorRed)
+//                        } else {
+//                            setDate(day!!, month!!, year!!, colorGreen)
+//                        }
                     }
 
                 }

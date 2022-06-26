@@ -24,7 +24,6 @@ class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
                 } else {
                     HomePasienFragment.newInstance()
                 }
-
             }
             1 -> HistoryFragment.newInstance()
             2 -> CalendarFragment.newInstance()

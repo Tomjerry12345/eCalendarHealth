@@ -20,8 +20,7 @@ import androidx.core.content.FileProvider
 import com.mybaseprojectandroid.BuildConfig
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.other.showToast
-import java.io.File
-import java.io.IOException
+import java.io.*
 
 
 class PdfUtils(private val activity: ComponentActivity) {
@@ -95,6 +94,28 @@ class PdfUtils(private val activity: ComponentActivity) {
         activity.startActivityForResult(intent, CREATE_FILE)
     }
 
+    fun openPdfInRaw(path: String, name: String, raw: Int) {
+        val file = File(path, name)
+        copyFile(activity.resources.openRawResource(raw), FileOutputStream(file))
+        if (file.exists()) {
+            val intent = Intent(Intent.ACTION_VIEW)
+            val uri =
+                FileProvider.getUriForFile(activity, "${BuildConfig.APPLICATION_ID}.provider", file)
+            intent.setDataAndType(uri, "application/pdf")
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            try {
+                activity.startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+                showLogAssert("error", "No application for pdf view")
+                showToast(activity, "No application for pdf view")
+            }
+        } else {
+            showLogAssert("error", "path incorrect")
+            showToast(activity, "path incorrect")
+        }
+    }
+
     fun openPdf(path: String, name: String) {
         val file = File(path, name)
         if (file.exists()) {
@@ -113,6 +134,15 @@ class PdfUtils(private val activity: ComponentActivity) {
         } else {
             showLogAssert("error", "path incorrect")
             showToast(activity, "path incorrect")
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun copyFile(`in`: InputStream, out: OutputStream) {
+        val buffer = ByteArray(1024)
+        var read: Int
+        while (`in`.read(buffer).also { read = it } != -1) {
+            out.write(buffer, 0, read)
         }
     }
 

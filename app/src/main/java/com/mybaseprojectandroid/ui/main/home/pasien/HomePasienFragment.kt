@@ -48,26 +48,24 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         FactoryViewModel(HomePasienViewModel(FirebaseDatabase()))
     }
 
-    private val pasien = getSavedPasien()
+//    private val pasien = getSavedPasien()
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomePasienBinding.bind(view)
-        binding.lifecycleOwner = this
+//        binding.lifecycleOwner = this
         binding.viewModel = pasienViewModel
 
-        showLogAssert("pasien", "$pasien")
-
-        setRecyclerView()
-
-        getDataHbA1C()
-        getDataLBS()
-
-        binding.tvTitle.text = "Hi, ${pasien?.namaLengkap}"
-        binding.parentTestimoni.setOnClickListener {
-            moveNavigationTo(binding.view, R.id.testimoniFragment)
-        }
+//        setRecyclerView()
+//
+//        getDataHbA1C()
+//        getDataLBS()
+//
+//        binding.tvTitle.text = "Hi, ${pasien?.namaLengkap}"
+//        binding.parentTestimoni.setOnClickListener {
+//            moveNavigationTo(binding.view, R.id.testimoniFragment)
+//        }
 
     }
 
@@ -76,7 +74,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         val adapterr = CardAdapter(Constant.listCardItem, object : RecyclerViewUtils {
             override fun clicked() {
                 pasienViewModel.isReadingDocument().observe(viewLifecycleOwner) {
-                    when(it) {
+                    when (it) {
                         is Response.Changed -> TODO()
                         is Response.Error -> {
                             dialog.dismiss()
@@ -88,7 +86,12 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                         is Response.Success -> {
                             dialog.dismiss()
                             val pdfUtils = PdfUtils(requireActivity())
-                            pdfUtils.openPdf(pdfUtils.PATH_DOCUMENT, "edukasi.pdf")
+//                            pdfUtils.openPdf(pdfUtils.PATH_DOCUMENT, "edukasi.pdf")
+                            pdfUtils.openPdfInRaw(
+                                pdfUtils.PATH_DOCUMENT,
+                                "edukasi.pdf",
+                                R.raw.edukasi
+                            )
                         }
                     }
                 }
