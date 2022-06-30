@@ -10,7 +10,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.FragmentBaseBinding
 import com.mybaseprojectandroid.ui.main.base.pager.MainPagerAdapter
+import com.mybaseprojectandroid.utils.local.SavedData
 import com.mybaseprojectandroid.utils.local.getSavedAdmin
+import com.mybaseprojectandroid.utils.system.moveIntentTo
 
 
 class BaseFragment : Fragment(R.layout.fragment_base) {
@@ -37,7 +39,9 @@ class BaseFragment : Fragment(R.layout.fragment_base) {
 
         setViewPagerAdapter()
         setBottomNavigation()
-        viewPagerr = binding.fragmentContainer
+        bottomNavBar.menu.getItem(SavedData.getInt("position")).isChecked = true
+        viewPagerr.currentItem = SavedData.getInt("position")
+//        viewPagerr = binding.fragmentContainer
     }
 
     private fun onBackPressed() {
@@ -64,12 +68,26 @@ class BaseFragment : Fragment(R.layout.fragment_base) {
         }
         bottomNavBar.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.menu_home -> viewPagerr.currentItem = 0
-                R.id.menu_history ->
-                    viewPagerr.currentItem = 1
-                R.id.menu_calendar -> viewPagerr.currentItem = 2
-                R.id.menu_profile -> viewPagerr.currentItem = 3
+//                R.id.menu_home -> viewPagerr.currentItem = 0
+//                R.id.menu_calendar -> viewPagerr.currentItem = 1
+//                R.id.menu_history ->
+//                    viewPagerr.currentItem = 2
+//                R.id.menu_profile -> viewPagerr.currentItem = 3
+                R.id.menu_home -> {
+                    SavedData.setInt("position", 0)
+                }
+                R.id.menu_history -> {
+                    SavedData.setInt("position", 1)
+
+                }
+                R.id.menu_calendar -> {
+                    SavedData.setInt("position", 2)
+                }
+                R.id.menu_profile -> {
+                    SavedData.setInt("position", 3)
+                }
             }
+            moveIntentTo(requireActivity(), BaseActivity(), true)
             return@setOnNavigationItemSelectedListener true
         }
     }

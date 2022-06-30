@@ -23,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         SavedData.init(this)
+        SavedData.setInt("position", 0)
         Handler(Looper.getMainLooper()).postDelayed({
 //            SavedData.setBoolean(Constant.KEY_IS_LOGGIN, false)
             val isLoggin = SavedData.getBoolean(Constant.KEY_IS_LOGGIN)

@@ -67,8 +67,6 @@
             app:layout_constraintStart_toStartOf="@id/cardfortoolbar"
             app:layout_constraintTop_toTopOf="@id/cardfortoolbar" />
 
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_week"
             android:layout_width="match_parent"
@@ -77,7 +75,6 @@
             tools:listitem="@layout/item_week"
             tools:itemCount="5"
             android:paddingBottom="@dimen/_90dp" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

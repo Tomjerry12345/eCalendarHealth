@@ -26,15 +26,15 @@ object SavedData {
         return sharedPref.getString(Constant.examplesKeySavedDataString, "")
     }
 
-    fun setInt(params: Int) {
+    fun setInt(key: String, params: Int) {
         with (sharedPref.edit()) {
-            putInt(Constant.examplesKeySavedDataString, params)
+            putInt(key, params)
             commit()
         }
     }
 
-    fun getInt(): Int {
-        return sharedPref.getInt(Constant.examplesKeySavedDataString, 0)
+    fun getInt(key: String): Int {
+        return sharedPref.getInt(key, 0)
     }
 
     fun setBoolean(key: String, params: Boolean) {

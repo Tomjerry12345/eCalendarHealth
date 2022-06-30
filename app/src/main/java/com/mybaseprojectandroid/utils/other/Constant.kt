@@ -56,4 +56,7 @@ object Constant {
             R.drawable.card4
         )
     )
+
+    const val START = 0
+    const val END = 5
 }

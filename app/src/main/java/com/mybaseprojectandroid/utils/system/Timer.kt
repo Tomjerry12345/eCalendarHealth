@@ -57,7 +57,7 @@ object Timer {
 
         totalSeconds -= 1
 
-        if (totalSeconds == 0.toLong())
+        if (totalSeconds <= 0.toLong())
             _getResponseTimer.postValue(Response.Finish(true))
 
     }

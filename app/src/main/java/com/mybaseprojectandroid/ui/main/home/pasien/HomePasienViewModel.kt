@@ -38,9 +38,23 @@ class HomePasienViewModel(private val db: FirebaseDatabase) : ViewModel() {
         mapLBS
     )
 
-    private val queryUserId = listOf(
-        mapIdUser
+    private val listQueryData = listOf(
+        mapIdUser,
+        hashMapOf(
+            "key" to "update",
+            "value" to true
+        )
     )
+
+    val data: LiveData<Response> = liveData {
+        val response =
+            db.getDataByQuery(
+                Constant.KEY_AKTIVITAS,
+                listQueryData as List<HashMap<String, Any>>
+            )
+
+        emit(response)
+    }
 
     val dataHbA1C: LiveData<Response> = liveData {
         val response =

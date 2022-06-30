@@ -66,7 +66,8 @@
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/examples_activity.xml" value="0.1" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/examples_main_fragment.xml" value="0.1" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_aktivitas.xml" value="0.1" />
-        <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
+        <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_base.xml" value="0.1" />
+        <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_calendar.xml" value="0.18" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_detail_pasien.xml" value="0.22" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_history.xml" value="0.2" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_home.xml" value="0.1" />

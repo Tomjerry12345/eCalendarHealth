@@ -1,6 +1,5 @@
 package com.mybaseprojectandroid.ui.main.calendar
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -22,9 +21,7 @@ import sun.bob.mcalendarview.vo.DateData
 class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
     companion object {
-        fun newInstance(): CalendarFragment {
-            return CalendarFragment()
-        }
+        fun newInstance() = CalendarFragment()
     }
 
     private lateinit var binding: FragmentCalendarBinding
@@ -36,12 +33,8 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCalendarBinding.bind(view)
+        binding.viewModel = viewModel
         showLogAssert("pasien", "${getSavedPasien()}")
-        binding.calendar.markDate(
-            DateData(2022, 6, 26).setMarkStyle(
-                MarkStyle(MarkStyle.BACKGROUND, Color.RED)
-            )
-        )
         getData()
     }
 
@@ -60,16 +53,19 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
                         val sumWeekBring = aktivitas.sumWeekBring
 
-                        showLogAssert("sumWeekBring", "$sumWeekBring")
+                        val color1 = getColor(requireContext(), R.color.color1)
+                        val color2 = getColor(requireContext(), R.color.color2)
+                        val color3 = getColor(requireContext(), R.color.color3)
+                        val color4 = getColor(requireContext(), R.color.color4)
+                        val color5 = getColor(requireContext(), R.color.color5)
 
-                        val colorRed = getColor(requireContext(), R.color.red)
-                        val colorGreen = getColor(requireContext(), R.color.primary_color)
-
-//                        if (sumWeekBring!! < 7) {
-//                            setDate(day!!, month!!, year!!, colorRed)
-//                        } else {
-//                            setDate(day!!, month!!, year!!, colorGreen)
-//                        }
+                        when(sumWeekBring) {
+                            1 -> setDate(day!!, month!!, year!!, color1)
+                            2 -> setDate(day!!, month!!, year!!, color2)
+                            3 -> setDate(day!!, month!!, year!!, color3)
+                            4 -> setDate(day!!, month!!, year!!, color4)
+                            5 -> setDate(day!!, month!!, year!!, color5)
+                        }
                     }
 
                 }

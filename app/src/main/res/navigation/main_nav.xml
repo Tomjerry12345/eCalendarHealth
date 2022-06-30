@@ -29,11 +29,6 @@
             app:destination="@id/timerFragment" />
     </fragment>
     <fragment
-        android:id="@+id/calendarFragment"
-        android:name="com.mybaseprojectandroid.ui.main.calendar.CalendarFragment"
-        android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
-    <fragment
         android:id="@+id/pemeriksaanFragment"
         android:name="com.mybaseprojectandroid.ui.main.pemeriksaan.PemeriksaanFragment"
         android:label="fragment_calendar"

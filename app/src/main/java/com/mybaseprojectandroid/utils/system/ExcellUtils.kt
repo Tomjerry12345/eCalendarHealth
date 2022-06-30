@@ -25,19 +25,35 @@ class ExcellUtils(private val activity: ComponentActivity, val dataPasienModel: 
 
         //Creating first sheet inside workbook
         //Constants.SHEET_NAME is a string value of sheet name
-        val sheet: Sheet = workbook.createSheet("test")
+        val sheet: Sheet = workbook.createSheet("identitas")
+        val sheet1: Sheet = workbook.createSheet("aktivitas")
+        val sheet2: Sheet = workbook.createSheet("pemeriksaan")
 
         //Create Header Cell Style
         val cellStyle = getHeaderStyle(workbook)
 
         //Creating sheet header row
         createSheetHeader(cellStyle, sheet)
+        createSheetHeader(cellStyle, sheet1)
+        createSheetHeader(cellStyle, sheet2)
 
         //Adding data to the sheet
         var i = 1
         dataPasienModel.forEach {
             addData(i, sheet, it)
             i += 1
+        }
+
+        var j = 1
+        dataPasienModel.forEach {
+            addData(j, sheet1, it)
+            j += 1
+        }
+
+        var k = 1
+        dataPasienModel.forEach {
+            addData(k, sheet2, it)
+            k += 1
         }
 
         return workbook
@@ -132,7 +148,7 @@ class ExcellUtils(private val activity: ComponentActivity, val dataPasienModel: 
         }
 
         //Create excel file with extension .xlsx
-        val excelFile = File(path, "test.xlsx")
+        val excelFile = File(path, "data.xlsx")
 
         //Write workbook to file using FileOutputStream
 
@@ -151,18 +167,4 @@ class ExcellUtils(private val activity: ComponentActivity, val dataPasienModel: 
             showToast(activity, "Gagal membuat file 1")
         }
     }
-
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    private fun createFile(pickerInitialUri: Uri) {
-//        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-//            addCategory(Intent.CATEGORY_OPENABLE)
-//            type = "application/pdf"
-//            putExtra(Intent.EXTRA_TITLE, "invoice.pdf")
-//
-//            // Optionally, specify a URI for the directory that should be opened in
-//            // the system file picker before your app creates the document.
-//            putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
-//        }
-//        activity.startActivityForResult(intent, 1)
-//    }
 }

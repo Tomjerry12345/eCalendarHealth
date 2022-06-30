@@ -10,6 +10,13 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="red">#DF1818</color>
+
+    <color name="color1">#EE2737</color>
+    <color name="color2">#F06400</color>
+    <color name="color3">#5F33BA</color>
+    <color name="color4">#00C6CE</color>
+    <color name="color5">#15C55D</color>
+
     <color name="colocrPrimaryDark">#C4C4C4</color>
 
 </resources>

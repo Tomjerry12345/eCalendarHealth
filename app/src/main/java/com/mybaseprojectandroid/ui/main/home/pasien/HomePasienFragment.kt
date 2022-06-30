@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.ktx.toObjects
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.FragmentHomePasienBinding
+import com.mybaseprojectandroid.model.Aktivitas
 import com.mybaseprojectandroid.model.Pemeriksaan
 import com.mybaseprojectandroid.ui.main.home.adapter.CardAdapter
 import com.mybaseprojectandroid.utils.local.getSavedPasien
@@ -44,36 +46,67 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
     private lateinit var binding: FragmentHomePasienBinding
 
-    private val pasienViewModel: HomePasienViewModel by viewModels {
+    private val viewModel: HomePasienViewModel by viewModels {
         FactoryViewModel(HomePasienViewModel(FirebaseDatabase()))
     }
 
-//    private val pasien = getSavedPasien()
+    private val pasien = getSavedPasien()
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomePasienBinding.bind(view)
-//        binding.lifecycleOwner = this
-        binding.viewModel = pasienViewModel
+        binding.viewModel = viewModel
 
-//        setRecyclerView()
-//
-//        getDataHbA1C()
-//        getDataLBS()
-//
-//        binding.tvTitle.text = "Hi, ${pasien?.namaLengkap}"
-//        binding.parentTestimoni.setOnClickListener {
-//            moveNavigationTo(binding.view, R.id.testimoniFragment)
-//        }
+        setRecyclerView()
 
+        getData()
+        getDataHbA1C()
+        getDataLBS()
+        binding.tvTitle.text = "Hi, ${pasien?.namaLengkap}"
+        binding.parentTestimoni.setOnClickListener {
+            moveNavigationTo(binding.view, R.id.testimoniFragment)
+        }
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun getData() {
+        viewModel.data.observe(viewLifecycleOwner) {
+            when (it) {
+                is Response.Changed -> {
+                    val data = it.data as QuerySnapshot
+                    val dataExtract = data.toObjects<Aktivitas>()
+
+                    if (dataExtract.isNotEmpty()) {
+                        val sumWeek = dataExtract[0].sumWeekBring
+                        showLogAssert("sumWeek", "$sumWeek")
+
+                        when (sumWeek) {
+                            Constant.START ->  binding.txtPeringatan.text =
+                                "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! teks kalau belum olahraga full"
+                            Constant.END -> binding.txtPeringatan.text = "Selamat, target aktifitas minggu ini sudah terpenuhi, tetap konsisten ya!"
+                            else -> binding.txtPeringatan.text = "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! teks kalau sudah semua olahraga"
+                        }
+                    } else {
+                        binding.txtPeringatan.text =
+                            "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! teks kalau belum olahraga full"
+                    }
+                }
+                is Response.Error -> {
+                    showLogAssert("error", it.error)
+                }
+                is Response.Progress -> TODO()
+                is Response.Success -> TODO()
+            }
+        }
     }
 
     private fun setRecyclerView() {
         val dialog = DialogProgress.initDialog(requireContext())
         val adapterr = CardAdapter(Constant.listCardItem, object : RecyclerViewUtils {
             override fun clicked() {
-                pasienViewModel.isReadingDocument().observe(viewLifecycleOwner) {
+                viewModel.isReadingDocument().observe(viewLifecycleOwner) {
                     when (it) {
                         is Response.Changed -> TODO()
                         is Response.Error -> {
@@ -105,7 +138,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
     }
 
     private fun getDataHbA1C() {
-        pasienViewModel.dataHbA1C.observe(viewLifecycleOwner) {
+        viewModel.dataHbA1C.observe(viewLifecycleOwner) {
             when (it) {
                 is Response.Changed -> {
                     val querySnapshot = it.data as QuerySnapshot
@@ -136,7 +169,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
     }
 
     private fun getDataLBS() {
-        pasienViewModel.dataLBS.observe(viewLifecycleOwner) { it ->
+        viewModel.dataLBS.observe(viewLifecycleOwner) { it ->
             when (it) {
                 is Response.Changed -> {
                     val querySnapshot = it.data as QuerySnapshot
@@ -175,30 +208,20 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         val set1 = LineDataSet(entryList, "LBS")
         set1.color = ContextCompat.getColor(requireContext(), R.color.yellow)
         set1.valueTextColor = Color.rgb(55, 70, 73)
-        set1.valueTextSize = 10f
         set1.mode = LineDataSet.Mode.CUBIC_BEZIER
         dataSets.add(set1)
 
-//customization
-
-//customization
         val mLineGraph: LineChart = binding.lineChartLBS
         mLineGraph.setTouchEnabled(true)
         mLineGraph.isDragEnabled = true
         mLineGraph.setScaleEnabled(false)
         mLineGraph.setPinchZoom(false)
         mLineGraph.setDrawGridBackground(false)
-        mLineGraph.extraLeftOffset = 15f
-        mLineGraph.extraRightOffset = 15f
-//to hide background lines
-//to hide background lines
+
         mLineGraph.xAxis.setDrawGridLines(false)
         mLineGraph.axisLeft.setDrawGridLines(false)
         mLineGraph.axisRight.setDrawGridLines(false)
 
-//to hide right Y and top X border
-
-//to hide right Y and top X border
         val rightYAxis = mLineGraph.axisRight
         rightYAxis.isEnabled = false
         val leftYAxis = mLineGraph.axisLeft
@@ -206,28 +229,20 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         val topXAxis = mLineGraph.xAxis
         topXAxis.isEnabled = false
 
-
         val xAxis = mLineGraph.xAxis
         xAxis.granularity = 1f
-        xAxis.setCenterAxisLabels(true)
         xAxis.isEnabled = true
         xAxis.setDrawGridLines(false)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
 
-        set1.lineWidth = 2f
-        set1.circleRadius = 3f
-        set1.setDrawValues(false)
         set1.circleHoleColor = getColor(requireContext(), R.color.yellow)
         set1.setCircleColor(getColor(requireContext(), R.color.yellow))
 
-//String setter in x-Axis
-
-//String setter in x-Axis
         mLineGraph.xAxis.valueFormatter = IndexAxisValueFormatter(xAxisValues)
 
         val data = LineData(dataSets)
         mLineGraph.data = data
-        mLineGraph.animateX(2000)
+        mLineGraph.animateX(2000, Easing.EaseInSine)
         mLineGraph.invalidate()
         mLineGraph.legend.isEnabled = false
         mLineGraph.description.isEnabled = false
@@ -243,30 +258,20 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         val set1 = LineDataSet(entryList, "hHbA1C")
         set1.color = Color.rgb(65, 168, 121)
         set1.valueTextColor = Color.rgb(55, 70, 73)
-        set1.valueTextSize = 10f
         set1.mode = LineDataSet.Mode.CUBIC_BEZIER
         dataSets.add(set1)
 
-//customization
-
-//customization
         val mLineGraph: LineChart = binding.lineChart
         mLineGraph.setTouchEnabled(true)
         mLineGraph.isDragEnabled = true
-        mLineGraph.setScaleEnabled(false)
+        mLineGraph.setScaleEnabled(true)
         mLineGraph.setPinchZoom(false)
         mLineGraph.setDrawGridBackground(false)
-        mLineGraph.extraLeftOffset = 15f
-        mLineGraph.extraRightOffset = 15f
-//to hide background lines
-//to hide background lines
+
         mLineGraph.xAxis.setDrawGridLines(false)
         mLineGraph.axisLeft.setDrawGridLines(false)
         mLineGraph.axisRight.setDrawGridLines(false)
 
-//to hide right Y and top X border
-
-//to hide right Y and top X border
         val rightYAxis = mLineGraph.axisRight
         rightYAxis.isEnabled = false
         val leftYAxis = mLineGraph.axisLeft
@@ -274,33 +279,23 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         val topXAxis = mLineGraph.xAxis
         topXAxis.isEnabled = false
 
-
         val xAxis = mLineGraph.xAxis
-        xAxis.granularity = 1f
-        xAxis.setCenterAxisLabels(true)
         xAxis.isEnabled = true
         xAxis.setDrawGridLines(false)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.granularity = 1f
 
-        set1.lineWidth = 2f
-        set1.circleRadius = 3f
-        set1.setDrawValues(false)
         set1.circleHoleColor = ContextCompat.getColor(requireContext(), R.color.primary_color)
         set1.setCircleColor(ContextCompat.getColor(requireContext(), R.color.primary_color))
 
-//String setter in x-Axis
-
-//String setter in x-Axis
         mLineGraph.xAxis.valueFormatter = IndexAxisValueFormatter(xAxisValues)
 
         val data = LineData(dataSets)
         mLineGraph.data = data
-        mLineGraph.animateX(2000)
+        mLineGraph.animateX(2000, Easing.EaseInSine)
         mLineGraph.invalidate()
         mLineGraph.legend.isEnabled = false
         mLineGraph.description.isEnabled = false
-
-//        mLineGraph.axisLeft.addLimitLine(getLimitByType())
     }
 
     private fun getEntryList(yAxisValues: ArrayList<Float>): List<Entry> {

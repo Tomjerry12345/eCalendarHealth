@@ -10,8 +10,6 @@
         app:showAsAction="never"
         />
 
-
-
     <item
         android:id="@+id/menu_history"
         android:icon="@drawable/bottom_ico2"

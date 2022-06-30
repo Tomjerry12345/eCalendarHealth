@@ -71,6 +71,7 @@
                     android:padding="@dimen/_16dp">
 
                     <TextView
+                        android:id="@+id/txtPeringatan"
                         style="@style/DMSansRegular"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
