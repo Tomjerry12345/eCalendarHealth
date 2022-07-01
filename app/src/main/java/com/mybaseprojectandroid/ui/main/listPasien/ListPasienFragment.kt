@@ -1,10 +1,12 @@
 package com.mybaseprojectandroid.ui.main.listPasien
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import androidx.activity.addCallback
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,11 +16,10 @@ import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.FragmentListPasienBinding
 import com.mybaseprojectandroid.model.Aktivitas
+import com.mybaseprojectandroid.model.DateBringWalking
 import com.mybaseprojectandroid.model.PasienModel
 import com.mybaseprojectandroid.ui.main.listPasien.adapter.ListPasienAdapter
-import com.mybaseprojectandroid.utils.local.SavedData
 import com.mybaseprojectandroid.utils.network.Response
-import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.ExcellUtils
@@ -37,12 +38,15 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
     private var i = 0
     val listPersenAktivitas = ArrayList<Int>()
     private lateinit var dataPasienModel: List<PasienModel>
+    private lateinit var dateBringWalking: ArrayList<List<DateBringWalking>>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentListPasienBinding.bind(view)
 
         val dialog = DialogProgress.initDialog(requireContext())
+
+        dateBringWalking = ArrayList()
 
         dialog.show()
 
@@ -71,6 +75,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
             if (it) {
                 dialog.hide()
                 showLogAssert("listPersenAktivitas", "$listPersenAktivitas")
+                showLogAssert("dateBringWalking-succes", "$dateBringWalking")
                 val adapter1 = ListPasienAdapter(
                     dataPasienModel,
                     listPersenAktivitas
@@ -99,10 +104,6 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
     fun getAktivitas() {
         Handler(Looper.getMainLooper()).postDelayed({
-//            SavedData.setBoolean(Constant.KEY_IS_LOGGIN, false)
-            val isLoggin = SavedData.getBoolean(Constant.KEY_IS_LOGGIN)
-
-            showLogAssert("isLoggin", "$isLoggin")
             dataPasienModel[i].id?.let {
                 viewModel.getAktivitas(it).observe(viewLifecycleOwner) { respons ->
                     when (respons) {
@@ -110,9 +111,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
                             val queryRespons = respons.data as QuerySnapshot
 
                             val aktivitas = queryRespons.toObjects<Aktivitas>()
-
                             showLogAssert("aktivitas", "$aktivitas")
-                            showLogAssert("i", "$i")
 
                             if (aktivitas.isNotEmpty()) {
                                 val hasilPersen = (aktivitas[0].sumWeekBring!! * 100) / 5
@@ -133,15 +132,33 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
                         is Response.Success -> TODO()
                     }
                 }
+
+                viewModel.getDateBringWalking(it).observe(viewLifecycleOwner) { respons ->
+                    when (respons) {
+                        is Response.Changed -> {
+                            val queryRespons = respons.data as QuerySnapshot
+
+                            val dateBringWalking: List<DateBringWalking> = queryRespons.toObjects()
+                            showLogAssert("dateBringWalking", "$dateBringWalking")
+
+                            if (dateBringWalking.isNotEmpty()) {
+                                this.dateBringWalking.add(dateBringWalking)
+                            }
+                        }
+                        is Response.Error -> TODO()
+                        is Response.Progress -> TODO()
+                        is Response.Success -> TODO()
+                    }
+                }
             }
 
         }, 100)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun exportExcell() {
         if (dataPasienModel.isNotEmpty()) {
-            showLogAssert("dataPasienModel", "$dataPasienModel")
-            val excellUtils = ExcellUtils(requireActivity(), dataPasienModel)
+            val excellUtils = ExcellUtils(requireActivity(), dataPasienModel, dateBringWalking)
             excellUtils.createExcel(excellUtils.createWorkbook())
         } else {
             binding.btnExport.isEnabled = false

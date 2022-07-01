@@ -45,16 +45,16 @@ object DateCustom {
         return current.get(ChronoField.YEAR)
     }
 
-    fun getDayByLocalDate(startDate: LocalDate): Int {
-        return startDate.get(ChronoField.DAY_OF_MONTH)
+    fun getDayByLocalDate(date: LocalDate): Int {
+        return date.get(ChronoField.DAY_OF_MONTH)
     }
 
-    fun getMonthByLocalDate(startDate: LocalDate): Int {
-        return current.get(ChronoField.MONTH_OF_YEAR)
+    fun getMonthByLocalDate(date: LocalDate): Int {
+        return date.get(ChronoField.MONTH_OF_YEAR)
     }
 
-    fun getYearByLocalDate(startDate: LocalDate): Int {
-        return current.get(ChronoField.YEAR)
+    fun getYearByLocalDate(date: LocalDate): Int {
+        return date.get(ChronoField.YEAR)
     }
 
     fun getHoursNow(): Int {

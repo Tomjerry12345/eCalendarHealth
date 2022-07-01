@@ -22,6 +22,7 @@ object Constant {
     const val KEY_PASIEN = "pasien"
     const val KEY_ADMIN = "admin"
     const val KEY_AKTIVITAS = "aktivitas"
+    const val KEY_DATE_BRING_WALKING = "bring-walking"
     const val KEY_PEMERIKSAAN = "pemeriksaan"
     const val KEY_IS_LOGGIN = "isLoggin"
 

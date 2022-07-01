@@ -42,6 +42,24 @@ class ListPasienViewModel(val db: FirebaseDatabase) : ViewModel() {
         return response
     }
 
+    fun getDateBringWalking(idUser: String): LiveData<Response> {
+        showLogAssert("idUser", idUser)
+        val response = MutableLiveData<Response>()
+
+        val listQuery = listOf(
+            hashMapOf(
+                "key" to "idUser",
+                "value" to idUser
+            )
+        )
+
+        viewModelScope.launch {
+            response.value = db.getDataByQuery(Constant.KEY_DATE_BRING_WALKING, listQuery)
+        }
+
+        return response
+    }
+
     fun setIsSucces(value: Boolean) {
         _isSucces.value = value
     }

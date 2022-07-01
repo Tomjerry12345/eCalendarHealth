@@ -3,6 +3,7 @@ package com.mybaseprojectandroid.ui.main.timer
 import androidx.lifecycle.*
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.model.Aktivitas
+import com.mybaseprojectandroid.model.DateBringWalking
 import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
@@ -44,6 +45,12 @@ class TimerViewModel(private val db: FirebaseDatabase) : ViewModel() {
                 _response.value = db.addData(Constant.KEY_AKTIVITAS, aktivitasModel)
             }
 
+        }
+    }
+
+    fun addDateBringWalking(dateBringWalking: DateBringWalking) {
+        viewModelScope.launch {
+            _response.value = db.addData(Constant.KEY_DATE_BRING_WALKING, dateBringWalking)
         }
     }
 }

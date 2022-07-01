@@ -8,6 +8,8 @@ import com.mybaseprojectandroid.databinding.FragmentProfileBinding
 import com.mybaseprojectandroid.ui.auth.AuthActivity
 import com.mybaseprojectandroid.utils.local.SavedData
 import com.mybaseprojectandroid.utils.local.getSavedPasien
+import com.mybaseprojectandroid.utils.local.setSavedAdmin
+import com.mybaseprojectandroid.utils.local.setSavedPasien
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
@@ -33,7 +35,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         binding.keluar.setOnClickListener {
             SavedData.setBoolean(Constant.KEY_IS_LOGGIN, false)
-            SavedData.setObject(Constant.KEY_PASIEN, null)
+            setSavedPasien(null)
+            setSavedAdmin(null)
             moveIntentTo(requireActivity(), AuthActivity(), true)
         }
         binding.tvUbahProfil.setOnClickListener{

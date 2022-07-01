@@ -10,7 +10,6 @@ data class Aktivitas(
     var sumDayBring: Int? = null,
     val month: Int? = null,
     val week: Int? = null,
-//    val startBringDate: DateModel? = null,
-//    val endBringDate: DateModel? = null,
-    var isUpdate: Boolean? = null
+    var isUpdate: Boolean? = null,
+    val timeStamp: Long? = null
 )

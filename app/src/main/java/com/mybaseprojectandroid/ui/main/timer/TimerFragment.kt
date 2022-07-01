@@ -12,6 +12,7 @@ import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.FragmentTimerBinding
 import com.mybaseprojectandroid.model.Aktivitas
+import com.mybaseprojectandroid.model.DateBringWalking
 import com.mybaseprojectandroid.model.DateModel
 import com.mybaseprojectandroid.ui.main.base.BaseActivity
 import com.mybaseprojectandroid.utils.local.getSavedPasien
@@ -54,24 +55,26 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
 
         val range = DateCustom.getRangeWeek()
 
-        var dayStart = DateCustom.getDayByLocalDate(range.startDate)
+        val dayStart = DateCustom.getDayByLocalDate(range.startDate)
         val monthStart = DateCustom.getMonthByLocalDate(range.startDate)
         val yearStart = DateCustom.getYearByLocalDate(range.startDate)
 
         val dateStart = DateModel(
             dayStart,
             monthStart,
-            yearStart
+            yearStart,
+            hoursNow
         )
 
-        var dayEnd = DateCustom.getDayByLocalDate(range.endDate)
+        val dayEnd = DateCustom.getDayByLocalDate(range.endDate)
         val monthEnd = DateCustom.getMonthByLocalDate(range.endDate)
         val yearEnd = DateCustom.getYearByLocalDate(range.endDate)
 
         val dateEnd = DateModel(
             dayEnd,
             monthEnd,
-            yearEnd
+            yearEnd,
+            hoursNow
         )
 
         viewModel.data.observe(viewLifecycleOwner) {
@@ -127,6 +130,8 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                     if (it.isFinish) {
                         Timer.cancelTimer()
 
+                        addDateBringWalking(dateStart)
+
                         if (beforeDataAktivitas != null) {
                             if (beforeDataAktivitas!!.isUpdate == true) {
                                 beforeDataAktivitas!!.sumDayBring =
@@ -147,10 +152,6 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                             initData(dateStart, dateEnd)
                             addNewData()
                         }
-
-                        showLogAssert("aktivitas", "$beforeDataAktivitas")
-
-
                     }
                 }
                 is Timer.Response.Time -> {
@@ -188,11 +189,25 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
             startDate = dateStart,
             endDate = dateEnd,
             month = monthNow,
-            isUpdate = true
+            isUpdate = true,
+            timeStamp = DateCustom.getTimestamp()
         )
     }
 
     private fun addNewData() {
         viewModel.addAktivitas(beforeDataAktivitas!!)
+    }
+
+    private fun addDateBringWalking(date: DateModel) {
+
+        val dateBringWalking = DateBringWalking(
+            idUser = savedPasien?.id,
+            date = date,
+            week = weekOfMonth,
+            month = monthNow,
+            timeStamp = DateCustom.getTimestamp()
+        )
+
+        viewModel.addDateBringWalking(dateBringWalking)
     }
 }

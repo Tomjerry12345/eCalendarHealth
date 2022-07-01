@@ -57,7 +57,6 @@ class UbahProfilFragment : Fragment(R.layout.fragment_ubah_profil) {
                 binding.rbOral.id -> {
                     viewModel.pengobatan.value = "Oral"
                 }
-
                 binding.rbInsulin.id -> {
                     viewModel.pengobatan.value = "Insulin"
                 }
@@ -78,9 +77,7 @@ class UbahProfilFragment : Fragment(R.layout.fragment_ubah_profil) {
             MaterialDatePicker.Builder.datePicker()
         val materialDatePicker: MaterialDatePicker<*> = materialDateBuilder.build()
 
-
-
-        materialDatePicker.show(getParentFragmentManager(), "MATERIAL_DATE_PICKER")
+        materialDatePicker.show(parentFragmentManager, "MATERIAL_DATE_PICKER")
 
 
         materialDatePicker.addOnPositiveButtonClickListener {
