@@ -1,5 +1,6 @@
 package com.mybaseprojectandroid.ui.main.timer
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -44,6 +45,7 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
     private val weekOfMonth = DateCustom.getWeeksMonth()
 
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -96,8 +98,8 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                         }
 
                         if (beforeDataAktivitas?.sumDayBring!! >= 2 || beforeDataAktivitas?.sumWeekBring!! >= 5) {
-                            binding.mulai.apply {
-                                isEnabled = false
+                            binding.mulai.setOnClickListener {
+                                moveIntentTo(requireActivity(), BaseActivity(), true)
                             }
 
                             binding.bgGreen.background =
@@ -105,7 +107,7 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
 
                             binding.timer.apply {
                                 setTextColor(getColor(requireContext(), R.color.red))
-                                text = "Limit"
+                                text = "Selesai"
                             }
                         }
 
@@ -135,13 +137,12 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                         if (beforeDataAktivitas != null) {
                             if (beforeDataAktivitas!!.isUpdate == true) {
                                 beforeDataAktivitas!!.sumDayBring =
-                                    beforeDataAktivitas!!.sumDayBring?.plus(
-                                        1
-                                    )
+                                    beforeDataAktivitas!!.sumDayBring?.plus(1)
                                 beforeDataAktivitas!!.sumWeekBring =
                                     beforeDataAktivitas!!.sumWeekBring?.plus(
                                         1
                                     )
+                                showLogAssert("test", "${beforeDataAktivitas!!.sumDayBring}")
                                 addNewData()
                             } else {
                                 initData(dateStart, dateEnd)

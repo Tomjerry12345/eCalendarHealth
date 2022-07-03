@@ -32,8 +32,10 @@
             android:backgroundTint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@+id/bg_green"
             app:layout_constraintEnd_toEndOf="@+id/bg_green"
+            app:layout_constraintHorizontal_bias="0.475"
             app:layout_constraintStart_toStartOf="@+id/bg_green"
-            app:layout_constraintTop_toTopOf="@+id/bg_green" />
+            app:layout_constraintTop_toTopOf="@+id/bg_green"
+            app:layout_constraintVertical_bias="0.475" />
 
         <TextView
             android:id="@+id/timer"
@@ -45,7 +47,7 @@
             app:layout_constraintBottom_toBottomOf="@id/mulai"
             style="@style/DMSansBoldTitleGreen"
             android:textSize="@dimen/_35sp"
-            android:text="MULAI" />
+            android:text="@string/mulai" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,34 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Button
+import androidx.activity.ComponentActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.mybaseprojectandroid.R
+import com.mybaseprojectandroid.ui.main.base.BaseActivity
 import com.mybaseprojectandroid.utils.other.Constant
+import com.mybaseprojectandroid.utils.system.moveIntentTo
 
 object CustomAlertDialog {
 
-    var getInputTxt = ""
-    var getInputDropdown = ""
+    var btnClicked = false
 
-    fun getView(context: Context): View? {
-        val customAlertDialogView = LayoutInflater.from(context)
-            .inflate(R.layout.examples_custom_alert_dialog, null, false)
+    fun getView(activity: ComponentActivity, layout: Int): View? {
+        val customAlertDialogView = LayoutInflater.from(activity)
+            .inflate(layout, null, false)
 
-        val examplesInputTxt = customAlertDialogView.findViewById<TextInputEditText>(R.id.examplesInputTxt)
-        val examplesInputDropdown = customAlertDialogView.findViewById<TextInputLayout>(R.id.examplesInputDropdown)
-        val examplesDropdown = (examplesInputDropdown.editText as? AutoCompleteTextView)
+        val btn = customAlertDialogView.findViewById<Button>(R.id.buttom)
 
-        val adapter = ArrayAdapter(context, R.layout.examples_custom_list_dropdown, Constant.exampleListDropwdownText)
-
-        examplesDropdown?.setAdapter(adapter)
-
-        getInputTxt = examplesInputTxt.text.toString()
-
-        examplesDropdown?.setOnItemClickListener { adapterView, view, i, l ->
-            val getItem = adapterView.getItemAtPosition(i)
-            getInputDropdown = (getItem as String?).toString()
+        btn.setOnClickListener {
+            moveIntentTo(activity, BaseActivity(), true)
         }
+
         return customAlertDialogView
     }
 }

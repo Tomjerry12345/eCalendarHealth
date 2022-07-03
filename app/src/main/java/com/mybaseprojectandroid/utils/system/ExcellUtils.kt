@@ -38,22 +38,19 @@ class ExcellUtils(
 
     val HEADER_AKTIVITAS = listOf(
         "nama",
-        "tanggal bring walking 1",
-        "jam bring walking 1",
+        "tanggal brisk walking 1",
+        "jam brisk walking 1",
         "status",
-        "tanggal bring walking 2",
-        "jam bring walking 2",
+        "tanggal brisk walking 2",
+        "jam brisk walking 2",
         "status",
-        "tanggal bring walking 3",
-        "jam bring walking 3",
+        "tanggal brisk walking 3",
+        "jam brisk walking 3",
         "status",
-        "tanggal bring walking 4",
-        "jam bring walking 4",
+        "tanggal brisk walking 4",
+        "jam brisk walking 4",
         "status",
     )
-
-    val path =
-        Environment.getExternalStorageDirectory().path + "/" + Environment.DIRECTORY_DOCUMENTS
 
     val listNama = ArrayList<String>()
 

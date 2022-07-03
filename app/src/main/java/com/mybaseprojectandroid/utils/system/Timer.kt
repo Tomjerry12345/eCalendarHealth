@@ -11,7 +11,8 @@ object Timer {
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.Default + job)
 
-    private var totalSeconds = TimeUnit.MINUTES.toSeconds(2)
+//    private var totalSeconds = TimeUnit.MINUTES.toSeconds(0.10)
+    private var totalSeconds = TimeUnit.SECONDS.toSeconds(10)
 
     private val _getResponseTimer = MutableLiveData<Response>()
     val getResponseTimer: LiveData<Response> = _getResponseTimer
@@ -36,7 +37,8 @@ object Timer {
 
     fun startTimer() {
         _getResponseTimer.postValue(Response.Finish(false))
-        totalSeconds = TimeUnit.MINUTES.toSeconds(2)
+//        totalSeconds = TimeUnit.MINUTES.toSeconds(2)
+        totalSeconds = TimeUnit.SECONDS.toSeconds(10)
         timer = startCoroutineTimer(delayMillis = 0, repeatMillis = 1000) {
             processTimer()
         }

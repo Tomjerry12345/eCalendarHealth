@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Custom Alert Dialog"
-            android:onClick="@{(view) -> viewModel.onCustomAlertDialog(view)}"/>
+            android:onClick="@{() -> viewModel.onCustomAlertDialog()}"/>
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
