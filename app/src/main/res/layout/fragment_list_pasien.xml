@@ -17,29 +17,59 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_60dp"
             app:layout_constraintTop_toTopOf="parent"
-            android:elevation="0dp" />
+            android:elevation="0dp">
 
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cardfortoolbar"
-            app:layout_constraintBottom_toBottomOf="@id/cardfortoolbar"
-            android:layout_marginStart="@dimen/_16dp"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            android:elevation="5dp" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/_8dp">
 
-        <TextView
-            style="@style/DMSansBoldTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8dp"
-            android:elevation="5dp"
-            android:text="Daftar Pasien"
-            app:layout_constraintBottom_toBottomOf="@id/cardfortoolbar"
-            app:layout_constraintStart_toEndOf="@id/backButton"
-            app:layout_constraintTop_toTopOf="@id/cardfortoolbar" />
+                <ImageView
+                    android:id="@+id/backButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cardfortoolbar"
+                    app:layout_constraintBottom_toBottomOf="@id/cardfortoolbar"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    android:elevation="5dp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/DMSansBoldTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:elevation="5dp"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:text="Daftar Pasien" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/dropdownMonth"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Pilih bulan"
+                    android:layout_marginStart="@dimen/_16dp"
+                    app:boxBackgroundColor="#F1F3F6"
+                    app:boxCornerRadiusBottomEnd="@dimen/_8dp"
+                    app:boxCornerRadiusBottomStart="@dimen/_8dp"
+                    app:boxCornerRadiusTopEnd="@dimen/_8dp"
+                    app:boxCornerRadiusTopStart="@dimen/_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list_Pasien"

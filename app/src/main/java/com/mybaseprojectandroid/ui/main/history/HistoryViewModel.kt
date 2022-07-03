@@ -15,15 +15,6 @@ class HistoryViewModel(val db: FirebaseDatabase) : ViewModel() {
 
     private val savedPasien = getSavedPasien()
 
-//    val dataRiwayat: LiveData<Response> = liveData {
-//        val response =
-//            db.getDataByQuery(
-//                Constant.KEY_AKTIVITAS,
-//                listQuery as List<HashMap<String, Any>>
-//            )
-//        emit(response)
-//    }
-
     private val _response = MutableLiveData<Response>()
     val response: LiveData<Response> = _response
 

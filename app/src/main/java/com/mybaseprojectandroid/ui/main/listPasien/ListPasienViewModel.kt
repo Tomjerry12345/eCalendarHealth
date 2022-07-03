@@ -20,11 +20,37 @@ class ListPasienViewModel(val db: FirebaseDatabase) : ViewModel() {
     private val _isSucces = MutableLiveData<Boolean>()
     val isSucces: LiveData<Boolean> = _isSucces
 
-    fun getAktivitas(idUser: String): LiveData<Response> {
+    fun getAktivitas(idUser: String, month: Int?): LiveData<Response> {
+
         showLogAssert("idUser", idUser)
+        showLogAssert("month", "$month")
+
         val response = MutableLiveData<Response>()
 
-        val listQuery = listOf(
+        viewModelScope.launch {
+            response.value = db.getDataByQuery(Constant.KEY_AKTIVITAS, setListQuery(month, idUser))
+        }
+
+        return response
+    }
+
+    private fun setListQuery(month: Int?, idUser: String) =
+        if (month != null) listOf(
+            hashMapOf(
+                "key" to "idUser",
+                "value" to idUser
+            ),
+            hashMapOf(
+                "key" to "update",
+                "value" to true
+            ),
+
+            hashMapOf(
+                "key" to "month",
+                "value" to month
+            )
+        )
+        else listOf(
             hashMapOf(
                 "key" to "idUser",
                 "value" to idUser
@@ -34,13 +60,6 @@ class ListPasienViewModel(val db: FirebaseDatabase) : ViewModel() {
                 "value" to true
             )
         )
-
-        viewModelScope.launch {
-            response.value = db.getDataByQuery(Constant.KEY_AKTIVITAS, listQuery)
-        }
-
-        return response
-    }
 
     fun getDateBringWalking(idUser: String): LiveData<Response> {
         showLogAssert("idUser", idUser)
@@ -62,6 +81,28 @@ class ListPasienViewModel(val db: FirebaseDatabase) : ViewModel() {
 
     fun setIsSucces(value: Boolean) {
         _isSucces.value = value
+    }
+
+    fun setByMonth(month: Int): LiveData<Response> {
+        val response = MutableLiveData<Response>()
+
+        val mapMonth = hashMapOf(
+            "key" to "month",
+            "value" to month
+        )
+
+        val listQuery = listOf(
+            mapMonth
+        )
+
+        viewModelScope.launch {
+            response.value = db.getDataByQuery(
+                Constant.KEY_AKTIVITAS,
+                listQuery as List<HashMap<String, Any>>
+            )
+        }
+
+        return response
     }
 
 }

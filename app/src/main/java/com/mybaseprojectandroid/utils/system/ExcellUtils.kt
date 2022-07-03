@@ -1,5 +1,8 @@
 package com.mybaseprojectandroid.utils.system
 
+import android.app.AlertDialog
+import android.content.Context
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import androidx.activity.ComponentActivity
@@ -277,26 +280,16 @@ class ExcellUtils(
         cell?.setCellValue(value)
     }
 
-    fun createExcel(workbook: Workbook) {
-
-        //Get App Director, APP_DIRECTORY_NAME is a string
-        val appDirectory = activity.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-
-        //Check App Directory whether it exists or not, create if not.
-        if (appDirectory != null && !appDirectory.exists()) {
-            appDirectory.mkdirs()
-        }
-
-        //Create excel file with extension .xlsx
-        val excelFile = File(path, "data.xlsx")
-
-        //Write workbook to file using FileOutputStream
-
+    fun createExcel(workbook: Workbook, context: Context, uri: Uri) {
+        val contentResolver = context.contentResolver
         try {
-            val fileOut = FileOutputStream(excelFile)
-            workbook.write(fileOut)
-            fileOut.close()
-            showToast(activity, "Berhasil membuat file Di folder Document/test.xlsx")
+            contentResolver.openFileDescriptor(uri, "w")?.use {
+                FileOutputStream(it.fileDescriptor).use {fileOut ->
+                    workbook.write(fileOut)
+                    fileOut.close()
+                    showToast(activity, "Berhasil membuat file")
+                }
+            }
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
             showLogAssert("error", "${e.printStackTrace()}")

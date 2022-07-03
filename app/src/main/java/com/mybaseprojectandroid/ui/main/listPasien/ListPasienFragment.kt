@@ -1,11 +1,17 @@
 package com.mybaseprojectandroid.ui.main.listPasien
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,7 +28,9 @@ import com.mybaseprojectandroid.ui.main.listPasien.adapter.ListPasienAdapter
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
+import com.mybaseprojectandroid.utils.system.DateCustom
 import com.mybaseprojectandroid.utils.system.ExcellUtils
+import com.mybaseprojectandroid.utils.system.FilesUtils
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 
@@ -36,19 +44,36 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
     }
 
     private var i = 0
-    val listPersenAktivitas = ArrayList<Int>()
+    var listPersenAktivitas = ArrayList<Int>()
     private lateinit var dataPasienModel: List<PasienModel>
     private lateinit var dateBringWalking: ArrayList<List<DateBringWalking>>
 
+    private lateinit var dialog: AlertDialog
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            data?.data?.also { uri ->
+                val excellUtils = ExcellUtils(requireActivity(), dataPasienModel, dateBringWalking)
+                excellUtils.createExcel(excellUtils.createWorkbook(), requireContext(), uri)
+            }
+        }
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentListPasienBinding.bind(view)
 
-        val dialog = DialogProgress.initDialog(requireContext())
+        dialog = DialogProgress.initDialog(requireContext())
 
         dateBringWalking = ArrayList()
 
         dialog.show()
+
+        setDropdown()
 
         viewModel.data.observe(viewLifecycleOwner) {
             when (it) {
@@ -60,7 +85,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
                     dataPasienModel = querySnapshot.toObjects()
 
-                    getAktivitas()
+                    getAktivitas(null)
                 }
                 is Response.Error -> {
                     showLogAssert("error", it.error)
@@ -71,20 +96,11 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
         }
 
         viewModel.isSucces.observe(viewLifecycleOwner) {
-            showLogAssert("isSucces", "$it")
             if (it) {
                 dialog.hide()
-                showLogAssert("listPersenAktivitas", "$listPersenAktivitas")
-                showLogAssert("dateBringWalking-succes", "$dateBringWalking")
-                val adapter1 = ListPasienAdapter(
-                    dataPasienModel,
-                    listPersenAktivitas
-                )
-
-                binding.rvListPasien.apply {
-                    adapter = adapter1
-                    layoutManager = LinearLayoutManager(context)
-                }
+                setAdapter()
+                i = 0
+                listPersenAktivitas = ArrayList()
             }
         }
 
@@ -102,10 +118,22 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
         }
     }
 
-    fun getAktivitas() {
+    private fun setAdapter() {
+        val adapter1 = ListPasienAdapter(
+            dataPasienModel,
+            listPersenAktivitas
+        )
+
+        binding.rvListPasien.apply {
+            adapter = adapter1
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    fun getAktivitas(month: Int?) {
         Handler(Looper.getMainLooper()).postDelayed({
             dataPasienModel[i].id?.let {
-                viewModel.getAktivitas(it).observe(viewLifecycleOwner) { respons ->
+                viewModel.getAktivitas(it, month).observe(viewLifecycleOwner) { respons ->
                     when (respons) {
                         is Response.Changed -> {
                             val queryRespons = respons.data as QuerySnapshot
@@ -124,7 +152,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
                                 viewModel.setIsSucces(true)
                             } else {
                                 i += 1
-                                getAktivitas()
+                                getAktivitas(month)
                             }
                         }
                         is Response.Error -> TODO()
@@ -158,15 +186,28 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun exportExcell() {
         if (dataPasienModel.isNotEmpty()) {
-            val excellUtils = ExcellUtils(requireActivity(), dataPasienModel, dateBringWalking)
-            excellUtils.createExcel(excellUtils.createWorkbook())
+            val filesUtils = FilesUtils()
+            filesUtils.createFile(resultLauncher, "data", requireActivity())
+
         } else {
             binding.btnExport.isEnabled = false
         }
-
     }
 
     fun back() {
         moveNavigationTo(requireView(), R.id.action_listPasienFragment_to_baseFragment)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setDropdown() {
+        val adapter =
+            ArrayAdapter(requireContext(), R.layout.item_dropdown, DateCustom.listNameMonth)
+        (binding.dropdownMonth.editText as? AutoCompleteTextView)?.apply {
+            setAdapter(adapter)
+            setOnItemClickListener { adapterView, view, i, l ->
+                dialog.show()
+               getAktivitas(i.plus(1))
+            }
+        }
     }
 }
