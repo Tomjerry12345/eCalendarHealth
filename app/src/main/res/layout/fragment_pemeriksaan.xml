@@ -70,7 +70,7 @@
             app:layout_constraintBottom_toBottomOf="@id/bg_head"
             android:layout_marginStart="@dimen/_16dp"
             style="@style/DMSansBoldTitle"
-            android:text="Brisk walking" />
+            android:text="Pemeriksaan Gula Darah" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ti_tanggal"
@@ -119,14 +119,17 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/end_satuan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/tl_jenis"
             tools:layout_editor_absoluteX="1dp"
             style="@style/inputfield"
             android:layout_marginHorizontal="@dimen/_16dp"
-            app:endIconDrawable="@drawable/icon_nilai"
+
             android:layout_marginTop="@dimen/_20dp"
+            app:endIconMode="custom"
+
 
             >
 
@@ -144,7 +147,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginHorizontal="@dimen/_16dp"
             android:layout_marginBottom="@dimen/_16dp"
-            android:text="Kirim"
+            android:text="Simpan"
             android:onClick="@{() -> viewModel.onAddPemeriksaan()}"
             android:background="@drawable/bg_input"
             android:textAllCaps="false"

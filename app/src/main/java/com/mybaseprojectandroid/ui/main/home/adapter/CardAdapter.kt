@@ -1,16 +1,20 @@
 package com.mybaseprojectandroid.ui.main.home.adapter
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.ItemHomeBinding
 import com.mybaseprojectandroid.model.CardItem
-import com.mybaseprojectandroid.utils.other.showToast
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 import com.mybaseprojectandroid.utils.widget.RecyclerViewUtils
 
-class CardAdapter(val list: List<CardItem>, private val recyclerListener: RecyclerViewUtils) :
+
+class CardAdapter(private val context : Context,val list: List<CardItem>, private val recyclerListener: RecyclerViewUtils) :
     RecyclerView.Adapter<CardAdapter.ViewHolder>() {
 
     inner class ViewHolder(private var binding: ItemHomeBinding) :
@@ -40,6 +44,13 @@ class CardAdapter(val list: List<CardItem>, private val recyclerListener: Recycl
                 }
                 "Edukasi" -> {
                     recyclerListener.clicked()
+                }
+                "Konsultasi" ->{
+                    val intentWhatsapp = Intent(Intent.ACTION_VIEW)
+                    val url = "https://chat.whatsapp.com/ICdRcxM0H5v3EGEuVFsLC0"
+                    intentWhatsapp.data = Uri.parse(url)
+                    intentWhatsapp.setPackage("com.whatsapp")
+                    context.startActivity(intentWhatsapp)
                 }
             }
 

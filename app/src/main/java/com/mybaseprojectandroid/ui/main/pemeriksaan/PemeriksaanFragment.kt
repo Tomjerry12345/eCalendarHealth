@@ -16,6 +16,7 @@ import com.mybaseprojectandroid.ui.main.base.BaseActivity
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showToast
+import com.mybaseprojectandroid.utils.system.getDrawable
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.system.popNavigation
 import com.mybaseprojectandroid.utils.widget.DialogProgress
@@ -89,12 +90,26 @@ class PemeriksaanFragment : Fragment(R.layout.fragment_pemeriksaan) {
     }
 
     private fun setDropdown() {
-        val items = listOf("HbA1C", "LBS")
+        val items = listOf("HbA1C", "Gula Darah Sewaktu")
         (binding.tlJenis.editText as? AutoCompleteTextView)?.apply {
             setAdapter(ArrayAdapter(requireContext(), R.layout.item_dropdown, items))
             setOnItemClickListener { adapterView, view, i, l ->
                 val getItem = adapterView.getItemAtPosition(i)
                 viewModel._jenis.value = (getItem as String?).toString()
+                var satuan = (getItem as String?).toString()
+                setSatuan(satuan)
+            }
+        }
+    }
+
+    private fun setSatuan(satuan: String) {
+        when(satuan){
+            "HbA1C" -> {
+                binding.endSatuan.endIconDrawable = context?.let { getDrawable(it,R.drawable.ic_persen) }
+            }
+            "Gula Darah Sewaktu" ->{
+                binding.endSatuan.endIconDrawable = context?.let { getDrawable(it,R.drawable.ic_mg) }
+
             }
         }
     }

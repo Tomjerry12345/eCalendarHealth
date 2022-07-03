@@ -84,13 +84,13 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
                         when (sumWeek) {
                             Constant.START ->  binding.txtPeringatan.text =
-                                "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! teks kalau belum olahraga full"
+                                "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
                             Constant.END -> binding.txtPeringatan.text = "Selamat, target aktifitas minggu ini sudah terpenuhi, tetap konsisten ya!"
-                            else -> binding.txtPeringatan.text = "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! teks kalau sudah semua olahraga"
+                            else -> binding.txtPeringatan.text = "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! "
                         }
                     } else {
                         binding.txtPeringatan.text =
-                            "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! teks kalau belum olahraga full"
+                            "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
                     }
                 }
                 is Response.Error -> {
@@ -104,33 +104,35 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
     private fun setRecyclerView() {
         val dialog = DialogProgress.initDialog(requireContext())
-        val adapterr = CardAdapter(Constant.listCardItem, object : RecyclerViewUtils {
-            override fun clicked() {
-                viewModel.isReadingDocument().observe(viewLifecycleOwner) {
-                    when (it) {
-                        is Response.Changed -> TODO()
-                        is Response.Error -> {
-                            dialog.dismiss()
-                            showToast(requireContext(), it.error)
-                        }
-                        is Response.Progress -> {
-                            dialog.show()
-                        }
-                        is Response.Success -> {
-                            dialog.dismiss()
-                            val pdfUtils = PdfUtils(requireActivity())
-//                            pdfUtils.openPdf(pdfUtils.PATH_DOCUMENT, "edukasi.pdf")
-                            pdfUtils.openPdfInRaw(
-                                pdfUtils.PATH_DOCUMENT,
-                                "edukasi.pdf",
-                                R.raw.edukasi
-                            )
+        val adapterr = context?.let {
+            CardAdapter(it,Constant.listCardItem, object : RecyclerViewUtils {
+                override fun clicked() {
+                    viewModel.isReadingDocument().observe(viewLifecycleOwner) {
+                        when (it) {
+                            is Response.Changed -> TODO()
+                            is Response.Error -> {
+                                dialog.dismiss()
+                                showToast(requireContext(), it.error)
+                            }
+                            is Response.Progress -> {
+                                dialog.show()
+                            }
+                            is Response.Success -> {
+                                dialog.dismiss()
+                                val pdfUtils = PdfUtils(requireActivity())
+    //                            pdfUtils.openPdf(pdfUtils.PATH_DOCUMENT, "edukasi.pdf")
+                                pdfUtils.openPdfInRaw(
+                                    pdfUtils.PATH_DOCUMENT,
+                                    "edukasi.pdf",
+                                    R.raw.edukasi
+                                )
+                            }
                         }
                     }
-                }
 
-            }
-        })
+                }
+            })
+        }
         binding.rvItemCard.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = adapterr

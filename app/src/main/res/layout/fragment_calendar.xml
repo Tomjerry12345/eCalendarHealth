@@ -71,7 +71,8 @@
                     android:drawableStart="@drawable/kotak1"
                     android:drawablePadding="@dimen/_12dp"
                     android:fontFamily="@font/dmsans_regular"
-                    android:text="Jika Hijau, anda telah melakukan aktifitas brisk walking"
+                    android:text="Jika Hijau, anda telah melakukan aktifitas
+sebanyak 5 kali"
                     android:textSize="@dimen/_16sp" />
 
                 <TextView
@@ -91,7 +92,8 @@
                     android:drawableStart="@drawable/kotak3"
                     android:drawablePadding="@dimen/_12dp"
                     android:fontFamily="@font/dmsans_regular"
-                    android:text="Jika Hijau, anda telah melakukan aktifitas brisk walking"
+                    android:text="Jika Ungu, anda telah melakukan aktifitas
+sebanyak 3 kali"
                     android:textSize="@dimen/_16sp" />
 
                 <TextView
@@ -101,7 +103,8 @@
                     android:drawableStart="@drawable/kotak4"
                     android:drawablePadding="@dimen/_12dp"
                     android:fontFamily="@font/dmsans_regular"
-                    android:text="Jika Hijau, anda telah melakukan aktifitas brisk walking"
+                    android:text="Jika Orange, anda telah melakukan aktifitas
+sebanyak 2 kali"
                     android:textSize="@dimen/_16sp" />
 
                 <TextView
@@ -112,7 +115,8 @@
                     android:drawableStart="@drawable/kotak5"
                     android:drawablePadding="@dimen/_12dp"
                     android:fontFamily="@font/dmsans_regular"
-                    android:text="Jika Putih, anda belum melakukan aktifitas brisk walking"
+                    android:text="Jika Merah, anda telah melakukan aktifitas
+sebanyak 1 kali"
                     android:textSize="@dimen/_16sp" />
 
                 <TextView

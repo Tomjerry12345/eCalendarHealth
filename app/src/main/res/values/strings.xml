@@ -36,10 +36,10 @@
 
 
     <!--Descriptions-->
-    <string name="first_slide_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae tellus tempor, vulputate vel dui. Lacus, imperdiet id est dignissim.</string>
-    <string name="second_slide_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae tellus tempor, vulputate vel dui. Lacus, imperdiet id est dignissim.</string>
-    <string name="third_slide_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae tellus tempor, vulputate vel dui. Lacus, imperdiet id est dignissim.</string>
-    <string name="fourth_slide_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae tellus tempor, vulputate vel dui. Lacus, imperdiet id est dignissim.</string>
+    <string name="first_slide_desc">Dilengkapi fitur edukasi cara melakukan aktivitas fisik, aplikasi ini akan memudahkan anda untuk melaksanakannya secara mandiri</string>
+    <string name="second_slide_desc">Pengingat anda untuk melakukan aktivitas fisik rutin setiap pekan. Terdapat kalender yang dapat membantu anda memantau aktivitas yang dilakukan</string>
+    <string name="third_slide_desc"> Aplikasi akan menampilkan grafik yang menunjukkan perubahan gula darah dari waktu ke waktu sesuai hasil pemeriksaan anda.</string>
+    <string name="fourth_slide_desc">Dengan tampilan yang sederhana dan fungsional, aplikasi ini memudahkan pengguna untuk memanfaatkan fitur-fitur yang ada.</string>
 
     <!--Buttons-->
     <string name="skip_btn">Lewati</string>

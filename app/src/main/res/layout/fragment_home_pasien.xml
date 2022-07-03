@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16dp"
                 android:layout_marginTop="@dimen/_16dp"
-                android:text="LBS"
+                android:text="Gula Darah Sewaktu"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/line_chartLBS" />
@@ -196,7 +196,7 @@
                     android:layout_marginStart="@dimen/_16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     style="@style/DMSansBoldTitle"
-                    android:text="Mari dengan \nPendapat Mereka"
+                    android:text="Mari dengar \nPendapat Mereka"
                     android:textColor="@android:color/white"
                     />
                 <TextView

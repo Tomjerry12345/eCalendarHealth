@@ -17,18 +17,25 @@
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/activity_base.xml" value="0.22905405405405405" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/activity_on_boarding.xml" value="0.16666666666666666" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/activity_register.xml" value="0.16666666666666666" />
-        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/activity_splash.xml" value="0.12" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/dialog_gagal.xml" value="0.13999999999999999" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/dialog_sukses.xml" value="0.22" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/examples_custom_list_dropdown.xml" value="0.10135135135135136" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/examples_firebase_notification_fragment.xml" value="0.18854166666666666" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/examples_manipulasi_files_fragment.xml" value="0.10574324324324325" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/examples_widget_fragment.xml" value="0.1" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_aktivitas.xml" value="0.22" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_base.xml" value="0.22" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_calendar.xml" value="0.23817567567567569" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_dashboard_perawat.xml" value="0.16666666666666666" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_detail_pasien.xml" value="0.11655405405405406" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_history.xml" value="0.22" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_home_pasien.xml" value="0.23817567567567569" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_home_perawat.xml" value="0.1" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_list_pasien.xml" value="0.23817567567567569" />
-        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_pemeriksaan.xml" value="0.23817567567567569" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_login.xml" value="0.11655405405405406" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_pemeriksaan.xml" value="0.14666666666666667" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_profile.xml" value="0.13333333333333333" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_register.xml" value="0.15608108108108107" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_t_imer.xml" value="0.10574324324324325" />
@@ -66,14 +73,13 @@
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/examples_activity.xml" value="0.1" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/examples_main_fragment.xml" value="0.1" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_aktivitas.xml" value="0.1" />
-        <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_base.xml" value="0.1" />
-        <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_calendar.xml" value="0.18" />
+        <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_detail_pasien.xml" value="0.22" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_history.xml" value="0.2" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_home_pasien.xml" value="0.25" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_home_perawat.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_list_pasien.xml" value="0.15" />
+        <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_list_pasien.xml" value="0.1" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_pemeriksaan.xml" value="0.18" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_profile.xml" value="0.18" />
         <entry key="..\:/Users/ARMAN/3D Objects/project/android/Native/eCalendarHealth/app/src/main/res/layout/fragment_timer.xml" value="0.1" />

@@ -35,25 +35,25 @@ object Constant {
         CardItem(
             R.drawable.item_card1,
             "Aktivitas",
-            "Lorem ipsum dolor sit consectetur adipis",
+            "Berisi panduan melakukan aktivitas brisk walking",
             R.drawable.card1
         ),
         CardItem(
             R.drawable.item_card2,
             "Edukasi",
-            "Lorem ipsum dolor sit consectetur adipis",
+            "Pengetahuan dasar tentang Diabetes Melitus",
             R.drawable.card2
         ),
         CardItem(
             R.drawable.item_card3,
             "Konsultasi",
-            "Lorem ipsum dolor sit consectetur adipis",
+            "Konsultasi langsung dengan perawat dan mendapatkan dukungan dari sesama pengguna",
             R.drawable.card3
         ),
         CardItem(
             R.drawable.item_card4,
             "Pemeriksaan",
-            "Lorem ipsum dolor sit consectetur adipis",
+            "Masukkan hasil pemeriksaan gula darah anda",
             R.drawable.card4
         )
     )
