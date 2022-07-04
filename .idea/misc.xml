@@ -20,6 +20,7 @@
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/dialog_gagal.xml" value="0.13999999999999999" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/dialog_sukses.xml" value="0.22" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/examples_custom_alert_dialog.xml" value="0.175" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/examples_custom_list_dropdown.xml" value="0.10135135135135136" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/examples_firebase_notification_fragment.xml" value="0.18854166666666666" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/examples_manipulasi_files_fragment.xml" value="0.10574324324324325" />
@@ -39,6 +40,7 @@
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_profile.xml" value="0.13333333333333333" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_register.xml" value="0.15608108108108107" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_t_imer.xml" value="0.10574324324324325" />
+        <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_tentang.xml" value="0.14666666666666667" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_testimoni.xml" value="0.10574324324324325" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_timer.xml" value="0.10574324324324325" />
         <entry key="..\:/Project/e-Calendar/eHealthCalendar/app/src/main/res/layout/fragment_ubah_profil.xml" value="0.15608108108108107" />
@@ -94,11 +96,6 @@
         <entry key="..\:/Users/Andi/3D Objects/luffy-dev/MyBaseProjectAndroid/app/src/main/res/layout/examples_activity.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Andi/3D Objects/luffy-dev/MyBaseProjectAndroid/app/src/main/res/layout/examples_fragment.xml" value="0.12409420289855072" />
         <entry key="..\:/Users/Andi/3D Objects/luffy-dev/MyBaseProjectAndroid/app/src/main/res/layout/main_fragment.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/Andi/3D Objects/luffy-dev/android/eCalendarHealth/app/src/main/res/layout/dialog_gagal.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/Andi/3D Objects/luffy-dev/android/eCalendarHealth/app/src/main/res/layout/dialog_sukses.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/Andi/3D Objects/luffy-dev/android/eCalendarHealth/app/src/main/res/layout/examples_widget_fragment.xml" value="0.1" />
-        <entry key="..\:/Users/Andi/3D Objects/luffy-dev/android/eCalendarHealth/app/src/main/res/layout/fragment_pemeriksaan.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/Andi/3D Objects/luffy-dev/android/eCalendarHealth/app/src/main/res/layout/fragment_timer.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/ikrim/3D Objects/luffy-dev/MyBaseProjectAndroid/app/src/main/res/layout/examples_main_fragment.xml" value="0.15" />
       </map>
     </option>

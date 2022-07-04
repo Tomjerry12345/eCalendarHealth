@@ -57,5 +57,7 @@
 
     <string name="clearSelectionDescription">Clear selection</string>
     <string name="mulai">MULAI</string>
+    <string name="desc_tentang">Aplikasi ini dikembangakan sebagai salah satu solusi untuk mengontrol kadar gula darah pada pasien Diabetes Melitus. Dengan memanfaatkan fitur-fitur yang telah dikembangakan, pengguna dapat melakukan aktivitas brisk walking secara teratur dan terdampingi, melihat nilai gula darah dari waktu ke waktu, serta mendapatkan edukasi dan dukungan langsung. \n\n\n Inventor : <b>Zainuddin</b></string>
+    <string name="tentang_kontak">Kontak Kami melalui email : \n<b>ehealthcalendarpa@gmail.com</b></string>
 
 </resources>

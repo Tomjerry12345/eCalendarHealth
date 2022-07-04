@@ -68,4 +68,9 @@
         android:id="@+id/ubahProfilFragment"
         android:name="com.mybaseprojectandroid.ui.main.ubahProfil.UbahProfilFragment"
         android:label="UbahProfilFragment" />
+
+    <fragment
+        android:id="@+id/tentangFragment"
+        android:name="com.mybaseprojectandroid.ui.main.tentang.TentangFragment"
+        android:label="TentangFragment" />
 </navigation>

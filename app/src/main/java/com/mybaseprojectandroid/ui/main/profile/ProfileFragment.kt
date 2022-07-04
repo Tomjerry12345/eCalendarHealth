@@ -42,5 +42,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.tvUbahProfil.setOnClickListener{
             moveNavigationTo(requireView(),R.id.ubahProfilFragment, )
         }
+        binding.tvTentang.setOnClickListener{
+            moveNavigationTo(requireView(),R.id.tentangFragment)
+        }
     }
 }
