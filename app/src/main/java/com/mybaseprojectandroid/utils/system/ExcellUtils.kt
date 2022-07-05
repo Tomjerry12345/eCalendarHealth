@@ -50,6 +50,9 @@ class ExcellUtils(
         "tanggal brisk walking 4",
         "jam brisk walking 4",
         "status",
+        "tanggal brisk walking 5",
+        "jam brisk walking 5",
+        "status",
     )
 
     val listNama = ArrayList<String>()
@@ -140,7 +143,7 @@ class ExcellUtils(
                     } else if (week == 2) {
                         isUpdate2 = setNamaLengkap(isUpdate2, sheet2, namaLengkap)
                         cellAktivitas(sheet2, tanggal, hours!!, j)
-                        if (sumBring == it.size - 2) {
+                        if (sumBring == it.size - 1) {
                             sumBring = 0
                             j = 0
                             isUpdate2 = true

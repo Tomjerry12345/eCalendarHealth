@@ -2,9 +2,11 @@ package com.mybaseprojectandroid.ui.main.home.pasien
 
 import androidx.lifecycle.*
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
+import com.mybaseprojectandroid.model.Aktivitas
 import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
+import com.mybaseprojectandroid.utils.other.showLogAssert
 import kotlinx.coroutines.launch
 
 class HomePasienViewModel(private val db: FirebaseDatabase) : ViewModel() {
@@ -25,7 +27,7 @@ class HomePasienViewModel(private val db: FirebaseDatabase) : ViewModel() {
 
     private val mapLBS = hashMapOf(
         "key" to "jenis",
-        "value" to "LBS"
+        "value" to "Gula Darah Sewaktu"
     )
 
     private val listQueryHbA1C = listOf(
@@ -83,6 +85,20 @@ class HomePasienViewModel(private val db: FirebaseDatabase) : ViewModel() {
                     Constant.KEY_PASIEN, it, "readingDocument", true
                 )
             }
+        }
+        return _response
+    }
+
+    fun updateAktivitas(aktivitasModel: Aktivitas): LiveData<Response> {
+        val _response = MutableLiveData<Response>()
+
+        viewModelScope.launch {
+            showLogAssert("updateAktivitas", "$aktivitasModel")
+            _response.value =
+                aktivitasModel.id?.let {
+                    db.update(Constant.KEY_AKTIVITAS,
+                        it, null, aktivitasModel)
+                }
         }
         return _response
     }

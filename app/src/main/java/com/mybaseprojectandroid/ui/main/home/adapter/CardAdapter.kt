@@ -5,16 +5,21 @@ import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.ItemHomeBinding
 import com.mybaseprojectandroid.model.CardItem
+import com.mybaseprojectandroid.utils.other.showToast
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 import com.mybaseprojectandroid.utils.widget.RecyclerViewUtils
 
 
-class CardAdapter(private val context : Context,val list: List<CardItem>, private val recyclerListener: RecyclerViewUtils) :
+class CardAdapter(
+    private val context: Context,
+    val list: List<CardItem>,
+    private val recyclerListener: RecyclerViewUtils,
+    private val sumDayBring: Int?
+) :
     RecyclerView.Adapter<CardAdapter.ViewHolder>() {
 
     inner class ViewHolder(private var binding: ItemHomeBinding) :
@@ -37,7 +42,18 @@ class CardAdapter(private val context : Context,val list: List<CardItem>, privat
         holder.itemView.setOnClickListener {
             when (item.title) {
                 "Aktivitas" -> {
-                    moveNavigationTo(holder.itemView, R.id.aktivitasFragment)
+                    if (sumDayBring == null) {
+                        moveNavigationTo(holder.itemView, R.id.aktivitasFragment)
+                    } else {
+                        if (sumDayBring >= 2) {
+                            showToast(
+                                context,
+                                "Aktivitas selesai silahkan lanjutkan lagi bsok hari"
+                            )
+                        } else {
+                            moveNavigationTo(holder.itemView, R.id.aktivitasFragment)
+                        }
+                    }
                 }
                 "Pemeriksaan" -> {
                     moveNavigationTo(holder.itemView, R.id.pemeriksaanFragment)

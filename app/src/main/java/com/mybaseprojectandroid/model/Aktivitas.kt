@@ -3,7 +3,7 @@ package com.mybaseprojectandroid.model
 data class Aktivitas(
     val id: String? = null,
     val idUser: String? = null,
-    val dateUpdate: DateModel? = null,
+    var dateUpdate: DateModel? = null,
     val startDate: DateModel? = null,
     val endDate: DateModel? = null,
     var sumWeekBring: Int? = null,

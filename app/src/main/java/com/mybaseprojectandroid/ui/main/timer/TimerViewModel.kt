@@ -7,6 +7,7 @@ import com.mybaseprojectandroid.model.DateBringWalking
 import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
+import com.mybaseprojectandroid.utils.other.showLogAssert
 import kotlinx.coroutines.launch
 
 class TimerViewModel(private val db: FirebaseDatabase) : ViewModel() {
@@ -38,6 +39,7 @@ class TimerViewModel(private val db: FirebaseDatabase) : ViewModel() {
     }
 
     fun addAktivitas(aktivitasModel: Aktivitas) {
+        showLogAssert("addAktivitas", "$aktivitasModel")
         viewModelScope.launch {
             if (aktivitasModel.id != null) {
                 _response.value = db.update(Constant.KEY_AKTIVITAS, aktivitasModel.id, null, aktivitasModel)

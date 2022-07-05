@@ -2,8 +2,10 @@ package com.mybaseprojectandroid.ui.main.home.pasien
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,6 +24,7 @@ import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.FragmentHomePasienBinding
 import com.mybaseprojectandroid.model.Aktivitas
+import com.mybaseprojectandroid.model.DateModel
 import com.mybaseprojectandroid.model.Pemeriksaan
 import com.mybaseprojectandroid.ui.main.home.adapter.CardAdapter
 import com.mybaseprojectandroid.utils.local.getSavedPasien
@@ -30,6 +33,7 @@ import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.other.showToast
+import com.mybaseprojectandroid.utils.system.DateCustom
 import com.mybaseprojectandroid.utils.system.PdfUtils
 import com.mybaseprojectandroid.utils.system.getColor
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
@@ -52,13 +56,12 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
     private val pasien = getSavedPasien()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomePasienBinding.bind(view)
         binding.viewModel = viewModel
-
-        setRecyclerView()
 
         getData()
         getDataHbA1C()
@@ -70,6 +73,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     private fun getData() {
         viewModel.data.observe(viewLifecycleOwner) {
@@ -78,9 +82,17 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                     val data = it.data as QuerySnapshot
                     val dataExtract = data.toObjects<Aktivitas>()
 
+                    val dayNow = DateCustom.getDayNow()
+                    val monthNow = DateCustom.getMonthNow()
+                    val yearNow = DateCustom.getYearNow()
+                    val hoursNow = DateCustom.getHoursNow()
+                    val weekOfMonth = DateCustom.getWeeksMonth()
+
+                    var isUpdateAktivitas = false
+
                     if (dataExtract.isNotEmpty()) {
-                        val sumWeek = dataExtract[0].sumWeekBring
-                        showLogAssert("sumWeek", "$sumWeek")
+                        var dataAktivitas = dataExtract[0]
+                        val sumWeek = dataAktivitas.sumWeekBring
 
                         when (sumWeek) {
                             Constant.START ->  binding.txtPeringatan.text =
@@ -88,9 +100,51 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                             Constant.END -> binding.txtPeringatan.text = "Selamat, target aktifitas minggu ini sudah terpenuhi, tetap konsisten ya!"
                             else -> binding.txtPeringatan.text = "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! "
                         }
+
+                        if (dayNow == dataAktivitas.dateUpdate?.day!!) {
+                            if (dataAktivitas.dateUpdate?.hours!! >= hoursNow) {
+                                dataAktivitas.sumDayBring = 0
+                                dataAktivitas.dateUpdate = DateModel(
+                                    day = dayNow + 1,
+                                    month = monthNow,
+                                    year = yearNow,
+                                    hours = hoursNow
+                                )
+                                isUpdateAktivitas = true
+                            }
+                        } else if (dayNow > dataAktivitas.dateUpdate?.day!!) {
+                            dataAktivitas.sumDayBring = 0
+                            dataAktivitas.dateUpdate = DateModel(
+                                day = dayNow + 1,
+                                month = monthNow,
+                                year = yearNow,
+                                hours = hoursNow
+                            )
+                            isUpdateAktivitas = true
+                        }
+
+                        if (weekOfMonth > dataAktivitas.week!!) {
+                            dataAktivitas.isUpdate = false
+                            isUpdateAktivitas = true
+                        }
+
+                        if (isUpdateAktivitas) {
+                            viewModel.updateAktivitas(dataAktivitas).observe(viewLifecycleOwner) { response ->
+                                when(response) {
+                                    is Response.Changed -> TODO()
+                                    is Response.Error -> showLogAssert("error isUpdateAktivitas", response.error)
+                                    is Response.Progress -> TODO()
+                                    is Response.Success -> setRecyclerView(dataAktivitas)
+                                }
+                            }
+                        } else {
+                            setRecyclerView(dataAktivitas)
+                        }
+
                     } else {
                         binding.txtPeringatan.text =
                             "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
+                        setRecyclerView(null)
                     }
                 }
                 is Response.Error -> {
@@ -102,7 +156,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         }
     }
 
-    private fun setRecyclerView() {
+    private fun setRecyclerView(aktivitas: Aktivitas?) {
         val dialog = DialogProgress.initDialog(requireContext())
         val adapterr = context?.let {
             CardAdapter(it,Constant.listCardItem, object : RecyclerViewUtils {
@@ -131,7 +185,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                     }
 
                 }
-            })
+            }, aktivitas?.sumDayBring)
         }
         binding.rvItemCard.apply {
             layoutManager = GridLayoutManager(context, 2)

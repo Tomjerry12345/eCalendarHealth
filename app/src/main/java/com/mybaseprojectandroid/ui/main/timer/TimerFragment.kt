@@ -20,6 +20,7 @@ import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
+import com.mybaseprojectandroid.utils.other.showToast
 import com.mybaseprojectandroid.utils.system.*
 
 
@@ -39,21 +40,13 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
     private val dayNow = DateCustom.getDayNow()
     private val monthNow = DateCustom.getMonthNow()
     private val yearNow = DateCustom.getYearNow()
-
     private val hoursNow = DateCustom.getHoursNow()
-
     private val weekOfMonth = DateCustom.getWeeksMonth()
 
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding = FragmentTimerBinding.bind(view)
-
-        binding.mulai.setOnClickListener {
-            Timer.startTimer()
-        }
 
         val range = DateCustom.getRangeWeek()
 
@@ -79,6 +72,42 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
             hoursNow
         )
 
+        binding = FragmentTimerBinding.bind(view)
+
+        binding.mulai.setOnClickListener {
+            if (binding.timer.text == "MULAI") {
+                Timer.startTimer()
+            } else {
+                addDateBringWalking(dateStart)
+
+                if (beforeDataAktivitas != null) {
+                    if (beforeDataAktivitas!!.isUpdate == true) {
+
+                        beforeDataAktivitas!!.sumDayBring =
+                            beforeDataAktivitas!!.sumDayBring?.plus(1)
+
+                        beforeDataAktivitas!!.sumWeekBring =
+                            beforeDataAktivitas!!.sumWeekBring?.plus(1)
+
+                        showLogAssert(
+                            "test",
+                            "${beforeDataAktivitas!!.sumDayBring}"
+                        )
+                        addNewData()
+                    } else {
+                        initData(dateStart, dateEnd)
+                        addNewData()
+                    }
+
+                } else {
+                    initData(dateStart, dateEnd)
+                    addNewData()
+                }
+            }
+        }
+
+
+
         viewModel.data.observe(viewLifecycleOwner) {
             when (it) {
                 is Response.Changed -> {
@@ -89,31 +118,31 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                     if (dataExtract.isNotEmpty()) {
                         beforeDataAktivitas = dataExtract[0]
 
-                        if (dayNow == beforeDataAktivitas?.dateUpdate?.day!!) {
-                            if (beforeDataAktivitas?.dateUpdate?.hours!! >= hoursNow) {
-                                beforeDataAktivitas!!.sumDayBring = 0
-                            }
-                        } else if (dayNow > beforeDataAktivitas?.dateUpdate?.day!!) {
-                            beforeDataAktivitas!!.sumDayBring = 0
-                        }
-
-                        if (beforeDataAktivitas?.sumDayBring!! >= 2 || beforeDataAktivitas?.sumWeekBring!! >= 5) {
-                            binding.mulai.setOnClickListener {
-                                moveIntentTo(requireActivity(), BaseActivity(), true)
-                            }
-
-                            binding.bgGreen.background =
-                                getDrawable(requireContext(), R.drawable.bg_circular_error)
-
-                            binding.timer.apply {
-                                setTextColor(getColor(requireContext(), R.color.red))
-                                text = "Selesai"
-                            }
-                        }
-
-                        if (weekOfMonth > beforeDataAktivitas!!.week!!) {
-                            beforeDataAktivitas!!.isUpdate = false
-                        }
+//                        if (dayNow == beforeDataAktivitas?.dateUpdate?.day!!) {
+//                            if (beforeDataAktivitas?.dateUpdate?.hours!! >= hoursNow) {
+//                                beforeDataAktivitas!!.sumDayBring = 0
+//                            }
+//                        } else if (dayNow > beforeDataAktivitas?.dateUpdate?.day!!) {
+//                            beforeDataAktivitas!!.sumDayBring = 0
+//                        }
+//
+//                        if (beforeDataAktivitas?.sumDayBring!! >= 2 || beforeDataAktivitas?.sumWeekBring!! >= 5) {
+//                            binding.mulai.setOnClickListener {
+//                                moveIntentTo(requireActivity(), BaseActivity(), true)
+//                            }
+//
+//                            binding.bgGreen.background =
+//                                getDrawable(requireContext(), R.drawable.bg_circular_error)
+//
+//                            binding.timer.apply {
+//                                setTextColor(getColor(requireContext(), R.color.red))
+//                                text = "Selesai"
+//                            }
+//                        }
+//
+//                        if (weekOfMonth > beforeDataAktivitas!!.week!!) {
+//                            beforeDataAktivitas!!.isUpdate = false
+//                        }
                     }
 
 
@@ -132,27 +161,23 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                     if (it.isFinish) {
                         Timer.cancelTimer()
 
-                        addDateBringWalking(dateStart)
+                        binding.bgGreen.background =
+                            getDrawable(requireContext(), R.drawable.bg_circular_error)
 
-                        if (beforeDataAktivitas != null) {
-                            if (beforeDataAktivitas!!.isUpdate == true) {
-                                beforeDataAktivitas!!.sumDayBring =
-                                    beforeDataAktivitas!!.sumDayBring?.plus(1)
-                                beforeDataAktivitas!!.sumWeekBring =
-                                    beforeDataAktivitas!!.sumWeekBring?.plus(
-                                        1
-                                    )
-                                showLogAssert("test", "${beforeDataAktivitas!!.sumDayBring}")
-                                addNewData()
-                            } else {
-                                initData(dateStart, dateEnd)
-                                addNewData()
-                            }
-
-                        } else {
-                            initData(dateStart, dateEnd)
-                            addNewData()
+                        binding.timer.apply {
+                            setTextColor(getColor(requireContext(), R.color.red))
+                            text = "Selesai"
                         }
+
+//                        binding.mulai.setOnClickListener {
+//                            if (binding.timer.text == "Selesai") {
+//
+//                            } else {
+//                                showToast(requireContext(), "terjadi kesalahan logic selesai")
+//                            }
+//                        }
+
+
                     }
                 }
                 is Timer.Response.Time -> {
