@@ -176,7 +176,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                                 val pdfUtils = PdfUtils(requireActivity())
     //                            pdfUtils.openPdf(pdfUtils.PATH_DOCUMENT, "edukasi.pdf")
                                 pdfUtils.openPdfInRaw(
-                                    pdfUtils.PATH_DOCUMENT,
+                                    pdfUtils.pathDocument,
                                     "edukasi.pdf",
                                     R.raw.edukasi
                                 )

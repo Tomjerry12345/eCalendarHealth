@@ -38,6 +38,11 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
         getData()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.calendar.markedDates.all.clear()
+    }
+
     private fun getData() {
         viewModel.data.observe(viewLifecycleOwner) {
             when (it) {
@@ -45,6 +50,8 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                     val querySnapshot = it.data as QuerySnapshot
 
                     val data = querySnapshot.toObjects<Aktivitas>()
+
+                    showLogAssert("data calender", "$data")
 
                     data.forEach { aktivitas ->
                         var day = aktivitas.startDate?.day

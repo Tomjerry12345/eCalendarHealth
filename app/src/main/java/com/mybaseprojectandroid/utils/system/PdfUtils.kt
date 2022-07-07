@@ -28,9 +28,8 @@ class PdfUtils(private val activity: ComponentActivity) {
     val path =
         Environment.getExternalStorageDirectory().path + "/" + Environment.DIRECTORY_DOCUMENTS
 
-    val PATH_DOCUMENT =
+    val pathDocument =
         "${activity.getExternalFilesDir(null)?.path}/${Environment.DIRECTORY_DOCUMENTS}"
-
 
     fun createBitmapFromLayout(v: View, width: Int, height: Int): Bitmap? {
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -95,8 +94,17 @@ class PdfUtils(private val activity: ComponentActivity) {
     }
 
     fun openPdfInRaw(path: String, name: String, raw: Int) {
+        val folder = File(path)
+
+        if (!folder.exists()) {
+            folder.mkdir()
+        }
+
         val file = File(path, name)
+
         copyFile(activity.resources.openRawResource(raw), FileOutputStream(file))
+
+        if (file.exists())
         if (file.exists()) {
             val intent = Intent(Intent.ACTION_VIEW)
             val uri =
