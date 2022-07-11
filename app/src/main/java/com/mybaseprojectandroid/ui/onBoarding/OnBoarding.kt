@@ -78,7 +78,9 @@ class OnBoarding : AppCompatActivity() {
             position: Int,
             positionOffset: Float,
             positionOffsetPixels: Int
-        ) {
+        )
+        {
+
         }
 
         override fun onPageSelected(position: Int) {
