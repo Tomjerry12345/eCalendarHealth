@@ -22,9 +22,11 @@ class ListPasienAdapter(
         fun bind(pasien: PasienModel, position: Int, persen: Int) {
 
             binding.itemPasien = pasien
-            binding.persen = "$persen %"
 
-            binding.progresss.progress = persen
+            var iPersen = if (persen > 100) 100 else persen
+            binding.persen = "$iPersen %"
+
+            binding.progresss.progress = iPersen
 
             binding.executePendingBindings()
             binding.number.text = position.plus(1).toString()

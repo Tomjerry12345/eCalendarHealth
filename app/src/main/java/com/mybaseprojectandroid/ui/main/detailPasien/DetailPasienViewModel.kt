@@ -67,7 +67,7 @@ class DetailPasienViewModel(val db: FirebaseDatabase) : ViewModel() {
 
         val mapLBS = hashMapOf(
             "key" to "jenis",
-            "value" to "LBS"
+            "value" to "Gula Darah Sewaktu"
         )
 
         val listQueryLBS = listOf(

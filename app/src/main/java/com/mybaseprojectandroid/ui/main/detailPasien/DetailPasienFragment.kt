@@ -7,6 +7,7 @@ import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -196,73 +197,6 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
         }
     }
 
-    private fun setGraphHbA1C(xAxisValues: ArrayList<String>, yAxisValues: ArrayList<Float>) {
-
-        val entryList = getEntryList(yAxisValues)
-
-        val dataSets: ArrayList<ILineDataSet?> = ArrayList()
-
-        val set1 = LineDataSet(entryList, "Income")
-        set1.color = Color.rgb(65, 168, 121)
-        set1.valueTextColor = Color.rgb(55, 70, 73)
-        set1.valueTextSize = 10f
-        set1.mode = LineDataSet.Mode.CUBIC_BEZIER
-        dataSets.add(set1)
-
-//customization
-
-//customization
-        val mLineGraph: LineChart = binding.lineChartHB1AC
-        mLineGraph.setTouchEnabled(true)
-        mLineGraph.isDragEnabled = true
-        mLineGraph.setScaleEnabled(false)
-        mLineGraph.setPinchZoom(false)
-        mLineGraph.setDrawGridBackground(false)
-        mLineGraph.extraLeftOffset = 15f
-        mLineGraph.extraRightOffset = 15f
-//to hide background lines
-//to hide background lines
-        mLineGraph.xAxis.setDrawGridLines(false)
-        mLineGraph.axisLeft.setDrawGridLines(false)
-        mLineGraph.axisRight.setDrawGridLines(false)
-
-//to hide right Y and top X border
-
-//to hide right Y and top X border
-        val rightYAxis = mLineGraph.axisRight
-        rightYAxis.isEnabled = false
-        val leftYAxis = mLineGraph.axisLeft
-        leftYAxis.isEnabled = true
-        val topXAxis = mLineGraph.xAxis
-        topXAxis.isEnabled = false
-
-
-        val xAxis = mLineGraph.xAxis
-        xAxis.granularity = 1f
-        xAxis.setCenterAxisLabels(true)
-        xAxis.isEnabled = true
-        xAxis.setDrawGridLines(false)
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-
-        set1.lineWidth = 2f
-        set1.circleRadius = 3f
-        set1.setDrawValues(false)
-        set1.circleHoleColor = ContextCompat.getColor(requireContext(), R.color.primary_color)
-        set1.setCircleColor(ContextCompat.getColor(requireContext(), R.color.primary_color))
-
-//String setter in x-Axis
-
-//String setter in x-Axis
-        mLineGraph.xAxis.valueFormatter = IndexAxisValueFormatter(xAxisValues)
-
-        val data = LineData(dataSets)
-        mLineGraph.data = data
-        mLineGraph.animateX(2000)
-        mLineGraph.invalidate()
-        mLineGraph.legend.isEnabled = false
-        mLineGraph.description.isEnabled = false
-    }
-
     private fun setGraphLBS(xAxisValues: ArrayList<String>, yAxisValues: ArrayList<Float>) {
 
         val entryList = getEntryList(yAxisValues)
@@ -272,30 +206,20 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
         val set1 = LineDataSet(entryList, "LBS")
         set1.color = ContextCompat.getColor(requireContext(), R.color.yellow)
         set1.valueTextColor = Color.rgb(55, 70, 73)
-        set1.valueTextSize = 10f
         set1.mode = LineDataSet.Mode.CUBIC_BEZIER
         dataSets.add(set1)
 
-//customization
-
-//customization
         val mLineGraph: LineChart = binding.lineCHartLBS
         mLineGraph.setTouchEnabled(true)
         mLineGraph.isDragEnabled = true
         mLineGraph.setScaleEnabled(false)
         mLineGraph.setPinchZoom(false)
         mLineGraph.setDrawGridBackground(false)
-        mLineGraph.extraLeftOffset = 15f
-        mLineGraph.extraRightOffset = 15f
-//to hide background lines
-//to hide background lines
+
         mLineGraph.xAxis.setDrawGridLines(false)
         mLineGraph.axisLeft.setDrawGridLines(false)
         mLineGraph.axisRight.setDrawGridLines(false)
 
-//to hide right Y and top X border
-
-//to hide right Y and top X border
         val rightYAxis = mLineGraph.axisRight
         rightYAxis.isEnabled = false
         val leftYAxis = mLineGraph.axisLeft
@@ -303,32 +227,73 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
         val topXAxis = mLineGraph.xAxis
         topXAxis.isEnabled = false
 
-
         val xAxis = mLineGraph.xAxis
         xAxis.granularity = 1f
-        xAxis.setCenterAxisLabels(true)
         xAxis.isEnabled = true
         xAxis.setDrawGridLines(false)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
 
-        set1.lineWidth = 2f
-        set1.circleRadius = 3f
-        set1.setDrawValues(false)
         set1.circleHoleColor = getColor(requireContext(), R.color.yellow)
         set1.setCircleColor(getColor(requireContext(), R.color.yellow))
 
-//String setter in x-Axis
-
-//String setter in x-Axis
         mLineGraph.xAxis.valueFormatter = IndexAxisValueFormatter(xAxisValues)
 
         val data = LineData(dataSets)
         mLineGraph.data = data
-        mLineGraph.animateX(2000)
+        mLineGraph.animateX(2000, Easing.EaseInSine)
         mLineGraph.invalidate()
         mLineGraph.legend.isEnabled = false
         mLineGraph.description.isEnabled = false
 
+    }
+
+    private fun setGraphHbA1C(xAxisValues: ArrayList<String>, yAxisValues: ArrayList<Float>) {
+
+        val entryList = getEntryList(yAxisValues)
+
+        val dataSets: ArrayList<ILineDataSet?> = ArrayList()
+
+        val set1 = LineDataSet(entryList, "hHbA1C")
+        set1.color = Color.rgb(65, 168, 121)
+        set1.valueTextColor = Color.rgb(55, 70, 73)
+        set1.mode = LineDataSet.Mode.CUBIC_BEZIER
+        dataSets.add(set1)
+
+        val mLineGraph: LineChart = binding.lineChartHB1AC
+        mLineGraph.setTouchEnabled(true)
+        mLineGraph.isDragEnabled = true
+        mLineGraph.setScaleEnabled(true)
+        mLineGraph.setPinchZoom(false)
+        mLineGraph.setDrawGridBackground(false)
+
+        mLineGraph.xAxis.setDrawGridLines(false)
+        mLineGraph.axisLeft.setDrawGridLines(false)
+        mLineGraph.axisRight.setDrawGridLines(false)
+
+        val rightYAxis = mLineGraph.axisRight
+        rightYAxis.isEnabled = false
+        val leftYAxis = mLineGraph.axisLeft
+        leftYAxis.isEnabled = true
+        val topXAxis = mLineGraph.xAxis
+        topXAxis.isEnabled = false
+
+        val xAxis = mLineGraph.xAxis
+        xAxis.isEnabled = true
+        xAxis.setDrawGridLines(false)
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.granularity = 1f
+
+        set1.circleHoleColor = ContextCompat.getColor(requireContext(), R.color.primary_color)
+        set1.setCircleColor(ContextCompat.getColor(requireContext(), R.color.primary_color))
+
+        mLineGraph.xAxis.valueFormatter = IndexAxisValueFormatter(xAxisValues)
+
+        val data = LineData(dataSets)
+        mLineGraph.data = data
+        mLineGraph.animateX(2000, Easing.EaseInSine)
+        mLineGraph.invalidate()
+        mLineGraph.legend.isEnabled = false
+        mLineGraph.description.isEnabled = false
     }
 
     private fun getEntryList(yAxisValues: ArrayList<Float>): List<Entry> {
