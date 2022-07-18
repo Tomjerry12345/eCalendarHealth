@@ -8,7 +8,6 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.FragmentUbahProfilBinding
-import com.mybaseprojectandroid.ui.auth.register.RegisterViewModel
 import com.mybaseprojectandroid.ui.main.base.BaseActivity
 import com.mybaseprojectandroid.utils.local.SavedData
 import com.mybaseprojectandroid.utils.local.getSavedPasien
@@ -33,24 +32,31 @@ class UbahProfilFragment : Fragment(R.layout.fragment_ubah_profil) {
 
         binding = FragmentUbahProfilBinding.bind(view)
 
-        val pasien = getSavedPasien()
+        val getUser = getSavedPasien()
+
+        if (getUser?.typeAkun == "perawat") {
+            binding.layoutDiagnosa.visibility = View.GONE
+            binding.tvPengobatan.visibility = View.GONE
+            binding.rgPengobatan.visibility = View.GONE
+            binding.layoutPendamping.visibility = View.GONE
+        }
 
         binding.viewModel = viewModel
 
-        viewModel.namaLengkap.value = pasien?.namaLengkap
-        viewModel.alamat.value = pasien?.alamat
-        viewModel.tanggalLahir.value = pasien?.tanggalLahir
-        viewModel.lamaDiagnosaDm.value = pasien?.lamaDiagnosaDm
+        viewModel.namaLengkap.value = getUser?.namaLengkap
+        viewModel.alamat.value = getUser?.alamat
+        viewModel.tanggalLahir.value = getUser?.tanggalLahir
+        viewModel.lamaDiagnosaDm.value = getUser?.lamaDiagnosaDm
 
-        val checekd = if (pasien?.pengobatan == "Oral") binding.rbOral.id else binding.rbInsulin.id
+        val checekd = if (getUser?.pengobatan == "Oral") binding.rbOral.id else binding.rbInsulin.id
         binding.rgPengobatan.check(checekd)
 
-        viewModel.pasienModel = pasien
+        viewModel.userModel = getUser
 
-        viewModel.pengobatan.value = pasien?.pengobatan
-        viewModel.pendamping.value = pasien?.pendamping
-//        viewModel.username.value = pasien?.username
-        viewModel.password.value = pasien?.password
+        viewModel.pengobatan.value = getUser?.pengobatan
+        viewModel.pendamping.value = getUser?.pendamping
+//        viewModel.username.value = getUser?.username
+        viewModel.password.value = getUser?.password
 
         binding.rgPengobatan.setOnCheckedChangeListener { radioGroup, i ->
             when (i) {
@@ -101,7 +107,7 @@ class UbahProfilFragment : Fragment(R.layout.fragment_ubah_profil) {
                         dialog.hide()
                 }
                 is Response.Success -> {
-                    SavedData.setObject(Constant.KEY_PASIEN, viewModel.pasienModel)
+                    SavedData.setObject(Constant.KEY_PASIEN, viewModel.userModel)
                     moveIntentTo(requireActivity(), BaseActivity(), true)
                 }
             }

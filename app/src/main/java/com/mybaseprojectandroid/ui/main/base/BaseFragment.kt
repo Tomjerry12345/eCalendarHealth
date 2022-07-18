@@ -12,6 +12,7 @@ import com.mybaseprojectandroid.databinding.FragmentBaseBinding
 import com.mybaseprojectandroid.ui.main.base.pager.MainPagerAdapter
 import com.mybaseprojectandroid.utils.local.SavedData
 import com.mybaseprojectandroid.utils.local.getSavedAdmin
+import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 
 
@@ -61,7 +62,7 @@ class BaseFragment : Fragment(R.layout.fragment_base) {
     }
 
     private fun setBottomNavigation() {
-        if (getSavedAdmin()?.username != null) {
+        if (getSavedPasien()?.typeAkun == "perawat") {
             bottomNavBar.menu.findItem(R.id.menu_history).isEnabled = false
             bottomNavBar.menu.findItem(R.id.menu_calendar).isEnabled = false
 //            bottomNavBar.menu.findItem(R.id.menu_profile).isEnabled = false

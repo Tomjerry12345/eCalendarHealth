@@ -1,6 +1,6 @@
 package com.mybaseprojectandroid.model
 
-data class PasienModel(
+data class UserModel(
     var id: String? = null,
     var namaLengkap: String? = null,
     var alamat: String? = null,
@@ -10,5 +10,6 @@ data class PasienModel(
     var pendamping: String? = null,
     val username: String? = null,
     var password: String? = null,
-    val readingDocument: Boolean = false
+    val readingDocument: Boolean = false,
+    val typeAkun: String? = null
 )

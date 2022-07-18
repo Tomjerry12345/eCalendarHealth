@@ -6,20 +6,19 @@ import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.RecyclerView
 import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.ItemListPasienBinding
-import com.mybaseprojectandroid.model.PasienModel
+import com.mybaseprojectandroid.model.UserModel
 import com.mybaseprojectandroid.utils.other.Constant
-import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 
 class ListPasienAdapter(
-    val list: List<PasienModel>,
+    val list: List<UserModel>,
     private val listPersenAktivitas: ArrayList<Int>
 ) :
     RecyclerView.Adapter<ListPasienAdapter.ViewHolder>() {
 
     inner class ViewHolder(private var binding: ItemListPasienBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(pasien: PasienModel, position: Int, persen: Int) {
+        fun bind(pasien: UserModel, position: Int, persen: Int) {
 
             binding.itemPasien = pasien
 

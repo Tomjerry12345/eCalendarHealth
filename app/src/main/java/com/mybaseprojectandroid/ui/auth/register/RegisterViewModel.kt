@@ -1,17 +1,13 @@
 package com.mybaseprojectandroid.ui.auth.register
 
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
-import com.mybaseprojectandroid.model.PasienModel
+import com.mybaseprojectandroid.model.UserModel
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.checkEmpty
-import com.mybaseprojectandroid.utils.other.showLogAssert
-import com.mybaseprojectandroid.utils.other.showToast
-import com.mybaseprojectandroid.utils.widget.DialogProgress
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(val db: FirebaseDatabase) : ViewModel() {
@@ -27,7 +23,7 @@ class RegisterViewModel(val db: FirebaseDatabase) : ViewModel() {
 
     val response = MutableLiveData<Response>()
 
-    var pasienModel: PasienModel? = null
+    var userModel: UserModel? = null
 
     fun onRegister() {
         try {
@@ -43,7 +39,7 @@ class RegisterViewModel(val db: FirebaseDatabase) : ViewModel() {
 
             response.value = Response.Progress(true)
 
-            pasienModel = PasienModel(
+            userModel = UserModel(
                 namaLengkap = namaLengkap,
                 alamat = alamat,
                 tanggalLahir = tanggalLahir,
@@ -51,11 +47,12 @@ class RegisterViewModel(val db: FirebaseDatabase) : ViewModel() {
                 pengobatan = pengobatan,
                 pendamping = pendamping,
                 username = username,
-                password = password
+                password = password,
+                typeAkun = "pasien"
             )
 
             viewModelScope.launch {
-                response.value = db.register(Constant.KEY_PASIEN, pasienModel!!, username)
+                response.value = db.register(Constant.KEY_PASIEN, userModel!!, username)
 //                updateId(responseAdd)
                 response.value = Response.Progress(false)
             }

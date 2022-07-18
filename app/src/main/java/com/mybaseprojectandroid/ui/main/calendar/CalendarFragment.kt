@@ -94,6 +94,4 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
             day1 += 1
         }
     }
-
-
 }

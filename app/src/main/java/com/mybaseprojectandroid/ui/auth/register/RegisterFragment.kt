@@ -55,9 +55,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             when(it) {
                 is Response.Changed -> {
                     showLogAssert("succes register", "Succes")
-                    viewModel.pasienModel?.id = it.data as String
+                    viewModel.userModel?.id = it.data as String
                     SavedData.setBoolean(Constant.KEY_IS_LOGGIN, true)
-                    SavedData.setObject(Constant.KEY_PASIEN, viewModel.pasienModel)
+                    SavedData.setObject(Constant.KEY_PASIEN, viewModel.userModel)
                     moveIntentTo(requireActivity(), BaseActivity(), true)
                 }
                 is Response.Error -> {

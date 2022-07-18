@@ -8,6 +8,7 @@ import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.FragmentLoginBinding
 import com.mybaseprojectandroid.ui.main.base.BaseActivity
+import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.local.setSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
@@ -46,7 +47,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     showToast(view.context, it.error)
                 }
                 is Response.Success -> {
+//                    val savedUser = getSavedPasien()
+//                    if (savedUser?.typeAkun == "admin") {
+//
+//                    } else {
+//
+//                    }
                     moveIntentTo(requireActivity(), BaseActivity(), true)
+
                 }
                 is Response.Progress -> {
                     if (it.activated)

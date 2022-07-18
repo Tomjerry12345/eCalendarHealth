@@ -6,7 +6,7 @@
     <data>
         <variable
             name="itemPasien"
-            type="com.mybaseprojectandroid.model.PasienModel" />
+            type="com.mybaseprojectandroid.model.UserModel" />
 
         <variable
             name="persen"

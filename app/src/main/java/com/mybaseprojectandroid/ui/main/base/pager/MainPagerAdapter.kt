@@ -11,6 +11,7 @@ import com.mybaseprojectandroid.ui.main.home.pasien.HomePasienFragment
 import com.mybaseprojectandroid.ui.main.home.perawat.HomePerawatFragment
 import com.mybaseprojectandroid.ui.main.profile.ProfileFragment
 import com.mybaseprojectandroid.utils.local.getSavedAdmin
+import com.mybaseprojectandroid.utils.local.getSavedPasien
 
 @Suppress("DEPRECATION")
 class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
@@ -19,7 +20,7 @@ class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
-                if (getSavedAdmin()?.username != null) {
+                if (getSavedPasien()?.typeAkun == "perawat") {
                     HomePerawatFragment.newInstance()
                 } else {
                     HomePasienFragment.newInstance()
@@ -29,7 +30,7 @@ class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
             2 -> CalendarFragment.newInstance()
             3 -> ProfileFragment.newInstance()
             else -> {
-                if (getSavedAdmin()?.username != null) {
+                if (getSavedPasien()?.typeAkun == "perawat") {
                     HomePerawatFragment.newInstance()
                 } else {
                     HomePasienFragment.newInstance()

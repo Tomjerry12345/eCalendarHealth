@@ -23,7 +23,7 @@ import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.FragmentListPasienBinding
 import com.mybaseprojectandroid.model.Aktivitas
 import com.mybaseprojectandroid.model.DateBringWalking
-import com.mybaseprojectandroid.model.PasienModel
+import com.mybaseprojectandroid.model.UserModel
 import com.mybaseprojectandroid.ui.main.listPasien.adapter.ListPasienAdapter
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
@@ -45,7 +45,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
     private var i = 0
     var listPersenAktivitas = ArrayList<Int>()
-    private lateinit var dataPasienModel: List<PasienModel>
+    private lateinit var dataUserModel: List<UserModel>
     private lateinit var dateBringWalking: ArrayList<List<DateBringWalking>>
 
     private lateinit var dialog: AlertDialog
@@ -55,7 +55,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             data?.data?.also { uri ->
-                val excellUtils = ExcellUtils(requireActivity(), dataPasienModel, dateBringWalking)
+                val excellUtils = ExcellUtils(requireActivity(), dataUserModel, dateBringWalking)
                 excellUtils.createExcel(excellUtils.createWorkbook(), requireContext(), uri)
             }
         }
@@ -83,7 +83,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
                     val querySnapshot = it.data as QuerySnapshot
 
-                    dataPasienModel = querySnapshot.toObjects()
+                    dataUserModel = querySnapshot.toObjects()
 
                     getAktivitas(null)
                 }
@@ -120,7 +120,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
     private fun setAdapter() {
         val adapter1 = ListPasienAdapter(
-            dataPasienModel,
+            dataUserModel,
             listPersenAktivitas
         )
 
@@ -132,7 +132,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
     fun getAktivitas(month: Int?) {
         Handler(Looper.getMainLooper()).postDelayed({
-            dataPasienModel[i].id?.let {
+            dataUserModel[i].id?.let {
                 viewModel.getAktivitas(it, month).observe(viewLifecycleOwner) { respons ->
                     when (respons) {
                         is Response.Changed -> {
@@ -148,7 +148,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
                                 listPersenAktivitas.add(0)
                             }
 
-                            if (i == this.dataPasienModel.size - 1) {
+                            if (i == this.dataUserModel.size - 1) {
                                 viewModel.setIsSucces(true)
                             } else {
                                 i += 1
@@ -185,7 +185,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun exportExcell() {
-        if (dataPasienModel.isNotEmpty()) {
+        if (dataUserModel.isNotEmpty()) {
             val filesUtils = FilesUtils()
             filesUtils.createFile(resultLauncher, "data", requireActivity())
 

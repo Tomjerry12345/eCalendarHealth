@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
-import com.mybaseprojectandroid.model.PasienModel
+import com.mybaseprojectandroid.model.UserModel
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.checkEmpty
@@ -24,7 +24,7 @@ class UbahProfilViewModel(val db: FirebaseDatabase) : ViewModel() {
 
     val response = MutableLiveData<Response>()
 
-    var pasienModel: PasienModel? = null
+    var userModel: UserModel? = null
 
     fun onEdit() {
         try {
@@ -40,19 +40,19 @@ class UbahProfilViewModel(val db: FirebaseDatabase) : ViewModel() {
 
             response.value = Response.Progress(true)
 
-            pasienModel?.namaLengkap = namaLengkap
-            pasienModel?.alamat = alamat
-            pasienModel?.tanggalLahir = tanggalLahir
-            pasienModel?.lamaDiagnosaDm = lamaDiagnosaDm
-            pasienModel?.pengobatan = pengobatan
-            pasienModel?.pendamping = pendamping
-            pasienModel?.password = password
+            userModel?.namaLengkap = namaLengkap
+            userModel?.alamat = alamat
+            userModel?.tanggalLahir = tanggalLahir
+            userModel?.lamaDiagnosaDm = lamaDiagnosaDm
+            userModel?.pengobatan = pengobatan
+            userModel?.pendamping = pendamping
+            userModel?.password = password
 
-            showLogAssert("pasienModel", "$pasienModel")
+            showLogAssert("userModel", "$userModel")
 
             viewModelScope.launch {
-                response.value = pasienModel?.id?.let {
-                    pasienModel?.let { it1 ->
+                response.value = userModel?.id?.let {
+                    userModel?.let { it1 ->
                         db.update(
                             Constant.KEY_PASIEN,
                             it, null, data = it1, msg = ""

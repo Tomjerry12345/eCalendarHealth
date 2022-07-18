@@ -25,16 +25,19 @@ class LoginViewModel(private val db: FirebaseDatabase) : ViewModel() {
             response.value = Response.Progress(true)
 
             viewModelScope.launch {
-                if (username == "admin" && password == "55555") {
-                    val adminModel = AdminModel(
-                        username
-                    )
-                    setSavedAdmin(adminModel)
-                    response.value = Response.Success("Berhasil")
-                } else {
-                    response.value = db.login(Constant.KEY_PASIEN, username, password)
-                    response.value = Response.Progress(false)
-                }
+//                if (username == "admin" && password == "55555") {
+//                    val adminModel = AdminModel(
+//                        username
+//                    )
+//                    setSavedAdmin(adminModel)
+//                    response.value = Response.Success("Berhasil")
+//                } else {
+//                    response.value = db.login(Constant.KEY_PASIEN, username, password)
+//                    response.value = Response.Progress(false)
+//                }
+
+                response.value = db.login(Constant.KEY_PASIEN, username, password)
+                response.value = Response.Progress(false)
 
             }
 

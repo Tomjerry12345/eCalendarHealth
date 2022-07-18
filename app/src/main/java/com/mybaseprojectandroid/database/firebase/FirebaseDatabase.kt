@@ -5,7 +5,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mybaseprojectandroid.model.ExamplesModel
-import com.mybaseprojectandroid.model.PasienModel
+import com.mybaseprojectandroid.model.UserModel
 import com.mybaseprojectandroid.utils.local.SavedData
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
@@ -162,7 +162,7 @@ class FirebaseDatabase {
                 if (password1 == password) {
                     data.forEach {
                         showLogAssert("data", "${it.toObject(ExamplesModel::class.java)}")
-                        val model = it.toObject(PasienModel::class.java)
+                        val model = it.toObject(UserModel::class.java)
                         SavedData.setObject(Constant.KEY_PASIEN, model)
                     }
                     SavedData.setBoolean(Constant.KEY_IS_LOGGIN, true)

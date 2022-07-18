@@ -1,28 +1,25 @@
 package com.mybaseprojectandroid.utils.system
 
-import android.app.AlertDialog
 import android.content.Context
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import androidx.activity.ComponentActivity
 import androidx.annotation.RequiresApi
 import com.mybaseprojectandroid.model.DateBringWalking
-import com.mybaseprojectandroid.model.PasienModel
+import com.mybaseprojectandroid.model.UserModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.other.showToast
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.IndexedColorMap
 import org.apache.poi.xssf.usermodel.XSSFColor
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 
 class ExcellUtils(
     private val activity: ComponentActivity,
-    private val dataPasienModel: List<PasienModel>,
+    private val dataUserModel: List<UserModel>,
     val dateBringWalking: ArrayList<List<DateBringWalking>>
 ) {
 
@@ -65,12 +62,12 @@ class ExcellUtils(
         //Create Header Cell Style
         val cellStyle = getHeaderStyle(workbook)
 
-        if (dataPasienModel.isNotEmpty()) {
+        if (dataUserModel.isNotEmpty()) {
             val sheet: Sheet = workbook.createSheet("identitas")
             createSheetHeader(cellStyle, sheet, HEADER_DATA_PASIEN)
             //Adding data to the sheet
             var i = 1
-            dataPasienModel.forEach {
+            dataUserModel.forEach {
                 it.namaLengkap?.let { it1 -> listNama.add(it1) }
                 addDataIdentitas(i, sheet, it)
                 i += 1
@@ -260,19 +257,19 @@ class ExcellUtils(
         return cellStyle
     }
 
-    private fun addDataIdentitas(rowIndex: Int, sheet: Sheet, pasienModel: PasienModel) {
+    private fun addDataIdentitas(rowIndex: Int, sheet: Sheet, userModel: UserModel) {
 
         //Create row based on row index
         val row = sheet.createRow(rowIndex)
 
         //Add data to each cell
-        createCell(row, 0, pasienModel.username) //Column 1
-        createCell(row, 1, pasienModel.alamat) //Column 2
-        createCell(row, 2, pasienModel.tanggalLahir) //Column 3
-        createCell(row, 3, pasienModel.lamaDiagnosaDm) //Column 3
-        createCell(row, 4, pasienModel.lamaDiagnosaDm) //Column 3
-        createCell(row, 5, pasienModel.pengobatan) //Column 3
-        createCell(row, 6, pasienModel.pendamping) //Column 3
+        createCell(row, 0, userModel.username) //Column 1
+        createCell(row, 1, userModel.alamat) //Column 2
+        createCell(row, 2, userModel.tanggalLahir) //Column 3
+        createCell(row, 3, userModel.lamaDiagnosaDm) //Column 3
+        createCell(row, 4, userModel.lamaDiagnosaDm) //Column 3
+        createCell(row, 5, userModel.pengobatan) //Column 3
+        createCell(row, 6, userModel.pendamping) //Column 3
     }
 
     private fun createCell(row: Row, columnIndex: Int, value: String?) {
