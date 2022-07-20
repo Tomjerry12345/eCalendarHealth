@@ -10,10 +10,15 @@ import kotlinx.coroutines.launch
 class ListPasienViewModel(val db: FirebaseDatabase) : ViewModel() {
 
     val data: LiveData<Response> = liveData {
+//        val response =
+//            db.getAllData(
+//                Constant.KEY_PASIEN
+//            )
         val response =
-            db.getAllData(
-                Constant.KEY_PASIEN
-            )
+            db.getDataByQuery(Constant.KEY_PASIEN, listOf(hashMapOf(
+                "key" to "typeAkun",
+                "value" to "pasien"
+            )),)
         emit(response)
     }
 
@@ -21,10 +26,6 @@ class ListPasienViewModel(val db: FirebaseDatabase) : ViewModel() {
     val isSucces: LiveData<Boolean> = _isSucces
 
     fun getAktivitas(idUser: String, month: Int?): LiveData<Response> {
-
-        showLogAssert("idUser", idUser)
-        showLogAssert("month", "$month")
-
         val response = MutableLiveData<Response>()
 
         viewModelScope.launch {

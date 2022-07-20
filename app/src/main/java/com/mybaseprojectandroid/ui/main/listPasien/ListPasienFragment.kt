@@ -119,68 +119,81 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
     }
 
     private fun setAdapter() {
-        val adapter1 = ListPasienAdapter(
-            dataUserModel,
-            listPersenAktivitas
-        )
+        if (dataUserModel.isNotEmpty()) {
+            val adapter1 = ListPasienAdapter(
+                dataUserModel,
+                listPersenAktivitas
+            )
 
-        binding.rvListPasien.apply {
-            adapter = adapter1
-            layoutManager = LinearLayoutManager(context)
+            binding.rvListPasien.apply {
+                adapter = adapter1
+                layoutManager = LinearLayoutManager(context)
+            }
         }
     }
 
     fun getAktivitas(month: Int?) {
-        Handler(Looper.getMainLooper()).postDelayed({
-            dataUserModel[i].id?.let {
-                viewModel.getAktivitas(it, month).observe(viewLifecycleOwner) { respons ->
-                    when (respons) {
-                        is Response.Changed -> {
-                            val queryRespons = respons.data as QuerySnapshot
+        if (dataUserModel.isNotEmpty()) {
+            Handler(Looper.getMainLooper()).postDelayed({
 
-                            val aktivitas = queryRespons.toObjects<Aktivitas>()
-                            showLogAssert("aktivitas", "$aktivitas")
+                dataUserModel[i].id?.let {
 
-                            if (aktivitas.isNotEmpty()) {
-                                val hasilPersen = (aktivitas[0].sumWeekBring!! * 100) / 5
-                                listPersenAktivitas.add(hasilPersen)
-                            } else {
-                                listPersenAktivitas.add(0)
+                    viewModel.getAktivitas(it, month).observe(viewLifecycleOwner) { respons ->
+                        when (respons) {
+                            is Response.Changed -> {
+                                val queryRespons = respons.data as QuerySnapshot
+
+                                val aktivitas = queryRespons.toObjects<Aktivitas>()
+//                            showLogAssert("aktivitas", "$aktivitas")
+
+                                if (aktivitas.isNotEmpty()) {
+                                    val hasilPersen = (aktivitas[0].sumWeekBring!! * 100) / 5
+                                    listPersenAktivitas.add(hasilPersen)
+                                } else {
+                                    listPersenAktivitas.add(0)
+                                }
+
+                                if (i == this.dataUserModel.size - 1) {
+                                    showLogAssert("response", "succes")
+                                    viewModel.setIsSucces(true)
+                                } else {
+                                    i += 1
+                                    showLogAssert("response", "proses.. $i => ${this.dataUserModel.size - 1}")
+                                    getAktivitas(month)
+                                }
                             }
+                            is Response.Error -> {
 
-                            if (i == this.dataUserModel.size - 1) {
-                                viewModel.setIsSucces(true)
-                            } else {
-                                i += 1
-                                getAktivitas(month)
                             }
+                            is Response.Progress -> TODO()
+                            is Response.Success -> TODO()
                         }
-                        is Response.Error -> TODO()
-                        is Response.Progress -> TODO()
-                        is Response.Success -> TODO()
+                    }
+
+                    viewModel.getDateBringWalking(it).observe(viewLifecycleOwner) { respons ->
+                        when (respons) {
+                            is Response.Changed -> {
+                                val queryRespons = respons.data as QuerySnapshot
+
+                                val dateBringWalking: List<DateBringWalking> = queryRespons.toObjects()
+                                showLogAssert("dateBringWalking", "$dateBringWalking")
+
+                                if (dateBringWalking.isNotEmpty()) {
+                                    this.dateBringWalking.add(dateBringWalking)
+                                }
+                            }
+                            is Response.Error -> TODO()
+                            is Response.Progress -> TODO()
+                            is Response.Success -> TODO()
+                        }
                     }
                 }
 
-                viewModel.getDateBringWalking(it).observe(viewLifecycleOwner) { respons ->
-                    when (respons) {
-                        is Response.Changed -> {
-                            val queryRespons = respons.data as QuerySnapshot
+            }, 100)
+        } else {
+            viewModel.setIsSucces(true)
+        }
 
-                            val dateBringWalking: List<DateBringWalking> = queryRespons.toObjects()
-                            showLogAssert("dateBringWalking", "$dateBringWalking")
-
-                            if (dateBringWalking.isNotEmpty()) {
-                                this.dateBringWalking.add(dateBringWalking)
-                            }
-                        }
-                        is Response.Error -> TODO()
-                        is Response.Progress -> TODO()
-                        is Response.Success -> TODO()
-                    }
-                }
-            }
-
-        }, 100)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
