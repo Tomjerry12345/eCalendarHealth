@@ -10,6 +10,7 @@ import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.databinding.ItemHomeBinding
 import com.mybaseprojectandroid.model.CardItem
 import com.mybaseprojectandroid.utils.other.showToast
+import com.mybaseprojectandroid.utils.system.isPackageInstalled
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 import com.mybaseprojectandroid.utils.widget.RecyclerViewUtils
 
@@ -62,11 +63,20 @@ class CardAdapter(
                     recyclerListener.clicked()
                 }
                 "Konsultasi" ->{
-                    val intentWhatsapp = Intent(Intent.ACTION_VIEW)
-                    val url = "https://chat.whatsapp.com/ICdRcxM0H5v3EGEuVFsLC0"
-                    intentWhatsapp.data = Uri.parse(url)
-                    intentWhatsapp.setPackage("com.whatsapp")
-                    context.startActivity(intentWhatsapp)
+                    val packedName = "com.whatsapp"
+                    val pm = context.packageManager
+                    val isInstalled = isPackageInstalled(packedName, pm)
+
+                    if (isInstalled) {
+                        val intentWhatsapp = Intent(Intent.ACTION_VIEW)
+                        val url = "https://chat.whatsapp.com/ICdRcxM0H5v3EGEuVFsLC0"
+                        intentWhatsapp.data = Uri.parse(url)
+                        intentWhatsapp.setPackage(packedName)
+                        context.startActivity(intentWhatsapp)
+                    } else {
+                        showToast(context, "Harus menginstall whatsapp terlebih dahulu")
+                    }
+
                 }
             }
 

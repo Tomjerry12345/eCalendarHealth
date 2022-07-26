@@ -132,7 +132,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
         }
     }
 
-    fun getAktivitas(month: Int?) {
+    private fun getAktivitas(month: Int?) {
         if (dataUserModel.isNotEmpty()) {
             Handler(Looper.getMainLooper()).postDelayed({
 
