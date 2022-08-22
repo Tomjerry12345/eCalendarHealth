@@ -8,6 +8,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
+import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.service.*
 import com.mybaseprojectandroid.utils.other.showLogAssert
 
@@ -45,5 +47,17 @@ class AlarmNotif(val context: Context ) {
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
+    }
+
+    fun testSendNotif() {
+        val notification = context.let {
+            NotificationCompat.Builder(it, channelID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setContentTitle(intent?.getStringExtra(titleExtra))
+//                .setContentText(intent?.getStringExtra(messageExtra))
+                .build()
+        }
+        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.notify(notificationID, notification)
     }
 }
