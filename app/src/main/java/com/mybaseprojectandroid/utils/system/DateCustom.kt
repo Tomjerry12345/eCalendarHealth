@@ -61,7 +61,7 @@ object DateCustom {
         return current.get(ChronoField.HOUR_OF_AMPM)
     }
 
-    fun minuteNow(): Int {
+    fun getMinuteNow(): Int {
         return current.get(ChronoField.MINUTE_OF_HOUR)
     }
 
@@ -86,5 +86,12 @@ object DateCustom {
         val lastDay: LocalDate = now.with(TemporalAdjusters.nextOrSame(lastDayOfWeek))
 
         return RangeWeek(startDay, lastDay)
+    }
+
+    fun getTimeNotif(): Long {
+        val calendar = Calendar.getInstance()
+        calendar.set(getYearNow(), getMonthNow(), getDayNow(), getHoursNow(), getMinuteNow() + 1)
+        showLogAssert("calendar now", "${getDayNow()} / ${getMonthNow()} / ${getYearNow()} ${getHoursNow()} : ${getMinuteNow() + 1}")
+        return calendar.timeInMillis
     }
 }

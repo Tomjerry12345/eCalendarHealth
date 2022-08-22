@@ -33,10 +33,7 @@ import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.other.showToast
-import com.mybaseprojectandroid.utils.system.DateCustom
-import com.mybaseprojectandroid.utils.system.PdfUtils
-import com.mybaseprojectandroid.utils.system.getColor
-import com.mybaseprojectandroid.utils.system.moveNavigationTo
+import com.mybaseprojectandroid.utils.system.*
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 import com.mybaseprojectandroid.utils.widget.RecyclerViewUtils
 
@@ -56,12 +53,18 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
     private val pasien = getSavedPasien()
 
+    private lateinit var alarmNotif: AlarmNotif
+
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomePasienBinding.bind(view)
         binding.viewModel = viewModel
+
+        alarmNotif = AlarmNotif(requireContext())
+
+        alarmNotif.createNotificationChannel()
 
         getData()
         getDataHbA1C()
@@ -70,6 +73,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         binding.parentTestimoni.setOnClickListener {
             moveNavigationTo(binding.view, R.id.testimoniFragment)
         }
+
 
     }
 
@@ -91,15 +95,18 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                     var isUpdateAktivitas = false
 
                     if (dataExtract.isNotEmpty()) {
-                        var dataAktivitas = dataExtract[0]
+                        val dataAktivitas = dataExtract[0]
                         val sumWeek = dataAktivitas.sumWeekBring
 
-                        when (sumWeek) {
-                            Constant.START ->  binding.txtPeringatan.text =
+                        val message = when (sumWeek) {
+                            Constant.START ->
                                 "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
-                            Constant.END -> binding.txtPeringatan.text = "Selamat, target aktifitas minggu ini sudah terpenuhi, tetap konsisten ya!"
-                            else -> binding.txtPeringatan.text = "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! "
+                            Constant.END -> "Selamat, target aktifitas minggu ini sudah terpenuhi, tetap konsisten ya!"
+                            else -> "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! "
                         }
+
+                        binding.txtPeringatan.text = message
+                        alarmNotif.scheduleNotification("", message)
 
                         if (dayNow == dataAktivitas.dateUpdate?.day!!) {
                             if (dataAktivitas.dateUpdate?.hours!! >= hoursNow) {
@@ -129,22 +136,28 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                         }
 
                         if (isUpdateAktivitas) {
-                            viewModel.updateAktivitas(dataAktivitas).observe(viewLifecycleOwner) { response ->
-                                when(response) {
-                                    is Response.Changed -> TODO()
-                                    is Response.Error -> showLogAssert("error isUpdateAktivitas", response.error)
-                                    is Response.Progress -> TODO()
-                                    is Response.Success -> setRecyclerView(dataAktivitas)
+                            viewModel.updateAktivitas(dataAktivitas)
+                                .observe(viewLifecycleOwner) { response ->
+                                    when (response) {
+                                        is Response.Changed -> TODO()
+                                        is Response.Error -> showLogAssert(
+                                            "error isUpdateAktivitas",
+                                            response.error
+                                        )
+                                        is Response.Progress -> TODO()
+                                        is Response.Success -> setRecyclerView(dataAktivitas)
+                                    }
                                 }
-                            }
                         } else {
                             setRecyclerView(dataAktivitas)
                         }
 
                     } else {
-                        binding.txtPeringatan.text =
-                            "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
+                        val message = "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
+                        binding.txtPeringatan.text = message
+
                         setRecyclerView(null)
+                        alarmNotif.scheduleNotification("", message)
                     }
                 }
                 is Response.Error -> {
@@ -159,7 +172,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
     private fun setRecyclerView(aktivitas: Aktivitas?) {
         val dialog = DialogProgress.initDialog(requireContext())
         val adapterr = context?.let {
-            CardAdapter(it,Constant.listCardItem, object : RecyclerViewUtils {
+            CardAdapter(it, Constant.listCardItem, object : RecyclerViewUtils {
                 override fun clicked() {
                     viewModel.isReadingDocument().observe(viewLifecycleOwner) {
                         when (it) {
@@ -174,7 +187,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                             is Response.Success -> {
                                 dialog.dismiss()
                                 val pdfUtils = PdfUtils(requireActivity())
-    //                            pdfUtils.openPdf(pdfUtils.PATH_DOCUMENT, "edukasi.pdf")
+                                //                            pdfUtils.openPdf(pdfUtils.PATH_DOCUMENT, "edukasi.pdf")
                                 pdfUtils.openPdfInRaw(
                                     pdfUtils.pathDocument,
                                     "edukasi.pdf",
@@ -366,5 +379,6 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
         return entries
     }
+
 
 }
