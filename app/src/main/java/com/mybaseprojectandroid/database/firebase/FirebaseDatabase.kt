@@ -156,7 +156,6 @@ class FirebaseDatabase {
                 // Check Password
                 for (i in data) {
                     password1 = i["password"] as String
-                    showLogAssert("data", "${i["username"]}")
                 }
 
                 if (password1 == password) {

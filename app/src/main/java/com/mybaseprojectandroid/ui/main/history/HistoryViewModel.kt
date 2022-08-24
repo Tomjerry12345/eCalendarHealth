@@ -32,7 +32,8 @@ class HistoryViewModel(val db: FirebaseDatabase) : ViewModel() {
 
         val listQuery = listOf(
             mapIdUser,
-            mapMonth
+            mapMonth,
+
         )
 
         viewModelScope.launch {

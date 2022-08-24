@@ -50,6 +50,8 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
                     val querySnapshot = it.data as QuerySnapshot
                     val riwayat = querySnapshot.toObjects<Aktivitas>()
 
+                    showLogAssert("riwayat", "$riwayat")
+
                     val sorting = riwayat.sortedBy { riwayat ->
                         riwayat.week
                     }

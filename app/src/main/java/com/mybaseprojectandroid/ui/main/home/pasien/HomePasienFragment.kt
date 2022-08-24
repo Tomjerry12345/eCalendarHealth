@@ -3,7 +3,6 @@ package com.mybaseprojectandroid.ui.main.home.pasien
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -33,7 +32,6 @@ import com.mybaseprojectandroid.model.Aktivitas
 import com.mybaseprojectandroid.model.DateModel
 import com.mybaseprojectandroid.model.Pemeriksaan
 import com.mybaseprojectandroid.service.AlarmService
-import com.mybaseprojectandroid.ui.main.base.BaseActivity
 import com.mybaseprojectandroid.ui.main.home.adapter.CardAdapter
 import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
@@ -71,9 +69,9 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         binding = FragmentHomePasienBinding.bind(view)
         binding.viewModel = viewModel
 
-        alarmNotif = AlarmNotif(requireContext())
-
-        alarmNotif.createNotificationChannel()
+//        alarmNotif = AlarmNotif(requireContext())
+//
+//        alarmNotif.createNotificationChannel()
 
         getData()
         getDataHbA1C()
@@ -115,7 +113,10 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                         }
 
                         binding.txtPeringatan.text = message
-                        alarmNotif.scheduleNotification("", message)
+//                        alarmNotif.scheduleNotification("", message)
+                        showLogAssert("dayNow", "^$dayNow")
+                        showLogAssert("dayNow", "^$hoursNow")
+                        showLogAssert("dayNow", "^$dayNow")
 
                         if (dayNow == dataAktivitas.dateUpdate?.day!!) {
                             if (dataAktivitas.dateUpdate?.hours!! >= hoursNow) {
@@ -129,6 +130,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                                 isUpdateAktivitas = true
                             }
                         } else if (dayNow > dataAktivitas.dateUpdate?.day!!) {
+                            showLogAssert("dayNow is update", "true")
                             dataAktivitas.sumDayBring = 0
                             dataAktivitas.dateUpdate = DateModel(
                                 day = dayNow + 1,
@@ -168,7 +170,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                         setRecyclerView(null)
 //                        alarmNotif.scheduleNotification("", message)
 //                        alarmNotif.testSendNotif()
-                        startNotif()
+//                        startNotif()
                     }
                 }
                 is Response.Error -> {
@@ -209,7 +211,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                     }
 
                 }
-            }, aktivitas?.sumDayBring)
+            }, aktivitas?.sumDayBring, aktivitas?.sumWeekBring)
         }
         binding.rvItemCard.apply {
             layoutManager = GridLayoutManager(context, 2)

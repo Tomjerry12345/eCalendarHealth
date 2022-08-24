@@ -99,13 +99,26 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
 
                         showLogAssert("responseAktivitas", "$data")
 
-                        val colorRed = getColor(requireContext(), R.color.red)
-                        val colorGreen = getColor(requireContext(), R.color.primary_color)
+//                        val colorRed = getColor(requireContext(), R.color.red)
+//                        val colorGreen = getColor(requireContext(), R.color.primary_color)
+//
+//                        if (sumWeekBring!! < 7) {
+//                            setDate(day!!, month!!, year!!, colorRed)
+//                        } else {
+//                            setDate(day!!, month!!, year!!, colorGreen)
+//                        }
+                        val color1 = getColor(requireContext(), R.color.color1)
+                        val color2 = getColor(requireContext(), R.color.color2)
+                        val color3 = getColor(requireContext(), R.color.color3)
+                        val color4 = getColor(requireContext(), R.color.color4)
+                        val color5 = getColor(requireContext(), R.color.color5)
 
-                        if (sumWeekBring!! < 7) {
-                            setDate(day!!, month!!, year!!, colorRed)
-                        } else {
-                            setDate(day!!, month!!, year!!, colorGreen)
+                        when(sumWeekBring) {
+                            1 -> setDate(day!!, month!!, year!!, color1)
+                            2 -> setDate(day!!, month!!, year!!, color2)
+                            3 -> setDate(day!!, month!!, year!!, color3)
+                            4 -> setDate(day!!, month!!, year!!, color4)
+                            5 -> setDate(day!!, month!!, year!!, color5)
                         }
                     }
 

@@ -34,7 +34,6 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCalendarBinding.bind(view)
         binding.viewModel = viewModel
-        showLogAssert("pasien", "${getSavedPasien()}")
         getData()
     }
 
@@ -50,8 +49,6 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                     val querySnapshot = it.data as QuerySnapshot
 
                     val data = querySnapshot.toObjects<Aktivitas>()
-
-                    showLogAssert("data calender", "$data")
 
                     data.forEach { aktivitas ->
                         var day = aktivitas.startDate?.day

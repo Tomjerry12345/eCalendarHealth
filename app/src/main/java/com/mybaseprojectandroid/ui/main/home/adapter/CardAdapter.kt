@@ -19,7 +19,8 @@ class CardAdapter(
     private val context: Context,
     val list: List<CardItem>,
     private val recyclerListener: RecyclerViewUtils,
-    private val sumDayBring: Int?
+    private val sumDayBring: Int?,
+    private val sumWeekBring: Int?
 ) :
     RecyclerView.Adapter<CardAdapter.ViewHolder>() {
 
@@ -51,7 +52,13 @@ class CardAdapter(
                                 context,
                                 "Aktivitas selesai silahkan lanjutkan lagi bsok hari"
                             )
-                        } else {
+                        } else if (sumWeekBring!! >= 5) {
+                            showToast(
+                                context,
+                                "Aktivitas pada minggu ini selesai, silahkan lanjutkan minggu depan"
+                            )
+                        }
+                        else {
                             moveNavigationTo(holder.itemView, R.id.aktivitasFragment)
                         }
                     }
