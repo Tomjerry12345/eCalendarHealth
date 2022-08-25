@@ -15,15 +15,15 @@ object SavedData {
         sharedPref = activity.getPreferences(Context.MODE_PRIVATE) ?: return
     }
 
-    fun setString(params: String) {
+    fun setString(key: String, params: String) {
         with (sharedPref.edit()) {
-            putString(Constant.examplesKeySavedDataString, params)
+            putString(key, params)
             commit()
         }
     }
 
-    fun getString(): String? {
-        return sharedPref.getString(Constant.examplesKeySavedDataString, "")
+    fun getString(key: String): String? {
+        return sharedPref.getString(key, "")
     }
 
     fun setInt(key: String, params: Int) {

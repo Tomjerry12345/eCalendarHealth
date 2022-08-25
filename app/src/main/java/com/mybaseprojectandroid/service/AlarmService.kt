@@ -57,7 +57,7 @@ class AlarmService : Service() {
         // membuat objek calendar dan inisialisasi parameter waktunya
         val calendar = Calendar.getInstance()
         val hour = 6
-        val minute = 15
+        val minute = 0
         val second = 0
 
         // lakukan konfigurasi berdasarkan waktu yang sudah ditetapkan sebelumnya
@@ -70,7 +70,7 @@ class AlarmService : Service() {
         // membuat objek intent yang mana akan menjadi target selanjutnya
         // bisa untuk berpindah halaman dengan dan tanpa data
         val intent = Intent(applicationContext, AlarmBroadcastReceiver::class.java)
-        intent.putExtra("validationTime", "06:15:00")
+        intent.putExtra("validationTime", "06:00:00")
 
         // membuat objek PendingIntent yang berguna sebagai penampung intent dan aksi yang akan dikerjakan
         val requestCode = 0

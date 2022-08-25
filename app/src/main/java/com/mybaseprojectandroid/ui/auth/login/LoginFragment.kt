@@ -13,6 +13,7 @@ import com.mybaseprojectandroid.utils.local.setSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showToast
+import com.mybaseprojectandroid.utils.system.AlarmNotif
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 import com.mybaseprojectandroid.utils.widget.DialogProgress
@@ -31,6 +32,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding = FragmentLoginBinding.bind(view)
 
         val dialog = DialogProgress.initDialog(view.context)
+        val alarmNotif = AlarmNotif(requireContext())
+        alarmNotif.stopNotif()
 
         binding.viewModel = viewModel
 

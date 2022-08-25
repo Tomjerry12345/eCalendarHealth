@@ -25,6 +25,8 @@ object Constant {
     const val KEY_DATE_BRING_WALKING = "bring-walking"
     const val KEY_PEMERIKSAAN = "pemeriksaan"
     const val KEY_IS_LOGGIN = "isLoggin"
+    const val KEY_MESSAGE_NOTIF_CONTENT = "message-notif-content"
+    const val KEY_MESSAGE_NOTIF_TITLE = "message-notif-title"
 
     const val KEY_NAMA_LENGKAP = "nama-lengkap"
     const val KEY_ID_USER = "id-user"

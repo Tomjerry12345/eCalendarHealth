@@ -1,14 +1,9 @@
 package com.mybaseprojectandroid.ui.main.home.pasien
 
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
-import android.app.AlarmManager
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -31,9 +26,9 @@ import com.mybaseprojectandroid.databinding.FragmentHomePasienBinding
 import com.mybaseprojectandroid.model.Aktivitas
 import com.mybaseprojectandroid.model.DateModel
 import com.mybaseprojectandroid.model.Pemeriksaan
-import com.mybaseprojectandroid.service.AlarmService
 import com.mybaseprojectandroid.ui.main.home.adapter.CardAdapter
 import com.mybaseprojectandroid.utils.local.getSavedPasien
+import com.mybaseprojectandroid.utils.local.setSavedContentMessageNotif
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
@@ -42,7 +37,6 @@ import com.mybaseprojectandroid.utils.other.showToast
 import com.mybaseprojectandroid.utils.system.*
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 import com.mybaseprojectandroid.utils.widget.RecyclerViewUtils
-import java.util.concurrent.TimeUnit
 
 class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
@@ -69,9 +63,9 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         binding = FragmentHomePasienBinding.bind(view)
         binding.viewModel = viewModel
 
-//        alarmNotif = AlarmNotif(requireContext())
-//
-//        alarmNotif.createNotificationChannel()
+        alarmNotif = AlarmNotif(requireContext())
+
+        setSavedContentMessageNotif("")
 
         getData()
         getDataHbA1C()
@@ -101,22 +95,24 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
                     var isUpdateAktivitas = false
 
+                    var message = ""
+
                     if (dataExtract.isNotEmpty()) {
                         val dataAktivitas = dataExtract[0]
+
                         val sumWeek = dataAktivitas.sumWeekBring
 
-                        val message = when (sumWeek) {
+                        when (sumWeek) {
                             Constant.START ->
-                                "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
-                            Constant.END -> "Selamat, target aktifitas minggu ini sudah terpenuhi, tetap konsisten ya!"
-                            else -> "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! "
+                                message = "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
+                            Constant.END -> {
+                                message = "Selamat, target aktifitas minggu ini sudah terpenuhi, tetap konsisten ya!"
+                                alarmNotif.stopNotif()
+                            }
+                            else -> message = "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! "
                         }
 
                         binding.txtPeringatan.text = message
-//                        alarmNotif.scheduleNotification("", message)
-                        showLogAssert("dayNow", "^$dayNow")
-                        showLogAssert("dayNow", "^$hoursNow")
-                        showLogAssert("dayNow", "^$dayNow")
 
                         if (dayNow == dataAktivitas.dateUpdate?.day!!) {
                             if (dataAktivitas.dateUpdate?.hours!! >= hoursNow) {
@@ -164,14 +160,16 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                         }
 
                     } else {
-                        val message = "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
+                        message = "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
                         binding.txtPeringatan.text = message
 
                         setRecyclerView(null)
-//                        alarmNotif.scheduleNotification("", message)
-//                        alarmNotif.testSendNotif()
-//                        startNotif()
                     }
+
+                    setSavedContentMessageNotif(message)
+
+                    alarmNotif.startNotif()
+
                 }
                 is Response.Error -> {
                     showLogAssert("error", it.error)
@@ -392,55 +390,5 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
         return entries
     }
-
-    fun startNotif() {
-        val countDownTimer = object : CountDownTimer(6000, 1000) {
-            override fun onFinish() {
-                var message: String
-
-                // alarm berulang
-                message = "Alarm service dimulai"
-                requireActivity().startService(Intent(requireContext(), AlarmService::class.java))
-
-                // alarm sekali jalan
-                message = "Alarm akan menyala dalam hitungan waktu mundur"
-                setScheduleNotification()
-
-//                txt_counter.text = message
-                showToast(requireContext(), message)
-            }
-
-            override fun onTick(millisUntilFinished: Long) {
-                val time = TimeUnit.SECONDS.convert(millisUntilFinished / 1000, TimeUnit.SECONDS).toString()
-                showToast(requireContext(), time)
-            }
-        }
-        countDownTimer.start()
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    fun setScheduleNotification() {
-        // membuat objek intent yang mana akan menjadi target selanjutnya
-        // bisa untuk berpindah halaman dengan dan tanpa data.
-//        val intent = Intent(requireContext(), BaseActivity::class.java)
-//        intent.putExtra("key", "value")
-
-        // membuat objek PendingIntent yang berguna sebagai penampung intent dan aksi yang akan dikerjakan
-        val requestCode = 0
-//        val pendingIntent =
-//            PendingIntent.getActivity(requireContext(), requestCode, intent, 0)
-
-        // membuat objek AlarmManager untuk melakukan pendataran alarm yang akan dijadwalkan
-        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        // kita buat alarm yang dapat berfungsi walaupun dalam kondisi hp idle dan tepat waktu
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            System.currentTimeMillis() + 5000,
-//            pendingIntent
-        null
-        )
-    }
-
 
 }

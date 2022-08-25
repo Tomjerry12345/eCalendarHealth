@@ -6,6 +6,7 @@ import android.content.Context
 import android.graphics.Color
 import androidx.core.app.NotificationCompat
 import com.mybaseprojectandroid.R
+import com.mybaseprojectandroid.utils.local.getSavedContentMessageNotif
 
 object NotificationUtil {
     fun createNotificationChannel(context: Context) {
@@ -14,8 +15,8 @@ object NotificationUtil {
 
         val builder = NotificationCompat.Builder(context, "ChannelId")
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("Ane muncul setelah alarm diset 5 detik dari waktu sekarang")
-            .setContentText("Yoyoy")
+            .setContentTitle("Ayo beraktifitas lagi!!!")
+            .setContentText(getSavedContentMessageNotif())
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setDefaults(NotificationCompat.DEFAULT_ALL)

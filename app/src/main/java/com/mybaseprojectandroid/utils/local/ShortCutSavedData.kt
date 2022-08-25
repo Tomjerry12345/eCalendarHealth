@@ -19,3 +19,19 @@ fun getSavedAdmin(): AdminModel? {
 fun getSavedPasien(): UserModel? {
     return SavedData.getObject(Constant.KEY_PASIEN, UserModel()) as UserModel?
 }
+
+fun setSavedTitleMessageNotif(message: String) {
+    SavedData.setString(Constant.KEY_MESSAGE_NOTIF_TITLE, message)
+}
+
+fun getSavedTitleMessageNotif(): String? {
+    return SavedData.getString(Constant.KEY_MESSAGE_NOTIF_TITLE)
+}
+
+fun setSavedContentMessageNotif(message: String) {
+    SavedData.setString(Constant.KEY_MESSAGE_NOTIF_CONTENT, message)
+}
+
+fun getSavedContentMessageNotif(): String? {
+    return SavedData.getString(Constant.KEY_MESSAGE_NOTIF_CONTENT)
+}
