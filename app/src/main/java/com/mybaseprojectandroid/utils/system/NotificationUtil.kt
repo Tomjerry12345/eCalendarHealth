@@ -6,17 +6,18 @@ import android.content.Context
 import android.graphics.Color
 import androidx.core.app.NotificationCompat
 import com.mybaseprojectandroid.R
-import com.mybaseprojectandroid.utils.local.getSavedContentMessageNotif
+import com.mybaseprojectandroid.utils.other.showLogAssert
 
 object NotificationUtil {
-    fun createNotificationChannel(context: Context) {
+    fun createNotificationChannel(context: Context, message: String) {
         // Create a notification manager object.
+        showLogAssert("notif content", message)
         val mNotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val builder = NotificationCompat.Builder(context, "ChannelId")
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle("Ayo beraktifitas lagi!!!")
-            .setContentText(getSavedContentMessageNotif())
+            .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setDefaults(NotificationCompat.DEFAULT_ALL)

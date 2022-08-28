@@ -4,51 +4,44 @@ import android.annotation.TargetApi
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.os.Build
-import android.os.CountDownTimer
-import com.mybaseprojectandroid.service.*
-import com.mybaseprojectandroid.ui.main.base.BaseActivity
+import androidx.annotation.RequiresApi
+import com.mybaseprojectandroid.service.AlarmReceiverTesting
+import com.mybaseprojectandroid.service.AlarmService
 import com.mybaseprojectandroid.utils.other.showLogAssert
-import com.mybaseprojectandroid.utils.other.showToast
-import java.util.concurrent.TimeUnit
+import java.util.*
 
+
+@RequiresApi(Build.VERSION_CODES.O)
 @TargetApi(Build.VERSION_CODES.M)
-class AlarmNotif(val context: Context ) {
+class AlarmNotif(val context: Context) {
+
+    private val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
+    private val alarmPendingIntent = Intent(context, AlarmReceiverTesting::class.java).let { intent ->
+        PendingIntent.getBroadcast(context, 0, intent, 0)
+    }
+//    private val alarmPendingIntent by lazy {
+//        val intent = Intent(context, AlarmReceiverTesting::class.java)
+//        PendingIntent.getBroadcast(context, 0, intent, 0)
+//    }
+    private val HOUR_TO_SHOW_PUSH = 3
 
     private val intent: Intent = Intent(context, AlarmService::class.java)
 
     fun startNotif() {
-        val countDownTimer = object : CountDownTimer(6000, 1000) {
-            override fun onFinish() {
-
-                // alarm berulang
-                var message = "Alarm service dimulai"
-                context.startService(intent)
-
-//                // alarm sekali jalan
-//                message = "Alarm akan menyala dalam hitungan waktu mundur"
-                setScheduleNotification()
-//
-////                txt_counter.text = message
-//                showToast(context, message)
-                showLogAssert("notif message", message)
-            }
-
-            override fun onTick(millisUntilFinished: Long) {
-                val time = TimeUnit.SECONDS.convert(millisUntilFinished / 1000, TimeUnit.SECONDS)
-                    .toString()
-//                showToast(context, time)
-            }
-        }
-        countDownTimer.start()
+        val message = "Alarm service dimulai"
+        context.startService(intent)
+        setScheduleNotification()
+        showLogAssert("notif message", message)
     }
 
     fun stopNotif() {
         context.stopService(intent)
     }
 
-    fun setScheduleNotification() {
+    private fun setScheduleNotification() {
         // membuat objek intent yang mana akan menjadi target selanjutnya
         // bisa untuk berpindah halaman dengan dan tanpa data.
 //        val intentMove = Intent(context, BaseActivity::class.java)
@@ -70,4 +63,43 @@ class AlarmNotif(val context: Context ) {
 //            pendingIntent
         )
     }
+
+    fun testingNotif() {
+        showLogAssert("testingNotif", "running....")
+
+        // Set the alarm to start at 8:30 a.m.
+        val calendar: Calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, 5)
+            set(Calendar.MINUTE, 30)
+        }
+
+// setRepeating() lets you specify a precise custom interval--in this case,
+// 20 minutes.
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+//            1000 * 60 * 5,
+            alarmPendingIntent
+        )
+
+//        val calendar = GregorianCalendar.getInstance().apply {
+//            if (get(Calendar.HOUR_OF_DAY) >= HOUR_TO_SHOW_PUSH) {
+//                add(Calendar.DAY_OF_MONTH, 1)
+//            }
+//
+//            set(Calendar.HOUR_OF_DAY, HOUR_TO_SHOW_PUSH)
+//            set(Calendar.MINUTE, 45)
+//            set(Calendar.SECOND, 0)
+//            set(Calendar.MILLISECOND, 0)
+//        }
+
+//        alarmManager.setRepeating(
+//            AlarmManager.RTC_WAKEUP,
+//            calendar.timeInMillis,
+//            AlarmManager.INTERVAL_DAY,
+//            alarmPendingIntent
+//        )
+    }
+
 }

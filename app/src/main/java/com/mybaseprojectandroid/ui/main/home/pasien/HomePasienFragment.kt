@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.work.*
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
@@ -26,7 +27,9 @@ import com.mybaseprojectandroid.databinding.FragmentHomePasienBinding
 import com.mybaseprojectandroid.model.Aktivitas
 import com.mybaseprojectandroid.model.DateModel
 import com.mybaseprojectandroid.model.Pemeriksaan
+import com.mybaseprojectandroid.service.NotifyWorker
 import com.mybaseprojectandroid.ui.main.home.adapter.CardAdapter
+import com.mybaseprojectandroid.utils.local.getSavedContentMessageNotif
 import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.local.setSavedContentMessageNotif
 import com.mybaseprojectandroid.utils.network.Response
@@ -37,7 +40,11 @@ import com.mybaseprojectandroid.utils.other.showToast
 import com.mybaseprojectandroid.utils.system.*
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 import com.mybaseprojectandroid.utils.widget.RecyclerViewUtils
+import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
+@RequiresApi(Build.VERSION_CODES.O)
 class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
     companion object {
@@ -56,7 +63,6 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
     private lateinit var alarmNotif: AlarmNotif
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,7 +84,6 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     private fun getData() {
         viewModel.data.observe(viewLifecycleOwner) {
@@ -107,7 +112,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                                 message = "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
                             Constant.END -> {
                                 message = "Selamat, target aktifitas minggu ini sudah terpenuhi, tetap konsisten ya!"
-                                alarmNotif.stopNotif()
+//                                alarmNotif.stopNotif()
                             }
                             else -> message = "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! "
                         }
@@ -168,7 +173,9 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
                     setSavedContentMessageNotif(message)
 
-                    alarmNotif.startNotif()
+//                    alarmNotif.startNotif()
+//                    alarmNotif.testingNotif()
+                    workManager()
 
                 }
                 is Response.Error -> {
@@ -389,6 +396,27 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         }
 
         return entries
+    }
+    
+
+    private fun workManager() {
+        showLogAssert("func workManager", "running....")
+        val calendar: Calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, 13)
+//            set(Calendar.MINUTE, 30)
+        }
+        val hours = calendar.get(Calendar.HOUR_OF_DAY)
+        showLogAssert("timeInMillis", "${hours.toLong()}")
+        val notificationWork = PeriodicWorkRequestBuilder<NotifyWorker>(24, TimeUnit.HOURS)
+            .setInitialDelay(hours.toLong(), TimeUnit.HOURS)
+            .setInputData(workDataOf(
+                "MESSAGE" to getSavedContentMessageNotif()
+            ))
+//            .addTag("notifyworker")
+            .build()
+
+        WorkManager.getInstance(requireContext()).enqueue(notificationWork);
     }
 
 }

@@ -8,8 +8,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import androidx.annotation.RequiresApi
 import java.util.*
 
+@RequiresApi(Build.VERSION_CODES.O)
 class AlarmService : Service() {
 
     private var timer: Timer? = null
@@ -52,12 +54,12 @@ class AlarmService : Service() {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
+
     fun setScheduleNotification() {
         // membuat objek calendar dan inisialisasi parameter waktunya
         val calendar = Calendar.getInstance()
-        val hour = 6
-        val minute = 0
+        val hour = 21
+        val minute = 50
         val second = 0
 
         // lakukan konfigurasi berdasarkan waktu yang sudah ditetapkan sebelumnya
@@ -70,7 +72,8 @@ class AlarmService : Service() {
         // membuat objek intent yang mana akan menjadi target selanjutnya
         // bisa untuk berpindah halaman dengan dan tanpa data
         val intent = Intent(applicationContext, AlarmBroadcastReceiver::class.java)
-        intent.putExtra("validationTime", "06:00:00")
+//        intent.putExtra("validationTime", "17:10:00")
+        intent.putExtra("validationTime", "09:50:PM")
 
         // membuat objek PendingIntent yang berguna sebagai penampung intent dan aksi yang akan dikerjakan
         val requestCode = 0

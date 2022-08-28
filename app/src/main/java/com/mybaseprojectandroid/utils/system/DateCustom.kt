@@ -3,11 +3,11 @@ package com.mybaseprojectandroid.utils.system
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.mybaseprojectandroid.model.RangeWeek
-import com.mybaseprojectandroid.utils.other.showLogAssert
 import java.sql.Timestamp
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.time.temporal.*
 import java.util.*
 
@@ -65,6 +65,10 @@ object DateCustom {
         return current.get(ChronoField.MINUTE_OF_HOUR)
     }
 
+    fun getSecondNow(): Int {
+        return current.get(ChronoField.SECOND_OF_MINUTE)
+    }
+
     fun getWeeksMonth(): Int {
         val weekFields = WeekFields.of(Locale.getDefault())
         return current.get(weekFields.weekOfMonth())
@@ -88,10 +92,8 @@ object DateCustom {
         return RangeWeek(startDay, lastDay)
     }
 
-    fun getTimeNotif(): Long {
-        val calendar = Calendar.getInstance()
-        calendar.set(getYearNow(), getMonthNow(), getDayNow(), getHoursNow(), getMinuteNow() + 1)
-        showLogAssert("calendar now", "${getDayNow()} / ${getMonthNow()} / ${getYearNow()} ${getHoursNow()} : ${getMinuteNow() + 1}")
-        return calendar.timeInMillis
+    fun getTimeNotif(): String {
+        val sdf = DateTimeFormatter.ofPattern("hh:mm:a")
+        return current.format(sdf)
     }
 }

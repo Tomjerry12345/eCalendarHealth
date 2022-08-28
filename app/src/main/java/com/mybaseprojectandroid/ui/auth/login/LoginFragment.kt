@@ -32,8 +32,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding = FragmentLoginBinding.bind(view)
 
         val dialog = DialogProgress.initDialog(view.context)
-        val alarmNotif = AlarmNotif(requireContext())
-        alarmNotif.stopNotif()
+//        val alarmNotif = AlarmNotif(requireContext())
+//        alarmNotif.stopNotif()
 
         binding.viewModel = viewModel
 
