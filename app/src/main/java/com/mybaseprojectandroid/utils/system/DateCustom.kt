@@ -3,6 +3,7 @@ package com.mybaseprojectandroid.utils.system
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.mybaseprojectandroid.model.RangeWeek
+import com.mybaseprojectandroid.utils.other.showLogAssert
 import java.sql.Timestamp
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -95,5 +96,19 @@ object DateCustom {
     fun getTimeNotif(): String {
         val sdf = DateTimeFormatter.ofPattern("hh:mm:a")
         return current.format(sdf)
+    }
+
+    fun getHoursByTime(time: Int): Int {
+        showLogAssert("hoursNow", "${getHoursNow()}")
+        if (time <= getHoursNow()) {
+            showLogAssert("test", "test")
+            return (24 - (getHoursNow() - time))
+        } else {
+            var j = 0
+            for (i in getHoursNow()..time - 1 ) {
+                j += 1
+            }
+            return j
+        }
     }
 }

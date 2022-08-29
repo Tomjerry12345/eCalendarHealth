@@ -33,10 +33,7 @@ import com.mybaseprojectandroid.utils.local.getSavedContentMessageNotif
 import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.local.setSavedContentMessageNotif
 import com.mybaseprojectandroid.utils.network.Response
-import com.mybaseprojectandroid.utils.other.Constant
-import com.mybaseprojectandroid.utils.other.FactoryViewModel
-import com.mybaseprojectandroid.utils.other.showLogAssert
-import com.mybaseprojectandroid.utils.other.showToast
+import com.mybaseprojectandroid.utils.other.*
 import com.mybaseprojectandroid.utils.system.*
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 import com.mybaseprojectandroid.utils.widget.RecyclerViewUtils
@@ -401,22 +398,18 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
     private fun workManager() {
         showLogAssert("func workManager", "running....")
-        val calendar: Calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 13)
-//            set(Calendar.MINUTE, 30)
-        }
-        val hours = calendar.get(Calendar.HOUR_OF_DAY)
-        showLogAssert("timeInMillis", "${hours.toLong()}")
-        val notificationWork = PeriodicWorkRequestBuilder<NotifyWorker>(24, TimeUnit.HOURS)
+        val hours = DateCustom.getHoursByTime(11)
+        showLogAssert("hours", "$hours")
+        val notificationWork = PeriodicWorkRequestBuilder<NotifyWorker>(15, TimeUnit.MINUTES)
             .setInitialDelay(hours.toLong(), TimeUnit.HOURS)
+//            .setInitialDelay(5, TimeUnit.MINUTES)
             .setInputData(workDataOf(
                 "MESSAGE" to getSavedContentMessageNotif()
             ))
-//            .addTag("notifyworker")
+            .addTag("notifyworker")
             .build()
 
-        WorkManager.getInstance(requireContext()).enqueue(notificationWork);
+        WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork("notifyworker", ExistingPeriodicWorkPolicy.KEEP ,notificationWork);
     }
 
 }
