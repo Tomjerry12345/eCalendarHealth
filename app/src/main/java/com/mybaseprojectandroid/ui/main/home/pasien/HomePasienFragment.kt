@@ -394,13 +394,12 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
         return entries
     }
-    
 
     private fun workManager() {
         showLogAssert("func workManager", "running....")
-        val hours = DateCustom.getHoursByTime(11)
+        val hours = DateCustom.getHoursByTime(9)
         showLogAssert("hours", "$hours")
-        val notificationWork = PeriodicWorkRequestBuilder<NotifyWorker>(15, TimeUnit.MINUTES)
+        val notificationWork = PeriodicWorkRequestBuilder<NotifyWorker>(1, TimeUnit.DAYS)
             .setInitialDelay(hours.toLong(), TimeUnit.HOURS)
 //            .setInitialDelay(5, TimeUnit.MINUTES)
             .setInputData(workDataOf(
