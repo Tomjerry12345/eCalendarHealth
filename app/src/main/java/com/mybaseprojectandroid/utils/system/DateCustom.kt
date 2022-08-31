@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import com.mybaseprojectandroid.model.RangeWeek
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -62,6 +63,10 @@ object DateCustom {
         return current.get(ChronoField.HOUR_OF_AMPM)
     }
 
+    fun getHoursNow1(): Int {
+        return current.get(ChronoField.HOUR_OF_DAY)
+    }
+
     fun getMinuteNow(): Int {
         return current.get(ChronoField.MINUTE_OF_HOUR)
     }
@@ -99,16 +104,16 @@ object DateCustom {
     }
 
     fun getHoursByTime(time: Int): Int {
-        showLogAssert("hoursNow", "${getHoursNow()}")
-        if (time <= getHoursNow()) {
+        showLogAssert("hoursNow", "${getHoursNow1()}")
+        return if (time <= getHoursNow1()) {
             showLogAssert("test", "test")
-            return (24 - (getHoursNow() - time))
+            (24 - (getHoursNow1() - time))
         } else {
             var j = 0
-            for (i in getHoursNow()..time - 1 ) {
+            for (i in getHoursNow1() until time) {
                 j += 1
             }
-            return j
+            j
         }
     }
 }

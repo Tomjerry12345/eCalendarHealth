@@ -111,10 +111,4 @@ dependencies {
     implementation 'com.fasterxml:aalto-xml:1.2.2'
 
     implementation 'sun.bob:mcalendarview:1.0.0'
-
-    def work_version = "2.7.1"
-
-    // Kotlin + coroutines
-    implementation "androidx.work:work-runtime-ktx:$work_version"
-
 }

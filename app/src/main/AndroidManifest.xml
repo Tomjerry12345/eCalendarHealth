@@ -12,6 +12,12 @@
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <queries>
+
+        <!-- Explicit apps you know in advance about: -->
+        <package android:name="com.whatsapp" />
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,6 +28,7 @@
         android:theme="@style/Theme.MyBaseProjectAndroid"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+
         <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="false" />
@@ -33,7 +40,10 @@
             android:exported="false" />
         <activity
             android:name="com.mybaseprojectandroid.ui.splash.SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:excludeFromRecents="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,55 +51,17 @@
             </intent-filter>
         </activity>
 
-
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_launcher_background" />
-
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/purple_200" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id" />
-        <!-- <activity -->
-        <!-- android:name=".ui.examples.ExamplesActivity" -->
-        <!-- android:exported="true" /> -->
-        <!--        <service-->
-        <!--            android:name=".database.firebase.MyFirebaseMessagingService"-->
-        <!--            android:exported="false">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
-        <!--            </intent-filter>-->
-        <!--        </service>-->
-
-        <!--        <service-->
-        <!--            android:name=".service.AlarmService"-->
-        <!--            android:enabled="true"-->
-        <!--            android:exported="false"-->
-        <!--            android:stopWithTask="false" />-->
-
-        <!--        <receiver-->
-        <!--            android:name=".service.AlarmBroadcastReceiver"-->
-        <!--            android:enabled="true"-->
-        <!--            android:exported="false">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.TIME_SET" />-->
-        <!--            </intent-filter>-->
-        <!--        </receiver>-->
-
-<!--        <receiver-->
-<!--            android:name=".service.AlarmReceiverTesting"-->
-<!--            android:enabled="true" />-->
-
-<!--        <receiver-->
-<!--            android:name=".service.BootReceiver"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="false">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
+        <receiver
+            android:name=".service.NotifReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name=".service.BootReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -100,12 +72,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
     </application>
-
-    <queries>
-        <!-- Explicit apps you know in advance about: -->
-        <package android:name="com.whatsapp"/>
-    </queries>
 
 </manifest>

@@ -8,12 +8,9 @@ import com.mybaseprojectandroid.R
 import com.mybaseprojectandroid.database.firebase.FirebaseDatabase
 import com.mybaseprojectandroid.databinding.FragmentLoginBinding
 import com.mybaseprojectandroid.ui.main.base.BaseActivity
-import com.mybaseprojectandroid.utils.local.getSavedPasien
-import com.mybaseprojectandroid.utils.local.setSavedPasien
 import com.mybaseprojectandroid.utils.network.Response
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showToast
-import com.mybaseprojectandroid.utils.system.AlarmNotif
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 import com.mybaseprojectandroid.utils.system.moveNavigationTo
 import com.mybaseprojectandroid.utils.widget.DialogProgress

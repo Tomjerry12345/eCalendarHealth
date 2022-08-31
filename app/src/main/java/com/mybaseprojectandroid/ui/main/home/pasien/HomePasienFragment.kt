@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.work.*
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
@@ -27,19 +26,21 @@ import com.mybaseprojectandroid.databinding.FragmentHomePasienBinding
 import com.mybaseprojectandroid.model.Aktivitas
 import com.mybaseprojectandroid.model.DateModel
 import com.mybaseprojectandroid.model.Pemeriksaan
-import com.mybaseprojectandroid.service.NotifyWorker
+import com.mybaseprojectandroid.service.NotifReceiver
 import com.mybaseprojectandroid.ui.main.home.adapter.CardAdapter
-import com.mybaseprojectandroid.utils.local.getSavedContentMessageNotif
 import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.local.setSavedContentMessageNotif
 import com.mybaseprojectandroid.utils.network.Response
-import com.mybaseprojectandroid.utils.other.*
-import com.mybaseprojectandroid.utils.system.*
+import com.mybaseprojectandroid.utils.other.Constant
+import com.mybaseprojectandroid.utils.other.FactoryViewModel
+import com.mybaseprojectandroid.utils.other.showLogAssert
+import com.mybaseprojectandroid.utils.other.showToast
+import com.mybaseprojectandroid.utils.system.DateCustom
+import com.mybaseprojectandroid.utils.system.PdfUtils
+import com.mybaseprojectandroid.utils.system.getColor
+import com.mybaseprojectandroid.utils.system.moveNavigationTo
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 import com.mybaseprojectandroid.utils.widget.RecyclerViewUtils
-import java.util.*
-import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 @RequiresApi(Build.VERSION_CODES.O)
 class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
@@ -58,15 +59,13 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
     private val pasien = getSavedPasien()
 
-    private lateinit var alarmNotif: AlarmNotif
-
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomePasienBinding.bind(view)
         binding.viewModel = viewModel
 
-        alarmNotif = AlarmNotif(requireContext())
+//        alarmNotif = AlarmNotif(requireContext())
 
         setSavedContentMessageNotif("")
 
@@ -105,13 +104,20 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                         val sumWeek = dataAktivitas.sumWeekBring
 
                         when (sumWeek) {
-                            Constant.START ->
-                                message = "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
+                            Constant.START -> {
+                                message =
+                                    "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
+                                NotifReceiver().setReminder(requireContext(), message)
+                            }
+
                             Constant.END -> {
                                 message = "Selamat, target aktifitas minggu ini sudah terpenuhi, tetap konsisten ya!"
-//                                alarmNotif.stopNotif()
+                                NotifReceiver().stopReminder(requireContext())
                             }
-                            else -> message = "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! "
+                            else -> {
+                                message = "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! "
+                                NotifReceiver().setReminder(requireContext(), message)
+                            }
                         }
 
                         binding.txtPeringatan.text = message
@@ -127,7 +133,8 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                                 )
                                 isUpdateAktivitas = true
                             }
-                        } else if (dayNow > dataAktivitas.dateUpdate?.day!!) {
+                        }
+                        else if (dayNow > dataAktivitas.dateUpdate?.day!!) {
                             showLogAssert("dayNow is update", "true")
                             dataAktivitas.sumDayBring = 0
                             dataAktivitas.dateUpdate = DateModel(
@@ -157,22 +164,19 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                                         is Response.Success -> setRecyclerView(dataAktivitas)
                                     }
                                 }
-                        } else {
+                        }
+                        else {
                             setRecyclerView(dataAktivitas)
                         }
 
                     } else {
                         message = "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
                         binding.txtPeringatan.text = message
-
+                        NotifReceiver().setReminder(requireContext(), message)
                         setRecyclerView(null)
                     }
 
                     setSavedContentMessageNotif(message)
-
-//                    alarmNotif.startNotif()
-//                    alarmNotif.testingNotif()
-                    workManager()
 
                 }
                 is Response.Error -> {
@@ -393,27 +397,6 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         }
 
         return entries
-    }
-
-    private fun workManager() {
-        showLogAssert("func workManager", "running....")
-        val hours = DateCustom.getHoursByTime(12)
-        showLogAssert("hours", "$hours")
-        val notificationWork = PeriodicWorkRequestBuilder<NotifyWorker>(1, TimeUnit.DAYS)
-            .setBackoffCriteria(
-                BackoffPolicy.LINEAR,
-                PeriodicWorkRequest.MIN_BACKOFF_MILLIS,
-                TimeUnit.MILLISECONDS
-            )
-            .setInitialDelay(hours.toLong(), TimeUnit.HOURS)
-//            .setInitialDelay(5, TimeUnit.MINUTES)
-            .setInputData(workDataOf(
-                "MESSAGE" to getSavedContentMessageNotif()
-            ))
-            .addTag("notifyworker")
-            .build()
-
-        WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork("notifyworker", ExistingPeriodicWorkPolicy.KEEP ,notificationWork);
     }
 
 }
