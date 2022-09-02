@@ -21,11 +21,15 @@ class DetailPasienViewModel(val db: FirebaseDatabase) : ViewModel() {
 
         val mapIdUser = hashMapOf(
             "key" to "idUser",
-            "value" to idUser
+            "value" to idUser,
         )
 
         val listQuery = listOf(
-            mapIdUser
+            mapIdUser,
+            hashMapOf(
+                "key" to "update",
+                "value" to true
+            )
         )
 
         viewModelScope.launch {

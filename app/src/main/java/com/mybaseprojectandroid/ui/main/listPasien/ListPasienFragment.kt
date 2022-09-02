@@ -85,7 +85,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
                     dataUserModel = querySnapshot.toObjects()
 
-                    getAktivitas(null)
+                    getAktivitas(DateCustom.getMonthNow())
                 }
                 is Response.Error -> {
                     showLogAssert("error", it.error)
@@ -144,7 +144,6 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
                                 val queryRespons = respons.data as QuerySnapshot
 
                                 val aktivitas = queryRespons.toObjects<Aktivitas>()
-//                            showLogAssert("aktivitas", "$aktivitas")
 
                                 if (aktivitas.isNotEmpty()) {
                                     val hasilPersen = (aktivitas[0].sumWeekBring!! * 100) / 5
@@ -154,11 +153,9 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
                                 }
 
                                 if (i == this.dataUserModel.size - 1) {
-                                    showLogAssert("response", "succes")
                                     viewModel.setIsSucces(true)
                                 } else {
                                     i += 1
-                                    showLogAssert("response", "proses.. $i => ${this.dataUserModel.size - 1}")
                                     getAktivitas(month)
                                 }
                             }
@@ -213,6 +210,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setDropdown() {
+        binding.dropdownMonth.editText?.setText(DateCustom.getNameMonth(null))
         val adapter =
             ArrayAdapter(requireContext(), R.layout.item_dropdown, DateCustom.listNameMonth)
         (binding.dropdownMonth.editText as? AutoCompleteTextView)?.apply {

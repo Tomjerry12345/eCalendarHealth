@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.mybaseprojectandroid.model.RangeWeek
 import com.mybaseprojectandroid.utils.other.showLogAssert
+import com.mybaseprojectandroid.utils.system.DateCustom.listNameMonth
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.DayOfWeek
@@ -115,5 +116,17 @@ object DateCustom {
             }
             j
         }
+    }
+
+    fun getLastInMonth(): Int {
+        return Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
+    fun getNameMonth(index: Int?): String {
+        if (index == null) {
+            return listNameMonth[getMonthNow()]
+        }
+
+        return listNameMonth[index]
     }
 }

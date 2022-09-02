@@ -39,7 +39,7 @@ class ListPasienAdapter(
             val bundle = bundleOf(
                 Constant.KEY_NAMA_LENGKAP to pasien.namaLengkap,
                 Constant.KEY_ID_USER to pasien.id,
-                Constant.KEY_PERSEN to persen,
+                Constant.KEY_PERSEN to iPersen,
                 Constant.KEY_IS_READING_DOCUMENT to isReadingDocument
             )
 

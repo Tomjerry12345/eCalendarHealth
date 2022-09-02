@@ -93,7 +93,6 @@ class HomePasienViewModel(private val db: FirebaseDatabase) : ViewModel() {
         val _response = MutableLiveData<Response>()
 
         viewModelScope.launch {
-            showLogAssert("updateAktivitas", "$aktivitasModel")
             _response.value =
                 aktivitasModel.id?.let {
                     db.update(Constant.KEY_AKTIVITAS,

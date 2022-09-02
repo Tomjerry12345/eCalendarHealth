@@ -65,8 +65,6 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
         binding = FragmentHomePasienBinding.bind(view)
         binding.viewModel = viewModel
 
-//        alarmNotif = AlarmNotif(requireContext())
-
         setSavedContentMessageNotif("")
 
         getData()
@@ -111,22 +109,30 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                             }
 
                             Constant.END -> {
-                                message = "Selamat, target aktifitas minggu ini sudah terpenuhi, tetap konsisten ya!"
+                                message =
+                                    "Selamat, target aktifitas minggu ini sudah terpenuhi, tetap konsisten ya!"
                                 NotifReceiver().stopReminder(requireContext())
                             }
                             else -> {
-                                message = "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! "
+                                message =
+                                    "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! "
                                 NotifReceiver().setReminder(requireContext(), message)
                             }
                         }
 
                         binding.txtPeringatan.text = message
 
+                        var setDay = dayNow + 1
+
+                        if (setDay > DateCustom.getLastInMonth()) {
+                            setDay = 1
+                        }
+
                         if (dayNow == dataAktivitas.dateUpdate?.day!!) {
                             if (dataAktivitas.dateUpdate?.hours!! >= hoursNow) {
                                 dataAktivitas.sumDayBring = 0
                                 dataAktivitas.dateUpdate = DateModel(
-                                    day = dayNow + 1,
+                                    day = setDay,
                                     month = monthNow,
                                     year = yearNow,
                                     hours = hoursNow
@@ -135,10 +141,9 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                             }
                         }
                         else if (dayNow > dataAktivitas.dateUpdate?.day!!) {
-                            showLogAssert("dayNow is update", "true")
                             dataAktivitas.sumDayBring = 0
                             dataAktivitas.dateUpdate = DateModel(
-                                day = dayNow + 1,
+                                day = setDay,
                                 month = monthNow,
                                 year = yearNow,
                                 hours = hoursNow
@@ -149,6 +154,19 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                         if (weekOfMonth > dataAktivitas.week!!) {
                             dataAktivitas.isUpdate = false
                             isUpdateAktivitas = true
+                        } else if (dataAktivitas.week >= 5) {
+                            val startDateDay = dataAktivitas.startDate?.day
+                            val dayUpdate = startDateDay!! + 7
+                            showLogAssert("dayUpdate", "$dayUpdate")
+                            if (dayUpdate > DateCustom.getLastInMonth()) {
+                                val dayUpdate1 = dayUpdate - DateCustom.getLastInMonth()
+                                showLogAssert("dayUpdate1", "$dayUpdate1")
+                                if (dayNow >= dayUpdate1) {
+                                    dataAktivitas.isUpdate = false
+                                    isUpdateAktivitas = true
+                                    showLogAssert("dataAktivitas.isUpdate", "false")
+                                }
+                            }
                         }
 
                         if (isUpdateAktivitas) {

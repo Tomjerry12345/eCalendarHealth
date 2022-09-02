@@ -97,7 +97,7 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
 
                         val sumWeekBring = aktivitas.sumWeekBring
 
-                        showLogAssert("responseAktivitas", "$data")
+                        showLogAssert("sumWeekBring", "$sumWeekBring")
 
 //                        val colorRed = getColor(requireContext(), R.color.red)
 //                        val colorGreen = getColor(requireContext(), R.color.primary_color)
@@ -141,6 +141,11 @@ class DetailPasienFragment : Fragment(R.layout.fragment_detail_pasien) {
             )
             day1 += 1
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.calendar.markedDates.all.clear()
     }
 
     private fun getHbA1C() {
