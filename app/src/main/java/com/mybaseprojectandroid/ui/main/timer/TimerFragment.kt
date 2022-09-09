@@ -118,31 +118,6 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
                     if (dataExtract.isNotEmpty()) {
                         beforeDataAktivitas = dataExtract[0]
 
-//                        if (dayNow == beforeDataAktivitas?.dateUpdate?.day!!) {
-//                            if (beforeDataAktivitas?.dateUpdate?.hours!! >= hoursNow) {
-//                                beforeDataAktivitas!!.sumDayBring = 0
-//                            }
-//                        } else if (dayNow > beforeDataAktivitas?.dateUpdate?.day!!) {
-//                            beforeDataAktivitas!!.sumDayBring = 0
-//                        }
-//
-//                        if (beforeDataAktivitas?.sumDayBring!! >= 2 || beforeDataAktivitas?.sumWeekBring!! >= 5) {
-//                            binding.mulai.setOnClickListener {
-//                                moveIntentTo(requireActivity(), BaseActivity(), true)
-//                            }
-//
-//                            binding.bgGreen.background =
-//                                getDrawable(requireContext(), R.drawable.bg_circular_error)
-//
-//                            binding.timer.apply {
-//                                setTextColor(getColor(requireContext(), R.color.red))
-//                                text = "Selesai"
-//                            }
-//                        }
-//
-//                        if (weekOfMonth > beforeDataAktivitas!!.week!!) {
-//                            beforeDataAktivitas!!.isUpdate = false
-//                        }
                     }
 
 

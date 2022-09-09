@@ -28,7 +28,9 @@
         android:theme="@style/Theme.MyBaseProjectAndroid"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-
+        <activity
+            android:name=".ui.maintenance.MaintenanceActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="false" />
@@ -39,11 +41,11 @@
             android:name=".ui.onBoarding.OnBoarding"
             android:exported="false" />
         <activity
-            android:name="com.mybaseprojectandroid.ui.splash.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
+            android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleTask"
-            android:taskAffinity=""
-            android:excludeFromRecents="true" >
+            android:taskAffinity="">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

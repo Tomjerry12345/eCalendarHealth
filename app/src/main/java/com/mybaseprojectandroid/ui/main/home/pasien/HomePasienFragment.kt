@@ -100,6 +100,8 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                         val dataAktivitas = dataExtract[0]
 
                         val sumWeek = dataAktivitas.sumWeekBring
+                        val dateUpdateDay = dataAktivitas.dateUpdate?.day!!
+                        val endDateDay = dataAktivitas.endDate?.day!!
 
                         when (sumWeek) {
                             Constant.START -> {
@@ -128,7 +130,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                             setDay = 1
                         }
 
-                        if (dayNow == dataAktivitas.dateUpdate?.day!!) {
+                        if (dayNow == dateUpdateDay) {
                             if (dataAktivitas.dateUpdate?.hours!! >= hoursNow) {
                                 dataAktivitas.sumDayBring = 0
                                 dataAktivitas.dateUpdate = DateModel(
@@ -140,7 +142,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                                 isUpdateAktivitas = true
                             }
                         }
-                        else if (dayNow > dataAktivitas.dateUpdate?.day!!) {
+                        else if (dayNow > dateUpdateDay) {
                             dataAktivitas.sumDayBring = 0
                             dataAktivitas.dateUpdate = DateModel(
                                 day = setDay,
@@ -167,6 +169,12 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                                     showLogAssert("dataAktivitas.isUpdate", "false")
                                 }
                             }
+                        } else if (dayNow > endDateDay) {
+                            dataAktivitas.isUpdate = false
+                            isUpdateAktivitas = true
+                        } else if (dataAktivitas.sumWeekBring!! >= 5) {
+                            dataAktivitas.isUpdate = false
+                            isUpdateAktivitas = true
                         }
 
                         if (isUpdateAktivitas) {
