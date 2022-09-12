@@ -156,7 +156,8 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                         if (weekOfMonth > dataAktivitas.week!!) {
                             dataAktivitas.isUpdate = false
                             isUpdateAktivitas = true
-                        } else if (dataAktivitas.week >= 5) {
+                        }
+                        else if (dataAktivitas.week >= 5) {
                             val startDateDay = dataAktivitas.startDate?.day
                             val dayUpdate = startDateDay!! + 7
                             showLogAssert("dayUpdate", "$dayUpdate")
@@ -169,10 +170,8 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                                     showLogAssert("dataAktivitas.isUpdate", "false")
                                 }
                             }
-                        } else if (dayNow > endDateDay) {
-                            dataAktivitas.isUpdate = false
-                            isUpdateAktivitas = true
-                        } else if (dataAktivitas.sumWeekBring!! >= 5) {
+                        }
+                        else if (dayNow > endDateDay) {
                             dataAktivitas.isUpdate = false
                             isUpdateAktivitas = true
                         }
