@@ -45,7 +45,11 @@ class NotifReceiver: BroadcastReceiver() {
 
         if(calendar.time <= Calendar.getInstance().time) calendar.add(Calendar.DAY_OF_MONTH, 1)
 
-        val pendingIntent = PendingIntent.getBroadcast(context, ALARM_ID, intent, 0)
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getBroadcast(context, ALARM_ID, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+        } else {
+            PendingIntent.getBroadcast(context, ALARM_ID, intent, 0)
+        }
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 
@@ -53,7 +57,11 @@ class NotifReceiver: BroadcastReceiver() {
         showLogAssert("stopReminder", "true")
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, this::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, ALARM_ID, intent, 0)
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getBroadcast(context, ALARM_ID, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+        } else {
+            PendingIntent.getBroadcast(context, ALARM_ID, intent, 0)
+        }
         alarmManager.cancel(pendingIntent)
     }
 

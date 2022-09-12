@@ -107,18 +107,18 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                             Constant.START -> {
                                 message =
                                     "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
-//                                NotifReceiver().setReminder(requireContext(), message)
+                                NotifReceiver().setReminder(requireContext(), message)
                             }
 
                             Constant.END -> {
                                 message =
                                     "Selamat, target aktifitas minggu ini sudah terpenuhi, tetap konsisten ya!"
-//                                NotifReceiver().stopReminder(requireContext())
+                                NotifReceiver().stopReminder(requireContext())
                             }
                             else -> {
                                 message =
                                     "Minggu ini kamu masih ada ${Constant.END - sumWeek!!} aktifitas lagi nih, semangat! "
-//                                NotifReceiver().setReminder(requireContext(), message)
+                                NotifReceiver().setReminder(requireContext(), message)
                             }
                         }
 
@@ -197,7 +197,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                     } else {
                         message = "Kamu belum beraktifitas di minggu ini, yuk mulai sekarang! "
                         binding.txtPeringatan.text = message
-//                        NotifReceiver().setReminder(requireContext(), message)
+                        NotifReceiver().setReminder(requireContext(), message)
                         setRecyclerView(null)
                     }
 
