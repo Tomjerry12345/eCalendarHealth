@@ -22,6 +22,7 @@ object DateCustom {
     private val now = LocalDate.now()
 
     val listNameMonth = listOf(
+        "",
         "Januari",
         "Februari",
         "Maret",

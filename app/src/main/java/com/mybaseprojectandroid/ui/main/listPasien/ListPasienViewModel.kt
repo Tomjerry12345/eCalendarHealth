@@ -63,7 +63,7 @@ class ListPasienViewModel(val db: FirebaseDatabase) : ViewModel() {
         )
 
     fun getDateBringWalking(idUser: String): LiveData<Response> {
-        showLogAssert("idUser", idUser)
+//        showLogAssert("idUser", idUser)
         val response = MutableLiveData<Response>()
 
         val listQuery = listOf(

@@ -50,16 +50,20 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
     private lateinit var dialog: AlertDialog
 
+    var run = false
+
     @RequiresApi(Build.VERSION_CODES.O)
-    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            data?.data?.also { uri ->
-                val excellUtils = ExcellUtils(requireActivity(), dataUserModel, dateBringWalking)
-                excellUtils.createExcel(excellUtils.createWorkbook(), requireContext(), uri)
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                data?.data?.also { uri ->
+                    val excellUtils =
+                        ExcellUtils(requireActivity(), dataUserModel, dateBringWalking)
+                    excellUtils.createExcel(excellUtils.createWorkbook(), requireContext(), uri)
+                }
             }
         }
-    }
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -84,6 +88,8 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
                     val querySnapshot = it.data as QuerySnapshot
 
                     dataUserModel = querySnapshot.toObjects()
+
+                    showLogAssert("dataUserModel", "$dataUserModel")
 
                     getAktivitas(DateCustom.getMonthNow())
                 }
@@ -134,10 +140,11 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
 
     private fun getAktivitas(month: Int?) {
         if (dataUserModel.isNotEmpty()) {
+
             Handler(Looper.getMainLooper()).postDelayed({
-
+//                showLogAssert("looper", "$run")
                 dataUserModel[i].id?.let {
-
+                    showLogAssert("idUser", it)
                     viewModel.getAktivitas(it, month).observe(viewLifecycleOwner) { respons ->
                         when (respons) {
                             is Response.Changed -> {
@@ -148,6 +155,14 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
                                 if (aktivitas.isNotEmpty()) {
                                     val hasilPersen = (aktivitas[0].sumWeekBring!! * 100) / 5
                                     listPersenAktivitas.add(hasilPersen)
+                                    if (aktivitas[0].idUser == "5J8PXbxbu516JH1WnDFa") {
+                                        showLogAssert("aktivitas", "${aktivitas[0]}")
+                                        showLogAssert(
+                                            "sumWeekBring",
+                                            "${aktivitas[0].sumWeekBring!!}"
+                                        )
+                                        showLogAssert("hasilPersen", "${hasilPersen}")
+                                    }
                                 } else {
                                     listPersenAktivitas.add(0)
                                 }
@@ -155,8 +170,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
                                 if (i == this.dataUserModel.size - 1) {
                                     viewModel.setIsSucces(true)
                                 } else {
-                                    i += 1
-                                    getAktivitas(month)
+                                    getDateBrinkWalking(it, month)
                                 }
                             }
                             is Response.Error -> {
@@ -166,31 +180,37 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
                             is Response.Success -> TODO()
                         }
                     }
-
-                    viewModel.getDateBringWalking(it).observe(viewLifecycleOwner) { respons ->
-                        when (respons) {
-                            is Response.Changed -> {
-                                val queryRespons = respons.data as QuerySnapshot
-
-                                val dateBringWalking: List<DateBringWalking> = queryRespons.toObjects()
-                                showLogAssert("dateBringWalking", "$dateBringWalking")
-
-                                if (dateBringWalking.isNotEmpty()) {
-                                    this.dateBringWalking.add(dateBringWalking)
-                                }
-                            }
-                            is Response.Error -> TODO()
-                            is Response.Progress -> TODO()
-                            is Response.Success -> TODO()
-                        }
-                    }
                 }
+
+//                run = true
 
             }, 100)
         } else {
             viewModel.setIsSucces(true)
         }
 
+    }
+
+    private fun getDateBrinkWalking(idUser: String, month: Int?) {
+        viewModel.getDateBringWalking(idUser).observe(viewLifecycleOwner) { respons ->
+            when (respons) {
+                is Response.Changed -> {
+                    val queryRespons = respons.data as QuerySnapshot
+
+                    val dateBringWalking: List<DateBringWalking> = queryRespons.toObjects()
+//                    showLogAssert("dateBringWalking", "$dateBringWalking")
+
+                    if (dateBringWalking.isNotEmpty()) {
+                        this.dateBringWalking.add(dateBringWalking)
+                    }
+                    i += 1
+                    getAktivitas(month)
+                }
+                is Response.Error -> TODO()
+                is Response.Progress -> TODO()
+                is Response.Success -> TODO()
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -217,7 +237,7 @@ class ListPasienFragment : Fragment(R.layout.fragment_list_pasien) {
             setAdapter(adapter)
             setOnItemClickListener { adapterView, view, i, l ->
                 dialog.show()
-               getAktivitas(i.plus(1))
+                getAktivitas(i.plus(1))
             }
         }
     }
