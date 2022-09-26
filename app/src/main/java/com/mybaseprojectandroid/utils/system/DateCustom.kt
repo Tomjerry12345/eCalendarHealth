@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.mybaseprojectandroid.model.RangeWeek
 import com.mybaseprojectandroid.utils.other.showLogAssert
-import com.mybaseprojectandroid.utils.system.DateCustom.listNameMonth
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.DayOfWeek
@@ -98,6 +97,19 @@ object DateCustom {
         val lastDay: LocalDate = now.with(TemporalAdjusters.nextOrSame(lastDayOfWeek))
 
         return RangeWeek(startDay, lastDay)
+    }
+
+    fun getStartDateByWeek(week: Int) {
+        val c: Calendar = Calendar.getInstance()//Locale.getDefault())
+        c.set(Calendar.WEEK_OF_YEAR, week)
+        c.set(Calendar.MONTH, getMonthNow())
+        val t = c.time;
+        val firstDay = c.firstDayOfWeek
+        c.set(Calendar.DAY_OF_WEEK,firstDay)
+        val startDate = SimpleDateFormat("yyyy-MM-dd",Locale.getDefault()).format(c.time)
+        showLogAssert("startDate", startDate)
+//        c.set(Calendar.DAY_OF_WEEK,firstDay+6)
+//        val endDate = SimpleDateFormat("yyyy-MM-dd",Locale.getDefault()).format(c.time).toString()
     }
 
     fun getTimeNotif(): String {

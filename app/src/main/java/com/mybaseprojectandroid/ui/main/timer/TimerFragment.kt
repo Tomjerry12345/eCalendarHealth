@@ -50,6 +50,8 @@ class TimerFragment : Fragment(R.layout.fragment_timer) {
 
         val range = DateCustom.getRangeWeek()
 
+//        dayNow = 2
+
         val dayStart = DateCustom.getDayByLocalDate(range.startDate)
         val monthStart = DateCustom.getMonthByLocalDate(range.startDate)
         val yearStart = DateCustom.getYearByLocalDate(range.startDate)

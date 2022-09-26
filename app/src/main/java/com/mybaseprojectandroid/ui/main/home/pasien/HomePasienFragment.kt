@@ -27,6 +27,7 @@ import com.mybaseprojectandroid.model.Aktivitas
 import com.mybaseprojectandroid.model.DateModel
 import com.mybaseprojectandroid.model.Pemeriksaan
 import com.mybaseprojectandroid.service.NotifReceiver
+import com.mybaseprojectandroid.ui.main.base.BaseActivity
 import com.mybaseprojectandroid.ui.main.home.adapter.CardAdapter
 import com.mybaseprojectandroid.utils.local.getSavedPasien
 import com.mybaseprojectandroid.utils.local.setSavedContentMessageNotif
@@ -35,10 +36,7 @@ import com.mybaseprojectandroid.utils.other.Constant
 import com.mybaseprojectandroid.utils.other.FactoryViewModel
 import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.other.showToast
-import com.mybaseprojectandroid.utils.system.DateCustom
-import com.mybaseprojectandroid.utils.system.PdfUtils
-import com.mybaseprojectandroid.utils.system.getColor
-import com.mybaseprojectandroid.utils.system.moveNavigationTo
+import com.mybaseprojectandroid.utils.system.*
 import com.mybaseprojectandroid.utils.widget.DialogProgress
 import com.mybaseprojectandroid.utils.widget.RecyclerViewUtils
 
@@ -58,6 +56,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
     }
 
     private val pasien = getSavedPasien()
+
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,13 +85,14 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                     val data = it.data as QuerySnapshot
                     val dataExtract = data.toObjects<Aktivitas>()
 
-                    val dayNow = DateCustom.getDayNow()
+                    var dayNow = DateCustom.getDayNow()
                     val monthNow = DateCustom.getMonthNow()
                     val yearNow = DateCustom.getYearNow()
                     val hoursNow = DateCustom.getHoursNow()
-                    val weekOfMonth = DateCustom.getWeeksMonth()
+                    var weekOfMonth = DateCustom.getWeeksMonth()
 
                     var isUpdateAktivitas = false
+                    var callGetData = false
 
                     var message = ""
 
@@ -102,6 +102,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                         val sumWeek = dataAktivitas.sumWeekBring
                         val dateUpdateDay = dataAktivitas.dateUpdate?.day!!
                         val endDateDay = dataAktivitas.endDate?.day!!
+                        val startDateDay = dataAktivitas.startDate?.day!!
 
                         when (sumWeek) {
                             Constant.START -> {
@@ -124,6 +125,9 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
 
                         binding.txtPeringatan.text = message
 
+//                        dayNow = 10
+//                        weekOfMonth = 1
+
                         var setDay = dayNow + 1
 
                         if (setDay > DateCustom.getLastInMonth()) {
@@ -131,47 +135,60 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                         }
 
                         if (dayNow == dateUpdateDay) {
-                            if (dataAktivitas.dateUpdate?.hours!! >= hoursNow) {
+                            showLogAssert("dayNow == dateUpdateDay", "$dayNow => ${dateUpdateDay}")
+                            showLogAssert(
+                                "dataAktivitas.dateUpdate?.hours!! >= hoursNow",
+                                "${dataAktivitas.dateUpdate?.hours!!} => ${hoursNow}"
+                            )
+                            if (hoursNow >= dataAktivitas.dateUpdate?.hours!!) {
                                 dataAktivitas.sumDayBring = 0
-                                dataAktivitas.dateUpdate = DateModel(
-                                    day = setDay,
-                                    month = monthNow,
-                                    year = yearNow,
-                                    hours = hoursNow
-                                )
+                                onDateUpdate(dataAktivitas, setDay, monthNow, yearNow, hoursNow)
                                 isUpdateAktivitas = true
                             }
                         }
+
                         else if (dayNow > dateUpdateDay) {
-                            dataAktivitas.sumDayBring = 0
-                            dataAktivitas.dateUpdate = DateModel(
-                                day = setDay,
-                                month = monthNow,
-                                year = yearNow,
-                                hours = hoursNow
-                            )
-                            isUpdateAktivitas = true
+                            showLogAssert("test", "$dayNow => ${dateUpdateDay}")
+
+                            if (dataAktivitas.week!! >= 5) {
+                                if (dayNow >= startDateDay && dayNow <= DateCustom.getLastInMonth()) {
+                                    showLogAssert("dayNow > dateUpdateDay", "rentang akhir bulan")
+                                } else {
+                                    onDateUpdate(dataAktivitas, setDay, monthNow, yearNow, hoursNow)
+                                    isUpdateAktivitas = true
+                                }
+                            } else {
+                                dataAktivitas.sumDayBring = 0
+                                onDateUpdate(dataAktivitas, setDay, monthNow, yearNow, hoursNow)
+                                isUpdateAktivitas = true
+                            }
+
                         }
 
-                        if (weekOfMonth > dataAktivitas.week!!) {
-                            dataAktivitas.isUpdate = false
-                            isUpdateAktivitas = true
-                        }
-                        else if (dataAktivitas.week >= 5) {
-                            val startDateDay = dataAktivitas.startDate?.day
-                            val dayUpdate = startDateDay!! + 7
-                            showLogAssert("dayUpdate", "$dayUpdate")
-                            if (dayUpdate > DateCustom.getLastInMonth()) {
-                                val dayUpdate1 = dayUpdate - DateCustom.getLastInMonth()
-                                showLogAssert("dayUpdate1", "$dayUpdate1")
-                                if (dayNow >= dayUpdate1) {
+                        if (dayNow > endDateDay) {
+                            showLogAssert("test", "dayNow > endDateDay == $dayNow > $endDateDay")
+
+                            if (dataAktivitas.week!! >= 5) {
+                                if (dayNow >= startDateDay && dayNow <= DateCustom.getLastInMonth()) {
+                                    showLogAssert("test", "rentang akhir bulan")
+                                } else {
+                                    setDay = endDateDay
+                                    onDateUpdate(dataAktivitas, setDay, monthNow, yearNow, hoursNow)
                                     dataAktivitas.isUpdate = false
-                                    isUpdateAktivitas = true
-                                    showLogAssert("dataAktivitas.isUpdate", "false")
+                                    callGetData = true
                                 }
+                            } else {
+                                setDay = endDateDay
+                                onDateUpdate(dataAktivitas, setDay, monthNow, yearNow, hoursNow)
+                                dataAktivitas.isUpdate = false
+                                callGetData = true
                             }
+
+                            isUpdateAktivitas = true
+
                         }
-                        else if (dayNow > endDateDay) {
+                        else if (weekOfMonth > dataAktivitas.week!!) {
+                            showLogAssert("test", "weekOfMonth > dataAktivitas.week!!")
                             dataAktivitas.isUpdate = false
                             isUpdateAktivitas = true
                         }
@@ -186,7 +203,16 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                                             response.error
                                         )
                                         is Response.Progress -> TODO()
-                                        is Response.Success -> setRecyclerView(dataAktivitas)
+                                        is Response.Success -> {
+                                            if (callGetData) {
+                                                moveIntentTo(
+                                                    requireActivity(),
+                                                    BaseActivity(),
+                                                    true
+                                                )
+                                            }
+                                            setRecyclerView(dataAktivitas)
+                                        }
                                     }
                                 }
                         }
@@ -204,13 +230,30 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                     setSavedContentMessageNotif(message)
 
                 }
+
                 is Response.Error -> {
                     showLogAssert("error", it.error)
                 }
+
                 is Response.Progress -> TODO()
                 is Response.Success -> TODO()
             }
         }
+    }
+
+    private fun onDateUpdate(
+        dataAktivitas: Aktivitas,
+        setDay: Int,
+        monthNow: Int,
+        yearNow: Int,
+        hoursNow: Int
+    ) {
+        dataAktivitas.dateUpdate = DateModel(
+            day = setDay,
+            month = monthNow,
+            year = yearNow,
+            hours = hoursNow
+        )
     }
 
     private fun setRecyclerView(aktivitas: Aktivitas?) {
