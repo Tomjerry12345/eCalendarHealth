@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 
-fun showLogAssert(tag: String, msg: String) {
-    Log.println(Log.ASSERT, tag, msg)
+fun showLogAssert(tag: String, msg: Any) {
+    Log.println(Log.ASSERT, tag, "$msg")
 }
 
 fun showToast(context: Context, msg: String) {

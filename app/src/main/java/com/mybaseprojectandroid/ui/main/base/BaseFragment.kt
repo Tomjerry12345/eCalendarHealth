@@ -13,6 +13,7 @@ import com.mybaseprojectandroid.ui.main.base.pager.MainPagerAdapter
 import com.mybaseprojectandroid.utils.local.SavedData
 import com.mybaseprojectandroid.utils.local.getSavedAdmin
 import com.mybaseprojectandroid.utils.local.getSavedPasien
+import com.mybaseprojectandroid.utils.other.showLogAssert
 import com.mybaseprojectandroid.utils.system.moveIntentTo
 
 
@@ -62,6 +63,7 @@ class BaseFragment : Fragment(R.layout.fragment_base) {
     }
 
     private fun setBottomNavigation() {
+        getSavedPasien()?.typeAkun?.let { showLogAssert("type", it) }
         if (getSavedPasien()?.typeAkun == "perawat") {
             bottomNavBar.menu.findItem(R.id.menu_history).isEnabled = false
             bottomNavBar.menu.findItem(R.id.menu_calendar).isEnabled = false

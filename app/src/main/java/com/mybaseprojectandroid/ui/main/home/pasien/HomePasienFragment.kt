@@ -85,7 +85,7 @@ class HomePasienFragment : Fragment(R.layout.fragment_home_pasien) {
                     val data = it.data as QuerySnapshot
                     val dataExtract = data.toObjects<Aktivitas>()
 
-                    var dayNow = DateCustom.getDayNow()
+                    val dayNow = DateCustom.getDayNow()
                     val monthNow = DateCustom.getMonthNow()
                     val yearNow = DateCustom.getYearNow()
                     val hoursNow = DateCustom.getHoursNow()

@@ -9,7 +9,7 @@ plugins {
 
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.mybaseprojectandroid"
@@ -113,6 +113,8 @@ dependencies {
     implementation 'javax.xml.stream:stax-api:1.0'
     implementation 'com.fasterxml:aalto-xml:1.2.2'
 
-    implementation 'sun.bob:mcalendarview:1.0.0'
+    implementation 'com.kizitonwose.calendar:view:2.1.0'
+//
+//    implementation 'sun.bob:mcalendarview:1.0.0'
 
 }
