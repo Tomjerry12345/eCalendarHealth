@@ -4,4 +4,4 @@
 
 | Demo Perawat | Demo Pasien |
 |--------------|-------------|
-| ![Demo Perawat](demo/demo-perawat.gif) | ![Demo Pasien](demo/demo-pasien.gif) |
+| ![Demo Perawat](demo/demo-perawat.gif) | ![Demo Pasien](demo/demo-perawat.gif) |
