@@ -2,9 +2,6 @@
 
 ## Demo
 
-<table>
-  <tr>
-    <td><img src="demo/demo-perawat.gif" width="300"/></td>
-    <td><img src="demo/demo-pasien.gif" width="300"/></td>
-  </tr>
-</table>
+| Demo Perawat | Demo Pasien |
+|--------------|-------------|
+| ![Demo Perawat](demo/demo-perawat.gif) | ![Demo Pasien](demo/demo-pasien.gif) |
